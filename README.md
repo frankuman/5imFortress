@@ -12,5 +12,5 @@
       <p><strong>5imFortress</strong></p>
 
   <p><strong>Oliver Bölin, Farhad Asadi, Kim Budischewski, Michael Törnvall</strong></p>
-      <p>5imFortess is a work in progress IT security project during a university course at Blekinge Tekniska University (BTH).</p>
+      <p>5imFortess is a work in progress IT security project during a university course at Blekinge Tekniska Högskola (BTH).</p>
  </body>
