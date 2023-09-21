@@ -114,9 +114,9 @@ class NRBaseStation:
 
     def bs_change_status(self):
         if self.status == bs_status[1]:
-            for ue in range(len(environment.wireless_environment.ue_list)):
+            for ue in list(self.ue_pb_allocation.keys()):
                 self.request_disconnection(ue)
-            environment.wireless_environment.bs_list.pop(self.bs_id)
+            environment.wireless_environment.bs_list.remove(self)
             self.status = bs_status[2]
         else:
             self.status = bs_status[1]
