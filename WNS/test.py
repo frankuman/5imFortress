@@ -9,7 +9,11 @@ import WNS.environment as environment
 import WNS.util as util
 import WNS.Satellite as Satellite
 
-
+#############
+#############
+# THIS IS A FILE FOR TESTING
+#############
+#############
 PLOT = False
 N_UE = 20
 ITER = 40000    

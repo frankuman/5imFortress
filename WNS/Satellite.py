@@ -37,6 +37,7 @@ class Satellite:
     # tb_length = tb_header + n * 64 [symbols]
 
     def __init__(self, bs_id, total_bitrate, position, env):
+        self.status = "UP"
         self.bs_id = bs_id
         self.position = (position[0], position[1])
         self.env = env
@@ -60,7 +61,9 @@ class Satellite:
         self.resource_utilization_array = [0] * self.T
         self.resource_utilization_counter = 0
 
-    
+    def bs_status(self):
+        return self.status
+
     def compute_nsymb_SAT(self, data_rate, rsrp):
         
         #compute SINR

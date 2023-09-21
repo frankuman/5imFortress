@@ -109,6 +109,23 @@ class NRBaseStation:
         else:
             self.wardrop_alpha = 0.2
 
+    def bs_status(self):
+        return self.status
+
+    def bs_change_status(self):
+        if self.status == bs_status[1]:
+            for ue in range(len(environment.wireless_environment.ue_list)):
+                self.request_disconnection(ue)
+            environment.wireless_environment.bs_list.pop(self.bs_id)
+            self.status = bs_status[2]
+        else:
+            self.status = bs_status[1]
+            environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
+        return self.status
+
+    def bs_properties(self):
+        return {"pos": self.position, "freq": self.carrier_frequency, "numerology": self.numerology, "power": self.antenna_power,
+                "gain": self.antenna_gain, "loss": self.feeder_loss, "bitrate": self.allocated_bitrate, "max_bitrate": self.total_bitrate}
 
     def compute_rbur(self):
         return sum(self.resource_utilization_array)/(self.T*self.total_prb)

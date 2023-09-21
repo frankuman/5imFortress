@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 class wireless_environment:
     bs_list = []
+    all_bs_list = []
     ue_list = []
     x_limit = None
     y_limit = None
@@ -61,6 +62,7 @@ class wireless_environment:
         new_bs = SATbs.Satellite(len(self.bs_list), total_bitrate, position, self)
         
         self.bs_list.append(new_bs)
+        self.all_bs_list.append(new_bs)
         return new_bs.bs_id
 
     def place_LTE_base_station(self, position, carrier_frequency, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):
@@ -74,6 +76,7 @@ class wireless_environment:
             raise Exception("if you indicate the available bandwidth, it must be 1.4, 3, 5, 10, 15 or 20 MHz")
         
         self.bs_list.append(new_bs)
+        self.all_bs_list.append(new_bs)
         return new_bs.bs_id
     
     def place_NR_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate, drone = False):
@@ -98,11 +101,13 @@ class wireless_environment:
             raise Exception("The choosen bandwidth is not present in 5G NR standard with such numerology and frequency range")
 
         self.bs_list.append(new_bs)
+        self.all_bs_list.append(new_bs)
         return new_bs.bs_id
 
     def place_DRONE_relay(self, starting_position, linked_bs_id, carrier_frequency, amplification_factor, antenna_gain, feeder_loss):
         new_bs = DRONEbs.DroneRelay(len(self.bs_list), linked_bs_id, amplification_factor, antenna_gain, feeder_loss, carrier_frequency, starting_position, self)
         self.bs_list.append(new_bs)
+        self.all_bs_list.append(new_bs)
         return new_bs.bs_id
 
     def place_DRONE_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):

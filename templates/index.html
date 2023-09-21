@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>5imFortress</title>
+{% endblock %}
+
+{% block body %}
+<h1>5imFortress</h1>
+<div class="content">
+    <h2>Tower Power</h2>
+    <table>
+        <tr>
+            <th>Tower</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>
+                <a>bs-1</a>
+            </td>
+            <td>
+                {{bspower[1]}}
+            </td>
+            <td>
+                <a href="/power/{{1}}">Power</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a>bs-2</a>
+            </td>
+            <td>
+                {{bspower[2]}}
+            </td>
+            <td>
+                <a href="/power/{{2}}">Power</a>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
