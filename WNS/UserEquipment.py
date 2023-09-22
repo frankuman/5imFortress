@@ -39,133 +39,13 @@ class user_equipment:
         self.actual_data_rate = 0
         self.last_action_t = 0
 
+        #new
+        self.connected_bs = {}
+
         self.bs_bitrate_allocation = {}
         self.wardrop_sigma = 0
 
-           
-    def move(self):
-        if self.speed == 0:
-            return self.current_position
-        elif self.RANDOM == 1:
-            return self.random_move()
-        else:
-            return self.line_move()
 
-    def random_move(self):
-        val = random.randint(1, 4)
-        size = random.randint(0, MAX_STEP) 
-        if val == 1: 
-            if (self.current_position[0] + size) > 0 and (self.current_position[0] + size) < self.env.x_limit:
-                self.current_position = (self.current_position[0] + size, self.current_position[1])
-        elif val == 2: 
-            if (self.current_position[0] - size) > 0 and (self.current_position[0] - size) < self.env.x_limit:
-                self.current_position = (self.current_position[0] - size, self.current_position[1])
-        elif val == 3: 
-            if (self.current_position[1] + size) > 0 and (self.current_position[1] + size) < self.env.y_limit:
-                self.current_position = (self.current_position[0], self.current_position[1] + size)
-        else: 
-            if (self.current_position[1] - size) > 0 and (self.current_position[1] - size) < self.env.y_limit:
-                self.current_position = (self.current_position[0], self.current_position[1] - size)
-        return self.current_position
-
-    def line_move(self):
-        new_x = self.current_position[0]+self.speed*math.cos(math.radians(self.direction))
-        new_y = self.current_position[1]+self.speed*math.sin(math.radians(self.direction))
-        
-        #90-degrees bumping
-        if new_x <= 0 and new_y <= 0:
-            #bottom-left corner
-            new_x = 0
-            new_y = 0
-            self.direction -= 180
-        elif new_x <= 0 and new_y >= self.env.y_limit:
-            #top-left corener
-            new_x = 0
-            new_y = self.env.y_limit
-            self.direction += 180
-        elif new_x >= self.env.x_limit and new_y >= self.env.y_limit:
-            #top-right corner
-            new_x = self.env.x_limit
-            new_y = self.env.y_limit
-            self.direction += 180
-        elif new_x >= self.env.x_limit and new_y <= 0:
-            #bottom-right corner
-            new_x = self.env.x_limit
-            new_y = 0
-            self.direction -= 180
-        elif new_x >= self.env.x_limit and self.direction != 90 and self.direction != 270:
-            #bumping on the right margin
-            new_x = self.env.x_limit
-            if self.direction < 90 and self.direction > 0:
-                self.direction += 90
-            elif self.direction > 270 and self.direction < 360:
-                self.direction -= 90
-        elif new_x <= 0 and self.direction != 90 and self.direction != 270:
-            #bumping on the left margin
-            new_x = 0
-            if self.direction > 180 and self.direction < 270:
-                self.direction += 90
-            elif self.direction > 90 and self.direction < 180:
-                self.direction -= 90
-        elif new_y <= 0 and self.direction != 0 and self.direction != 180:
-            #bumping on the bottom margin
-            new_y = 0
-            self.direction = (360 - self.direction) % 360
-        elif new_y >= self.env.y_limit and self.direction != 0 and self.direction != 180:
-            #bumping on the top margin
-            new_y = self.env.y_limit
-            self.direction = (360 - self.direction) % 360
-
-        self.direction = self.direction % 360
-        self.current_position = (new_x, new_y)
-        return self.current_position
-
-    def do_action(self, t):
-        '''
-        if self.current_bs == None:
-            self.connect_to_bs()
-            return
-        
-        # compute the time spent in the service class
-        #delta_t = (t+1) - (self.last_action_t+1)
-        delta_t = 0
-        if self.last_action_t > 0 and t + 1 - self.last_action_t > 40:
-            if self.actual_data_rate < self.requested_bitrate/2:
-                self.disconnect_from_bs()
-                return
-            else:
-                self.disconnect_from_bs()
-                self.connect_to_bs() 
-                return
-        elif self.last_action_t > 0:
-            self.disconnect_from_bs()
-            self.connect_to_bs()
-
-        prob = 1 - (1 - math.exp(-self.lambda_exp * delta_t))
-        if random.random() > prob:
-            
-            # it's time to change service class
-            print("CHANGED SERVICE CLASS: User ID %s has now changed to class %s" %(self.ue_id, self.service_class))
-            self.disconnect_from_bs()
-            if self.service_class == 0:
-                self.service_class = 1
-            else:
-                self.service_class = 0
-            # apply new class parameters: requested bitrate, lambda, last action time
-            self.requested_bitrate = ue_class[self.service_class]
-            self.lambda_exp = ue_class_lambda[self.service_class]
-            
-            self.last_action_t = t + 1
-            self.connect_to_bs()
-        
-        #just in scenario 1, otherwise comment
-        else:
-            self.disconnect_from_bs()
-            self.connect_to_bs()
-            #self.update_connection()
-        '''
-        return
-    
     #deprecated
     def connect_to_bs_random(self):
         available_bs = self.env.discover_bs(self.ue_id)
@@ -197,7 +77,7 @@ class user_equipment:
                 self.actual_data_rate += data_rate
         print("[CONNECTION_ESTABLISHED]: User ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, self.current_bs[bs], data_rate, self.requested_bitrate))
     
-    #deprecated
+    #deprecated #To be removed
     def connect_to_bs(self):
         available_bs = self.env.discover_bs(self.ue_id)
         bs = None
@@ -246,6 +126,8 @@ class user_equipment:
             data_rate = util.find_bs_by_id(bs_id).request_connection(self.ue_id, self.bs_bitrate_allocation[bs_id], available_bs)
             self.current_bs[bs_id] = data_rate
             self.actual_data_rate += data_rate
+            #new
+            self.connected_bs[bs_id] = data_rate
         print("[CONNECTION_ESTABLISHED]: User ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate))
 
     def connect_to_all_bs(self):
@@ -258,8 +140,10 @@ class user_equipment:
             #print("[CONNECTION_TERMINATED]: User ID %s is now disconnected from base_station %s" %(self.ue_id, bs_id))
             self.actual_data_rate -= self.current_bs[bs_id]
             del self.current_bs[bs_id]
+            #new
+            del self.connected_bs[bs_id]
         return
-        
+    #To be removed
     def disconnect_from_all_bs(self):
         for bs in self.current_bs:
             util.find_bs_by_id(bs).request_disconnection(self.ue_id)
@@ -328,17 +212,19 @@ class user_equipment:
         '''
         n = len(rsrp)
         n1 = random.choice(list(rsrp))
-        if self.ue_id == 1 or self.ue_id == 19:
-            n1 = 0
-        if 4 in rsrp and random.random() < 0.9:
-            n1 = 4
+        print("Initial_ue: ", rsrp)
+        print("n1: ", n1)
+        # if self.ue_id == 1 or self.ue_id == 19:
+        #     n1 = 0
+        # if 4 in rsrp and random.random() < 0.9:
+        #     n1 = 4
         for elem in rsrp:
             if elem != n1:
                 self.bs_bitrate_allocation[elem] = self.requested_bitrate/(n-1)
-        if self.ue_id == 2:
-                swap = self.bs_bitrate_allocation[0]*0.3
-                self.bs_bitrate_allocation[0] = self.bs_bitrate_allocation[0]*0.7
-                self.bs_bitrate_allocation[1] += swap
+        # if self.ue_id == 2:
+        #         swap = self.bs_bitrate_allocation[0]*0.3
+        #         self.bs_bitrate_allocation[0] = self.bs_bitrate_allocation[0]*0.7
+        #         self.bs_bitrate_allocation[1] += swap
         for elem in rsrp:
             if elem not in self.bs_bitrate_allocation:
                 #this means that it is the first time we encounter that base station
@@ -351,12 +237,12 @@ class user_equipment:
 
     def next_timestep(self):
         self.old_position = self.current_position
-        self.move()
 
         #compute the next state variable x^i_p[k+1], considering the visible base stations
         rsrp = self.env.discover_bs(self.ue_id)
 
         #remove the old BSs that are out of visibility
+        print("bs_bitrate_allocation"+str(self.bs_bitrate_allocation)) #DEBUG
         for elem in self.bs_bitrate_allocation:
             if elem not in rsrp:
                 del self.bs_bitrate_allocation[elem]

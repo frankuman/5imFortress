@@ -110,20 +110,36 @@ class NRBaseStation:
             self.wardrop_alpha = 0.2
 
     def bs_status(self):
+        """
+        Return status of base station (UP/DOWN).
+        """
         return self.status
 
     def bs_change_status(self):
+        """
+        Change status of base station, change between UP or DOWN.
+        If change from UP -> DOWN, then disconnect all ue connected to base station
+        and remove base station from bs_list in environment.
+        If change from DOWN -> UP, then add base station to bs_list again.
+        """
         if self.status == bs_status[1]:
             for ue in list(self.ue_pb_allocation.keys()):
                 self.request_disconnection(ue)
+                del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
             environment.wireless_environment.bs_list.remove(self)
             self.status = bs_status[2]
+            #self.allocated_bitrate = 0
         else:
             self.status = bs_status[1]
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
         return self.status
 
     def bs_properties(self):
+        """
+        Return base station properties:
+        pos (position), freq (carrier_frequency), numerology, power (antenna_power),
+        gain (antenna_gain), loss (feeder_loss), bitrate (allocated_bitrate), max_bitrate (total_bitrate)
+        """
         return {"pos": self.position, "freq": self.carrier_frequency, "numerology": self.numerology, "power": self.antenna_power,
                 "gain": self.antenna_gain, "loss": self.feeder_loss, "bitrate": self.allocated_bitrate, "max_bitrate": self.total_bitrate}
 

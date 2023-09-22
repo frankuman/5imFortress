@@ -1,6 +1,14 @@
+
 {% extends 'base.html' %}
 
 {% block head %}
+<script src="jquery.js"></script>
+<script>
+    // Make sure to call the function after the external script (jquery.js) is loaded
+    $(document).ready(function() {
+        re_updateBitrate();
+    });
+</script>
 <title>5imFortress</title>
 {% endblock %}
 
@@ -13,6 +21,7 @@
             <th>Tower</th>
             <th>Status</th>
             <th>Actions</th>
+            <th>Bitrate</th>
         </tr>
         <tr>
             <td>
@@ -24,6 +33,9 @@
             <td>
                 <a href="/power/{{1}}">Power</a>
             </td>
+            <td>
+                <a id=bitrate1>0</a>
+            </td>
         </tr>
         <tr>
             <td>
@@ -34,6 +46,9 @@
             </td>
             <td>
                 <a href="/power/{{2}}">Power</a>
+            </td>
+            <td>
+                <a id=bitrate2>0</a>
             </td>
         </tr>
     </table>

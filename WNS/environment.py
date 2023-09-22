@@ -1,11 +1,9 @@
 import math
 import random
 
-import WNS.LTEBaseStation as LTEbs
 import WNS.NRBaseStation as NRbs
 import WNS.UserEquipment as ue
 import WNS.Satellite as SATbs
-import WNS.Drone as DRONEbs
 import WNS.util as util
 from concurrent.futures import ThreadPoolExecutor
 
@@ -52,11 +50,9 @@ class wireless_environment:
         else:
             self.ue_list[ue_id] = new_ue
         return new_ue.ue_id
-    
 
     def remove_ue(self, ue_id):
         self.ue_list[ue_id] = None
-
     
     def place_SAT_base_station(self, total_bitrate, position):       
         new_bs = SATbs.Satellite(len(self.bs_list), total_bitrate, position, self)
@@ -64,22 +60,8 @@ class wireless_environment:
         self.bs_list.append(new_bs)
         self.all_bs_list.append(new_bs)
         return new_bs.bs_id
-
-    def place_LTE_base_station(self, position, carrier_frequency, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):
-        
-        if (available_bandwidth in LTEbs.LTEbandwidth_prb_lookup):
-            #  LTE standard defines 12 subcarriers of 15KHz each, so the pbr_bandwidth is 180KHz
-            #  LTEbandwidth_prb_lookup defines the number of blocks of 180KHz available in the specified bandwidth,
-            #  so we have to multiply by the number of time slots (sub-frames in LTE terminology) in a time frame
-            new_bs = LTEbs.LTEBaseStation(len(self.bs_list), LTEbs.LTEbandwidth_prb_lookup[available_bandwidth] * 10, 180, 12, antenna_power, antenna_gain, feeder_loss, carrier_frequency, total_bitrate, position, self)
-        else:
-            raise Exception("if you indicate the available bandwidth, it must be 1.4, 3, 5, 10, 15 or 20 MHz")
-        
-        self.bs_list.append(new_bs)
-        self.all_bs_list.append(new_bs)
-        return new_bs.bs_id
     
-    def place_NR_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate, drone = False):
+    def place_NR_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):
         #check if the bandwith is in line with the specified numerology and specified carrier frequency
         fr = -1
         if (carrier_frequency <= 6000):  #below 6GHz
@@ -93,10 +75,7 @@ class wireless_environment:
             prb_size = 15*(2**numerology)*12 #15KHz*12subcarriers for numerology 0, 30KHz*12subcarriers for numerology 1, etc.
             #  NRbandwidth_prb_lookup defines the number of blocks of 180KHz available in the specified bandwidth with a certain numerology,
             #  so we have to multiply by the number of time slots (sub-frames in LTE terminology) in a time frame
-            if drone == False:
-                new_bs = NRbs.NRBaseStation(len(self.bs_list), NRbs.NRbandwidth_prb_lookup[numerology][fr][available_bandwidth] * (10 * 2**numerology), prb_size, 12, numerology, antenna_power, antenna_gain, feeder_loss, carrier_frequency, total_bitrate, position, self)
-            else:
-                new_bs = DRONEbs.DroneBaseStation(len(self.bs_list), DRONEbs.NRbandwidth_prb_lookup[numerology][fr][available_bandwidth] * (10 * 2**numerology), prb_size, 12, numerology, antenna_power, antenna_gain, feeder_loss, carrier_frequency, total_bitrate, position, self)
+            new_bs = NRbs.NRBaseStation(len(self.bs_list), NRbs.NRbandwidth_prb_lookup[numerology][fr][available_bandwidth] * (10 * 2**numerology), prb_size, 12, numerology, antenna_power, antenna_gain, feeder_loss, carrier_frequency, total_bitrate, position, self)
         else:
             raise Exception("The choosen bandwidth is not present in 5G NR standard with such numerology and frequency range")
 
@@ -104,15 +83,6 @@ class wireless_environment:
         self.all_bs_list.append(new_bs)
         return new_bs.bs_id
 
-    def place_DRONE_relay(self, starting_position, linked_bs_id, carrier_frequency, amplification_factor, antenna_gain, feeder_loss):
-        new_bs = DRONEbs.DroneRelay(len(self.bs_list), linked_bs_id, amplification_factor, antenna_gain, feeder_loss, carrier_frequency, starting_position, self)
-        self.bs_list.append(new_bs)
-        self.all_bs_list.append(new_bs)
-        return new_bs.bs_id
-
-    def place_DRONE_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):
-        return self.place_NR_base_station(position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate, drone = True)
-    
     #this method shall be called by an UE 
     #that wants to have a measure of the RSRP 
     #associated to each BS
@@ -150,15 +120,15 @@ class wireless_environment:
 
     def next_timestep(self):
         #with ThreadPoolExecutor(max_workers=len(self.ue_list)) as executor:
-        if self.wardrop_epsilon > self.wardrop_beta*ue.ue_class[0]*len(self.ue_list):
-            print("Warning: Epsilon is outside the admissible ranges (", self.wardrop_epsilon, "/", self.wardrop_beta*ue.ue_class[0]*len(self.ue_list), ")")
+        #if self.wardrop_epsilon > self.wardrop_beta*ue.ue_class[0]*len(self.ue_list):
+            #print("Warning: Epsilon is outside the admissible ranges (", self.wardrop_epsilon, "/", self.wardrop_beta*ue.ue_class[0]*len(self.ue_list), ")")
         for ues in self.ue_list:
             #thread = executor.submit()
             ues.next_timestep()
         for bss in self.bs_list:
             bss.next_timestep()
 
-    
+    #to delete
     def request_connection(self, ue_id, requested_bitrate, available_bs):
 
         bs = max(available_bs, key = available_bs.get)
@@ -166,7 +136,8 @@ class wireless_environment:
         reward = self.compute_reward(None, bs, data_rate, requested_bitrate, available_bs, ue_id)
         self.cumulative_reward += reward
         return bs, data_rate
-       
+    
+    #to delete
     def compute_reward(self, state, action, bitrate, desired_data_rate, rsrp, ue_id):
         if action in rsrp:
             allocated, total = util.find_bs_by_id(action).get_connection_info(ue_id)

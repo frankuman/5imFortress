@@ -69,7 +69,7 @@ def compute_path_loss_cost_hata(ue, bs, env, save = None):
     return path_loss
 
 def find_bs_by_id(bs_id):
-    return environment.wireless_environment.bs_list[bs_id]
+    return environment.wireless_environment.all_bs_list[bs_id]
 
 def find_ue_by_id(ue_id):
     return environment.wireless_environment.ue_list[ue_id]
