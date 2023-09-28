@@ -20,7 +20,19 @@ def first_request():
         return ("Gingong")
     else:
         pass
-    return render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
+    return render_template('index.html',bspower=statuses)
+
+@app.route("/controllers", methods=['POST', 'GET'])
+def hmi_request():
+    """
+    Placeholder
+    """
+    if request.method == 'POST':
+        return ("Gingong")
+    else:
+        pass
+    return render_template('controllers.html',bspower=statuses, bsbitrate=bsbitrate)
+# @app.context_processor
 # @app.context_processor
 # def bitrate_updater():
 
@@ -42,7 +54,7 @@ def power_off(id):
     statuses[id] = status
 
     #render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
-    return redirect('/')
+    return redirect('/controllers')
     #except:
         #return 'Error turning off power'
 @app.route("/get_bitrate", methods=['GET'])

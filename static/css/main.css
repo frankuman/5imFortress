@@ -1,4 +1,91 @@
+/* 
+Dark-grey = 282B30
+Light-grey = 5F6368
+Light-blue = 565880
+Unselected-text = ECECF9 (40% opacity)
+Selected-text (primary text) = ECECF9 (100% opacity)
+*/
+
 body {
     margin: 0;
     font-family: sans-serif;
+}
+.content {
+    margin: 0 auto;
+    width: 400px;
+}
+.sidebar a.active,
+.sidebar a.selected {
+  background-color: #565880;
+  color: white;
+}
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #282B30;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: #ECECF9;
+  padding: 16px;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #565880;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #565880;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:selected:is(.active){
+  background-color: #565880;
+}
+.menu-item {
+  background-color: #282B30;
+}
+.sidebar a.menu-item.is-active {
+  background-color: #282B30;
+    
+}
+.sidebar .menu .menu-item:active{
+  background-color: #565880 !important;
+}
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
 }

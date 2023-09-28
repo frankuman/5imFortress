@@ -6,51 +6,26 @@
 <script>
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
-        re_updateBitrate();
+        changeColor();
     });
 </script>
-<title>5imFortress</title>
+<title class="Title">5imFortress</title>
 {% endblock %}
 
 {% block body %}
-<h1>5imFortress</h1>
-<div class="content">
-    <h2>Tower Power</h2>
-    <table>
-        <tr>
-            <th>Tower</th>
-            <th>Status</th>
-            <th>Actions</th>
-            <th>Bitrate</th>
-        </tr>
-        <tr>
-            <td>
-                <a>bs-1</a>
-            </td>
-            <td>
-                {{bspower[1]}}
-            </td>
-            <td>
-                <a href="/power/{{1}}">Power</a>
-            </td>
-            <td>
-                <a id=bitrate1>0</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a>bs-2</a>
-            </td>
-            <td>
-                {{bspower[2]}}
-            </td>
-            <td>
-                <a href="/power/{{2}}">Power</a>
-            </td>
-            <td>
-                <a id=bitrate2>0</a>
-            </td>
-        </tr>
-    </table>
+<!-- The sidebar -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="sidebar">
+    <a href="#">LOGO GOES HERE</a>
+    <a onclick="changeColor(this)" href="/" class="menu-item is-active"> <i class="fa fa-fw fa-home"></i> Dashboard</a>
+    <a onclick="changeColor(this)" href="/controllers" class="menu-item"><i class="fa fa-fw fa-wrench"></i> Controllers</a>
+    <a onclick="changeColor(this)" href="#" class="menu-item"> <i class="fa fa-fw fa-user"></i> Customers</a>
+    <a href="#">Analytics</a>
+    <a href="#">Notification</a>
+    <a href="#">Systems</a>
+    <a href="#">Generate</a>
+    <a href="#">Settings</a>
+    <a href="#">Add Tower</a>
 </div>
+
 {% endblock %}

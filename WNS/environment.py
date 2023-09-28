@@ -28,8 +28,8 @@ class wireless_environment:
         self.wardrop_epsilon = 0.5 #TODO
         self.wardrop_beta = 0
     
-    def insert_ue(self, ue_class, starting_position = None, speed = 0, direction = 0):
-        if starting_position is not None and (starting_position[2] > 10 or starting_position[2] < 1):
+    def insert_ue(self, ue_class, starting_position, users):
+        if (starting_position[2] > 10 or starting_position[2] < 1):
             raise Exception("COST-HATA model requires UE height in [1,10]m")
         elif ue_class not in ue.ue_class:
             raise Exception("Invalid service class for the UE, available service classes are: %s" %(ue.ue_class.keys()))
@@ -40,10 +40,7 @@ class wireless_environment:
         else:
             ue_id = len(self.ue_list)
         
-        if starting_position is None:
-            new_ue = ue.user_equipment(ue.ue_class[ue_class], ue_class, ue_id, (random.randint(0, self.x_limit),random.randint(0, self.y_limit),1), self, speed*self.sampling_time, direction)
-        else: 
-            new_ue = ue.user_equipment(ue.ue_class[ue_class], ue_class, ue_id, starting_position, self, speed*self.sampling_time, direction)
+        new_ue = ue.user_equipment(ue.ue_class[ue_class], ue_class, ue_id, starting_position, users, self)
         
         if (ue_id == len(self.ue_list)):
             self.ue_list.append(new_ue)

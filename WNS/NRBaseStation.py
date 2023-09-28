@@ -1,6 +1,6 @@
 import math
+import random
 from scipy import constants
-
 import WNS.environment as environment
 import WNS.util as util
 
@@ -104,6 +104,8 @@ class NRBaseStation:
         #turn tower on/off
         self.status = bs_status[1]
 
+        self.ue_id = None
+
         if(self.antenna_power < 5):
             self.wardrop_alpha = 0.1
         else:
@@ -122,15 +124,15 @@ class NRBaseStation:
         and remove base station from bs_list in environment.
         If change from DOWN -> UP, then add base station to bs_list again.
         """
-        if self.status == bs_status[1]:
+        if self.status == bs_status[1]: # status is UP
             for ue in list(self.ue_pb_allocation.keys()):
                 self.request_disconnection(ue)
-                del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
+                #del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
             environment.wireless_environment.bs_list.remove(self)
-            self.status = bs_status[2]
+            self.status = bs_status[2] # change status to DOWN
             #self.allocated_bitrate = 0
-        else:
-            self.status = bs_status[1]
+        else: # status is DOWN
+            self.status = bs_status[1] # change status to UP
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
         return self.status
 
@@ -188,6 +190,7 @@ class NRBaseStation:
         
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
         old_N_prb = N_prb
+        self.ue_id = ue_id
         
         #check if there is enough bitrate, if not then do not allocate the user
         if self.total_bitrate - self.allocated_bitrate < r*N_prb/1000000:
@@ -213,6 +216,8 @@ class NRBaseStation:
             self.allocated_bitrate -= self.ue_bitrate_allocation[ue_id]
             self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000
             self.allocated_bitrate += r * N_prb / 1000000
+        ue_users = util.find_ue_by_id(self.ue_id).users
+        self.allocated_bitrate = self.allocated_bitrate*ue_users
         
         #print("Allocated %s/%s NR PRB" %(N_prb, old_N_prb))    
         return r*N_prb/1000000 #we want a data rate in Mbps, not in bps
@@ -264,6 +269,15 @@ class NRBaseStation:
     def next_timestep(self):
         #print(self.allocated_prb)
         self.resource_utilization_array[self.resource_utilization_counter] = self.allocated_prb
+        randomizer = random.randint(98,102)
+        randomizer = randomizer / 100
+        self.allocated_bitrate = self.allocated_bitrate * randomizer
+        #Bitrate goes over cap
+        if self.allocated_bitrate > self.total_bitrate:
+            self.allocated_bitrate = util.find_ue_by_id(self.ue_id).users*self.ue_bitrate_allocation[self.ue_id]
+        ## Check here so bitrate can never go below a certain value
+        
+        
         self.resource_utilization_counter += 1
         if self.resource_utilization_counter % self.T == 0:
             self.resource_utilization_counter = 0
@@ -278,7 +292,8 @@ class NRBaseStation:
         return self.ue_pb_allocation[ue_id], self.total_prb
     
     def get_connected_users(self):
-        return list(self.ue_pb_allocation.keys())
+        return self.ue_id
+        #return list(self.ue_pb_allocation.keys())
 
     def reset(self):
         self.resource_utilization_array = [0] * self.T

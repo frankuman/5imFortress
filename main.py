@@ -40,26 +40,26 @@ def setup_env(ue,bs):
 
     sat_bs = env_manager.env1.place_SAT_base_station(10000, (1000, 2000))
     bs.append(sat_bs)
-    bs_1 = env_manager.env1.place_NR_base_station((2000, 2000, 40), 800, 1, 20, 16, 3, 20, 1000)
+    bs_1 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 100000)
     bs.append(bs_1)
-    bs_2 = env_manager.env1.place_NR_base_station((4000, 4000, 80), 800, 1, 20, 16, 3, 20, 1000)
+    bs_2 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
     bs.append(bs_2)
-    ue0 = env_manager.env1.insert_ue(0, (2000, 2000, 1), 0, 100) #Has id 0
-    ue.append(ue0)
-    ue1 = env_manager.env1.insert_ue(1, (2000, 2000, 1), 0, 100)
+    #ue0 = env_manager.env1.insert_ue(0, (2000, 2000, 1), 10000) #Has id 0
+    #ue.append(ue0)
+    ue1 = env_manager.env1.insert_ue(1, (1000, 1000, 1), 5000)
     ue.append(ue1)
-    ue2 = env_manager.env1.insert_ue(1, (4000, 4000, 1), 0, 100)
+    ue2 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
     ue.append(ue2)
     #ue3 = env_manager.env1.insert_ue(1, (2000, 2000, 1), 1, 5)
     # 
     env_manager.env1.initial_timestep()
 
     
-    util.find_ue_by_id(1).connect_to_bs_id(1)
-    util.find_ue_by_id(2).connect_to_bs_id(2)
+    #util.find_ue_by_id(1).connect_to_bs_id(1)
+    #util.find_ue_by_id(2).connect_to_bs_id(2)
     #util.find_ue_by_id(2).connect_to_bs_id(2)
 
-    env_manager.env1.next_timestep()
+    #env_manager.env1.next_timestep()
     return True
     
 def main():
@@ -124,8 +124,8 @@ def stop_tower(id,env1): #"IndexError: pop index out of range" if pressed to man
     
     tower_status = env1.all_bs_list[id].bs_change_status()
     print("TOWER ID: "+str(id)+" STATUS: "+tower_status)
-    if tower_status == "UP":
-        util.find_ue_by_id(id).connect_to_bs_id(id)
+    #if tower_status == "UP":
+        #util.find_ue_by_id(id).connect_to_bs_id(id)
     return(tower_status)
 
 # BS 1 -> UE 1
@@ -147,16 +147,14 @@ def get_bitrate(id):
     Return allocated bitrate and total bitrate of tower by id.
     Gets called every 2 seconds by dashboard
     """
-    ue = util.find_bs_by_id(id).get_connected_users()
-    for i in ue:
-        util.find_ue_by_id(i).update_connection()
     bs = util.find_bs_by_id(id)
+    ue_id = bs.get_connected_users()
+    util.find_ue_by_id(ue_id).update_connection()
     if bs.bs_status() == "UP":
-        bitlist = [bs.allocated_bitrate, bs.total_bitrate]
+        bitlist = [round(bs.allocated_bitrate,3), round(bs.total_bitrate,3)]
     else:
         bitlist = [0,0]
     env_man = EnvironmentManager().instance()
-
     env_man.env1.next_timestep()
     return bitlist
 
