@@ -42,6 +42,72 @@ body {
   opacity: 0.8;
   border-collapse: collapse;
 }
+.content1tablerow {
+  padding: 50px;
+}
+.indexcontent1 {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 800px;
+  width: 900px;
+  background-color: #282B30; /* Background color */
+  border: 2px solid #282B30;   /* Border style */
+  padding: 20px;            /* Padding inside the frame */
+  border-radius: 20px;
+  box-shadow: 6px 12px 14px #282B30;
+
+}
+.index1text1 {
+  margin: 0 auto;
+  margin-top: 0;
+  padding: 10px;
+  width: 400px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  background-color: #282B30;
+  opacity: 0.9;
+  
+}
+.index1table{
+  margin: 0 auto;
+  margin-top: 0 auto;
+  padding: 20px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  opacity: 0.8;
+  border-collapse: collapse;
+  width: 100%;
+}
+.index1tablerow{
+  padding: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+
+
+
+  /* Discord har blcokat mig https://www.reddit.com/r/discordapp/comments/162mt8f/sorry_youve_been_blocked/*/
+  /* bruh, wtf*/
+  /*https://gyazo.com/4f7bf20727ee9a322480bcee4f94b90a*/
+  /*skype?*/
+  /*kan inte skriva nu heller i discord*/
+  /*Logga inte ut*/
+  /*jahapp*/
+  /*får vi vara klara då eller?*/
+  /*inte farhad*/
+  /*får skriva i canvas om inte discord fixar sig antar jag*/
+  /*Vi kan ju typ använda nån annan grupp men tror de kommer fixa sig inom någon timme*/
+  /*aa borde fixa snart*/
+  /*jaja måste dra nu*/
+
+  
+  /*mikael gick
+  Ska jag pusha den och stänga ner?
+  vi tycker vi är färdiga för idag
+  Jag gör så då, vi hörs sen
+  yes de gör vi, ha en bra helg, ligma balls*/
+}
+.index1tablehead{
+  text-align: left;
+}
 .content {
   margin: 0 auto;
 }
@@ -72,28 +138,33 @@ body {
 }
 
 /* Active/current link */
-.sidebar a.active {
+.sidebar a.active:not(.img-link) {
   background-color: #565880;
   color: white;
 }
 
 /* Links on mouse-over */
-.sidebar a:hover:not(.active) {
+.sidebar a:hover:not(.active, .img-link) {
   background-color: #565880;
   color: white;
   opacity: 1;
 }
-.sidebar a:selected:is(.active){
+.sidebar a:hover:is(.img-link){
+  background-color: #282B30;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:selected:is(.active):not(.img-link){
   background-color: #565880;
 }
-.sidebar a:active{
+.sidebar a:active:not(.img-link){
   background-color: #565880 !important;
 } 
 .sidebar ul li {
   list-style: none;
   
 }
-.sidebar ul li:is(.active) {
+.sidebar ul li:is(.active):not(.img-link) {
   background-color: #565880 !important;
 }
 .sidebar ul {
@@ -107,6 +178,15 @@ div.content {
   padding: 1px 16px;
   height: 1000px;
 }
+
+
+.img-sidebar {
+  width: 160px;
+  height: 170px;
+}
+
+
+
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {

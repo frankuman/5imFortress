@@ -96,6 +96,13 @@ class wireless_environment:
                 if (res > util.MIN_RSRP):
                     rsrp[i] = res
        #print(rsrp)
+    #    rsrp = {}
+    #    for bs in self.bs_list:
+    #         ues = util.find_ue_by_id(ue_id)
+    #         if bs.bs_type == "nr":
+    #             path_loss = util.compute_path_loss_cost_hata(ues, bs, self)
+    #             if path_loss < 100:
+    #                 rsrp[bs.bs_id] = path_loss
        return rsrp
 
     def initial_timestep(self):
@@ -108,6 +115,7 @@ class wireless_environment:
                r = util.find_bs_by_id(elem).compute_r(ue.ue_id, rsrp)
                if util.find_bs_by_id(elem).wardrop_alpha/(r/1000000) > self.wardrop_beta: #we convert r in Mbps
                    self.wardrop_beta =  util.find_bs_by_id(elem).wardrop_alpha/(r/1000000)
+
         #now call each initial_timestep function in order to set the initial conditions for each commodity in terms of bitrate
         #to be requested to each BS
         for ue in self.ue_list:

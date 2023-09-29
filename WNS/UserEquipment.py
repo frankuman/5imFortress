@@ -102,6 +102,7 @@ class user_equipment:
                 path_loss = util.compute_path_loss_cost_hata(self, util.find_bs_by_id(elem), self.env)
                 if path_loss < 100:
                     self.bs_bitrate_allocation[elem] = self.requested_bitrate/(path_loss/(path_loss*0.9))
+            # self.bs_bitrate_allocation[elem] = self.requested_bitrate/(rsrp[elem]/(rsrp[elem]*0.9))
 
         #auto connect
         if len(self.bs_bitrate_allocation) != 0:
@@ -132,6 +133,7 @@ class user_equipment:
                     path_loss = util.compute_path_loss_cost_hata(self, util.find_bs_by_id(elem), self.env)
                     if path_loss < 100:
                         self.bs_bitrate_allocation[elem] = self.requested_bitrate/(path_loss/(path_loss*0.9))
+                    # self.bs_bitrate_allocation[elem] = self.requested_bitrate/(rsrp[elem]/(rsrp[elem]*0.9))
 
         #auto connect
         if len(self.bs_bitrate_allocation) == 0 and len(self.current_bs) != 0:
