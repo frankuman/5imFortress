@@ -27,16 +27,6 @@ function re_updateBitrate() {
 
         // Set up an interval to regularly update the bitrate (e.g., every 5 seconds)
          // Adjust the interval as needed
-function add_active(){
-    var this_url = window.location.pathname;
-    var list_sidebar_link = $(".menu li a");
-    $(list_sidebar_link).each(function (i, item) {
-        var the_a = list_sidebar_link[i];
-        if (this_url == $(the_a).attr('href')) {
-            $(the_a).addClass('active');
-        }
-    });
-};
 
 
 /* 

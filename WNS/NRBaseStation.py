@@ -130,7 +130,8 @@ class NRBaseStation:
                 #del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
             environment.wireless_environment.bs_list.remove(self)
             self.status = bs_status[2] # change status to DOWN
-            #self.allocated_bitrate = 0
+            self.allocated_bitrate = 0
+            self.ue_id = None
         else: # status is DOWN
             self.status = bs_status[1] # change status to UP
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
@@ -189,7 +190,6 @@ class NRBaseStation:
     def request_connection(self, ue_id, data_rate, rsrp):
         
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
-        old_N_prb = N_prb
         self.ue_id = ue_id
         
         #check if there is enough bitrate, if not then do not allocate the user
@@ -226,6 +226,8 @@ class NRBaseStation:
         N_prb = self.ue_pb_allocation[ue_id]
         self.allocated_prb -= N_prb
         del self.ue_pb_allocation[ue_id]
+        self.allocated_bitrate = 0
+        self.ue_id = None
 
     
     def update_connection(self, ue_id, data_rate, rsrp):
@@ -269,9 +271,13 @@ class NRBaseStation:
     def next_timestep(self):
         #print(self.allocated_prb)
         self.resource_utilization_array[self.resource_utilization_counter] = self.allocated_prb
-        randomizer = random.randint(98,102)
-        randomizer = randomizer / 100
-        self.allocated_bitrate = self.allocated_bitrate * randomizer
+        if self.ue_id is not None:
+            ue_users = util.find_ue_by_id(self.ue_id).users
+            self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*ue_users
+            randomizer = random.randint(98,102)
+            randomizer = randomizer / 100
+            self.allocated_bitrate = self.allocated_bitrate * randomizer
+    
         #Bitrate goes over cap
         if self.allocated_bitrate > self.total_bitrate:
             self.allocated_bitrate = util.find_ue_by_id(self.ue_id).users*self.ue_bitrate_allocation[self.ue_id]

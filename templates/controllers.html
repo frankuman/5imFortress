@@ -7,9 +7,14 @@
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
         re_updateBitrate();
-        add_active();
     });
-
+    $(function () {
+        $("li:not(.menu)").click(function (e) {
+            e.preventDefault();
+            $("li:not(.menu)").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
@@ -18,26 +23,27 @@
 <!-- The sidebar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
-    <nav class="menu">
-        <a href="#">LOGO GOES HERE</a>
-        <a onclick="changeColor(this)" href="/" class="menu-item is-active"> <i class="fa fa-fw fa-home"></i> Dashboard</a>
-        <a onclick="changeColor(this)" href="/controllers" class="menu-item"><i class="fa fa-fw fa-wrench"></i> Controllers</a>
-        <a onclick= href="#" class="menu-item"> <i class="fa fa-fw fa-user"></i> Customers</a>
-        <a href="#">Analytics</a>
-        <a href="#">Notification</a>
-        <a href="#">Systems</a>
-        <a href="#">Generate</a>
-        <a href="#">Settings</a>
-        <a href="#">Add Tower</a>
-    </nav>
+    <ul>
+        <li><img src=".\img\logowhite.png" alt="Logo"></li>
+        <li  class="menu">          <a href="/"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
+        <li  class="menu active">   <a  href="/controllers" class="menu"><i class="fa fa-fw fa-wrench"></i> Controllers</a></li>
+        <li  class="menu ">         <a  href="/"> <i class="fa fa-fw fa-user"></i> Customers</a></li>
+        <li>                        <a href="/"><i class="fa fa-fw fa-line-chart"></i> Analytics</a></li>
+        <li>                        <a href="/"> <i class="fa fa-fw fa-bell"></i> Notification</a></li>
+        <li>                        <a href="/"> <i class="fa fa-fw fa-desktop"></i> Systems</a></li>
+        <li>                        <a href="/"> <i class="fa fa-fw fa-magic"></i> Generate</a></li>
+        <li>                        <a href="/"> <i class="fa fa-fw fa-cogs"></i> Settings</a></li>
+        <li>                        <a href="/"> <i class="fa fa-fw fa-plus"></i> Add Tower</a></li>
+    </ul>
+</div>
+<div><img src="C:\Users\olive\OneDrive\Desktop\5imFortressGit\5imFortress\templates\img\logowhite.png" alt="Logo">
 </div>
 
+<div class="content1">
+   
 
-<div class="content">
-    <h1>Tower Machine Interface</h1>
-
-    <h2>Tower Power</h2>
-    <table>
+    <h2 class = content1text1>Tower Power</h2>
+    <table class = "content1table">
         <tr>
             <th>Tower</th>
             <th>Status</th>

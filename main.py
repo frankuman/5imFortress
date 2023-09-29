@@ -126,6 +126,7 @@ def stop_tower(id,env1): #"IndexError: pop index out of range" if pressed to man
     print("TOWER ID: "+str(id)+" STATUS: "+tower_status)
     #if tower_status == "UP":
         #util.find_ue_by_id(id).connect_to_bs_id(id)
+    env1.next_timestep()
     return(tower_status)
 
 # BS 1 -> UE 1
