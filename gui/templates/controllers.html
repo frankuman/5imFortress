@@ -7,6 +7,7 @@
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
         re_updateBitrate();
+        re_update_status();
         
     });
     $(function () {
@@ -16,6 +17,19 @@
             $(this).addClass("active");
         });
     });
+    // Check if the checkbox state is stored in localStorage
+    var checkbox = document.getElementById('powerb');
+    var isChecked = localStorage.getItem('checkboxState');
+    
+    if (isChecked === 'false') {
+        checkbox.checked = false;
+    }
+
+    // Add an event listener to update localStorage when the checkbox state changes
+    checkbox.addEventListener('change', function () {
+        localStorage.setItem('checkboxState', this.checked);
+    });
+
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
@@ -24,7 +38,7 @@
 <!-- The sidebar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
-    <a href="/" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
+    <a href="/" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
     <ul>
         <!-- <li></li> -->
         <li  class="menu "><a href="/"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
@@ -59,13 +73,15 @@
             <td>
                 <div class="powerbutton">
                         <label class="switch">
-                            <input type="checkbox" checked onclick="change_power(1);">
+                            <input type="checkbox" id="powerb" checked autocomplete="off" onclick="change_power(1);">
+                        
                             <div class="button">
                             <div class="light"></div>
                             <div class="dots"></div>
                             <div class="characters"></div>
                             <div class="shine"></div>
                             <div class="shadow"></div>
+                       
                             </div>
                         </label>
                 </div>
@@ -84,7 +100,7 @@
             <td>
                 <div class="powerbutton">
                     <label class="switch">
-                        <input type="checkbox" checked  onclick="change_power(2);">
+                        <input type="checkbox" id="powerb" checked  onclick="change_power(2);">
                         <div class="button">
                         <div class="light"></div>
                         <div class="dots"></div>

@@ -83,8 +83,6 @@ def get_users():
         #print(statuses,bsusers)
     return jsonify(bsusers1=bsusers[1],bsusers2=bsusers[2])
 
-@app.route("/BS")
-def print_status(info):
-    info = str(info)
-    print_info = "<p>" + info + "</p>\n"
-    return print_info
+@app.route("/get_status", methods=['GET'])
+def get_status():
+    return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2])
