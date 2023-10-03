@@ -1,0 +1,375 @@
+ /* 
+Dark-grey = 282B30
+Light-grey = 5F6368
+Light-blue = 565880
+Unselected-text = ECECF9 (40% opacity)
+Selected-text (primary text) = ECECF9 (100% opacity)
+box-shadow: 6px 12px 14px #282B30;
+*/
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #5F6368;
+}
+.content1 {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 20px;
+  width: 600px;
+  height: 200px;
+  background-color: #282B30; /* Background color */
+  border: 2px solid #282B30;   /* Border style */
+  padding: 20px;            /* Padding inside the frame */
+  border-radius: 20px;
+  box-shadow: 6px 12px 14px #282B30;
+
+}
+.content1text1 {
+  margin: 0 auto;
+  margin-top: 0;
+  width: 200px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  background-color: #282B30;
+  opacity: 0.9;
+  
+}
+.content1table{
+  margin: 0 auto;
+  margin-top: 0 auto;
+  color: #ECECF9;
+  font-family: sans-serif;
+  opacity: 0.8;
+  border-collapse: collapse;
+}
+.content1tablerow {
+  padding: 50px;
+}
+
+/*
+CONTROLLERS.HTML
+*/
+.controllers1content1 {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 10px;
+  width: 600px;
+  background-color: #282B30; /* Background color */
+  border: 2px solid #282B30;   /* Border style */
+  padding: 20px;            /* Padding inside the frame */
+  border-radius: 20px;
+  box-shadow: 6px 12px 14px #282B30;
+
+}
+.controllers1text1 {
+  margin: 0 auto;
+  margin-top: 0;
+  padding: 10px;
+  width: 600px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  background-color: #282B30;
+  opacity: 0.9;
+  
+}
+.controllers1table{
+  margin: 0 auto;
+  margin-top: 0 auto;
+  padding: 20px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  opacity: 0.8;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+.controllers1tablerow{
+  padding: 50px;
+  width: 100px;
+  height: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+}
+.controllers1tablehead{
+  text-align: left;
+}
+
+/*
+INDEX.HTML
+*/
+.indexcontent1 {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 800px;
+  width: 900px;
+  background-color: #282B30; /* Background color */
+  border: 2px solid #282B30;   /* Border style */
+  padding: 20px;            /* Padding inside the frame */
+  border-radius: 20px;
+  box-shadow: 6px 12px 14px #282B30;
+
+}
+.index1text1 {
+  margin: 0 auto;
+  margin-top: 0;
+  padding: 10px;
+  width: 400px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  background-color: #282B30;
+  opacity: 0.9;
+  
+}
+.index1table{
+  margin: 0 auto;
+  margin-top: 0 auto;
+  padding: 20px;
+  color: #ECECF9;
+  font-family: sans-serif;
+  opacity: 0.8;
+  border-collapse: collapse;
+  width: 100%;
+}
+.index1tablerow{
+  padding: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+}
+.index1tablehead{
+  text-align: left;
+}
+
+
+
+.content {
+  margin: 0 auto;
+}
+.sidebar a.active,
+.sidebar a.selected {
+  background-color: #282B30;
+  color: white;
+}
+
+/* Index table status column */
+.tablestatus1 {
+  color: red;
+}
+.tablestatus2 {
+  color: red;
+}
+
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #282B30;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 6px 12px 14px #282B30;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: #ECECF9;
+  padding: 16px;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active:not(.img-link) {
+  background-color: #565880;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active, .img-link) {
+  background-color: #565880;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:hover:is(.img-link){
+  background-color: #282B30;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:selected:is(.active):not(.img-link){
+  background-color: #565880;
+}
+.sidebar a:active:not(.img-link){
+  background-color: #565880 !important;
+} 
+.sidebar ul li {
+  list-style: none;
+  
+}
+.sidebar ul li:is(.active):not(.img-link) {
+  background-color: #565880 !important;
+}
+.sidebar ul {
+  padding: 0;
+  margin: 0;
+  
+}
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+
+.img-sidebar {
+  width: 160px;
+  height: 170px;
+}
+
+/* Power button */
+.powerbutton {
+  display: flex;
+}
+
+.switch {
+  background-color: black;
+  width: 30px;
+  height: 36px;
+  box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.1), 0 0 1px 0px black, inset 0 2px 2px -2px white, inset 0 0 2px 6px #5F6368, inset 0 0 2px 13px black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px; 
+  margin-bottom: 5px;
+  perspective: 700px;
+}
+.switch input {
+  display: none;
+}
+.switch input:checked + .button {
+  transform: translateZ(20px) rotateX(6deg);
+  box-shadow: 0 -10px 20px #ff1818;
+}
+.switch input:checked + .button .light {
+  animation: flicker 0.2s infinite 0.3s;
+}
+.switch input:checked + .button .shine {
+  opacity: 1;
+}
+.switch input:checked + .button .shadow {
+  opacity: 0;
+}
+.switch .button {
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  transform-origin: center center -20px;
+  transform: translateZ(20px) rotateX(-6deg);
+  transform-style: preserve-3d;
+  background-color: #9b0621;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  background: linear-gradient(#980000 0%, #6f0000 30%, #6f0000 70%, #980000 100%);
+  background-repeat: no-repeat;
+}
+.switch .button::before {
+  content: "";
+  background: linear-gradient(rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0.3) 30%, #650000 75%, #320000) 50% 50%/97% 97%, #b10000;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 50px;
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  position: absolute;
+  top: 0;
+}
+.switch .button::after {
+  content: "";
+  background-image: linear-gradient(#650000, #320000);
+  width: 100%;
+  height: 50px;
+  transform-origin: top;
+  transform: translateY(50px) rotateX(-90deg);
+  position: absolute;
+  bottom: 0;
+  box-shadow: 0 50px 8px 0px black, 0 80px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.switch .light {
+  opacity: 0;
+  animation: light-off 1s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#ffc97e, #ff1818 40%, transparent 70%);
+}
+.switch .dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(transparent 30%, rgba(101, 0, 0, 0.7) 70%);
+  background-size: 10px 10px;
+}
+.switch .characters {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(white, white) 50% 20%/5% 20%, radial-gradient(circle, transparent 50%, white 52%, white 70%, transparent 72%) 50% 80%/33% 25%;
+  background-repeat: no-repeat;
+}
+.switch .shine {
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  opacity: 0.3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(white, transparent 3%) 50% 50%/97% 97%, linear-gradient(rgba(255, 255, 255, 0.5), transparent 50%, transparent 80%, rgba(255, 255, 255, 0.5)) 50% 50%/97% 97%;
+  background-repeat: no-repeat;
+}
+.switch .shadow {
+  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(transparent 70%, rgba(0, 0, 0, 0.8));
+  background-repeat: no-repeat;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes light-off {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+}
+
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}

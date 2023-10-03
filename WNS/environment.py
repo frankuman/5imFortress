@@ -123,11 +123,7 @@ class wireless_environment:
         return
 
     def next_timestep(self):
-        #with ThreadPoolExecutor(max_workers=len(self.ue_list)) as executor:
-        #if self.wardrop_epsilon > self.wardrop_beta*ue.ue_class[0]*len(self.ue_list):
-            #print("Warning: Epsilon is outside the admissible ranges (", self.wardrop_epsilon, "/", self.wardrop_beta*ue.ue_class[0]*len(self.ue_list), ")")
         for ues in self.ue_list:
-            #thread = executor.submit()
             ues.next_timestep()
         for bss in self.bs_list:
             bss.next_timestep()

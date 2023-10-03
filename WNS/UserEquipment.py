@@ -112,6 +112,7 @@ class user_equipment:
         self.users = self.users*randomizer
         if self.users < 1000:
             self.users = self.users*1.5
+        self.users = int(self.users)
 
         #compute wardrop sigma
         #self.wardrop_sigma = (self.env.wardrop_epsilon)/(2*self.env.sampling_time*self.env.wardrop_beta*self.requested_bitrate*(len(rsrp)-1)*len(self.env.ue_list))
@@ -146,34 +147,14 @@ class user_equipment:
         self.users = self.users*randomizer
         if self.users < 1000:
             self.users = self.users*1.5
-        
-
-        # #core of the Wardrop algorithm
-        # for p in self.bs_bitrate_allocation:
-        #     for q in self.bs_bitrate_allocation:
-        #         if p != q:
-        #             bs_p = util.find_bs_by_id(p)
-        #             l_p = bs_p.compute_latency(self.ue_id)
-
-
-        #             bs_q = util.find_bs_by_id(q)
-        #             l_q = bs_q.compute_latency(self.ue_id)
-                    
-        #             mu_pq = 1
-        #             if (l_p - l_q) < self.env.wardrop_epsilon or bs_q.allocated_bitrate >= bs_q.total_bitrate - (self.env.wardrop_epsilon/(2*self.env.wardrop_beta)):
-        #                 mu_pq = 0
-                    
-        #             mu_qp = 1
-        #             if (l_q - l_p) < self.env.wardrop_epsilon or bs_p.allocated_bitrate >= bs_p.total_bitrate - (self.env.wardrop_epsilon/(2*self.env.wardrop_beta)):
-        #                 mu_qp = 0
-
-        #             r_pq = self.bs_bitrate_allocation[p]*mu_pq*self.wardrop_sigma
-        #             r_qp = self.bs_bitrate_allocation[q]*mu_qp*self.wardrop_sigma
-
-
-        #             self.bs_bitrate_allocation[p] += self.env.sampling_time * (r_qp - r_pq)          
+        self.users = int(self.users)
+                
         return True
 
+    def get_users(self):
+        # if len(self.current_bs) == 0:
+        #     return 0
+        return self.users
 
     def reset(self):
         self.disconnect_from_bs(self.bs_id)

@@ -6,7 +6,8 @@
 <script>
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
-        changeColor();
+        re_update_status_color();
+        re_update_users();
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -15,6 +16,7 @@
             $(this).addClass("active");
         });
     });
+
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
@@ -50,10 +52,10 @@
                 <a>Karlskrona</a>
             </td>
             <td>
-              
+                <a id=bsusers1>0</a>
             </td>
-            <td>
-                
+            <td class="tablestatus1">
+                {{bspower[1]}}
             </td>
             <td>
                 
@@ -64,10 +66,10 @@
                 <a>Karlshamn</a>
             </td>
             <td>
-                
+                <a id=bsusers2>0</a>
             </td>
-            <td>
-                
+            <td class="tablestatus2">
+                {{bspower[2]}}
             </td>
             <td>
                 

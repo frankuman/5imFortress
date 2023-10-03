@@ -7,6 +7,7 @@
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
         re_updateBitrate();
+        
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -53,15 +54,20 @@
                 <a>Karlskrona</a>
             </td>
             <td>
-                {{bspower[1]}}
+                <a id=bsstatus1>UP</a>
             </td>
             <td>
-                <!--<a href="/power/{{1}}">Power</a> -->
-                <div id="btn-bg">
-                    <div id="btn-highlight"></div>
-                    <div id="btn-ring">
-                        <div id="ring-line"></div>
-                    </div>
+                <div class="powerbutton">
+                        <label class="switch">
+                            <input type="checkbox" checked onclick="change_power(1);">
+                            <div class="button">
+                            <div class="light"></div>
+                            <div class="dots"></div>
+                            <div class="characters"></div>
+                            <div class="shine"></div>
+                            <div class="shadow"></div>
+                            </div>
+                        </label>
                 </div>
             </td>
             <td>
@@ -73,15 +79,31 @@
                 <a>Karlshamn</a>
             </td>
             <td>
-                {{bspower[2]}}
+                <a id=bsstatus2>UP</a>
             </td>
             <td>
-                <a href="/power/{{2}}">Power</a>
+                <div class="powerbutton">
+                    <label class="switch">
+                        <input type="checkbox" checked  onclick="change_power(2);">
+                        <div class="button">
+                        <div class="light"></div>
+                        <div class="dots"></div>
+                        <div class="characters"></div>
+                        <div class="shine"></div>
+                        <div class="shadow"></div>
+                        </div>
+                    </label>
+                </div>
+                
             </td>
             <td>
                 <a id=bitrate2>0</a>
             </td>
         </tr>
+        <!-- Add a bunch more rows for base towers -->
     </table>
 </div>
+
+
+
 {% endblock %}
