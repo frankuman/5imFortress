@@ -27,27 +27,60 @@ def setup_env(ue,bs):
     bs.append(sat_bs)
 
     #5G base stations
-    bs_1 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    #Karlskrona
+    bs_1 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 250000)
     bs.append(bs_1)
-    bs_2 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
+    #Karlshamn
+    bs_2 = env_manager.env1.place_NR_base_station((4000, 4000, 40), 800, 1, 20, 16, 3, 20, 100000)
     bs.append(bs_2)
+    #Ronneby
+    bs_3 = env_manager.env1.place_NR_base_station((7000, 7000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs.append(bs_3)
+    #Soelvesborg
+    bs_4 = env_manager.env1.place_NR_base_station((10000, 10000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs.append(bs_4)
+    #Olofstroem
+    bs_5 = env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs.append(bs_5)
+    #
+    #bs_6 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
+    #bs.append(bs_6)
+    #
+    #bs_7 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    #bs.append(bs_7)
+    #
+    #bs_8 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
+    #bs.append(bs_8)
 
-    #5G user equipment, 1 per base station
-    ue0 = env_manager.env1.insert_ue(1, (10000000, 10000000, 1), 10000) # connects to satellite
-    ue.append(ue0)
+    #5G user equipment, 1 per base station, sat bs
+    ue_sat = env_manager.env1.insert_ue(1, (10000000, 10000000, 1), 10000) # connects to satellite
+    ue.append(ue_sat)
+
     #Normal user equipment, connecting to base stations
-    ue1 = env_manager.env1.insert_ue(1, (1000, 1000, 1), 5000)
+    #Karlskrona
+    ue1 = env_manager.env1.insert_ue(1, (1000, 1000, 1), 66000)
     ue.append(ue1)
-    ue2 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
+    #Karlshamn
+    ue2 = env_manager.env1.insert_ue(1, (4000, 4000, 1), 19000)
     ue.append(ue2)
+    #Ronneby
+    ue3 = env_manager.env1.insert_ue(1, (7000, 7000, 1), 12000)
+    ue.append(ue3)
+    #Soelvesborg
+    ue4 = env_manager.env1.insert_ue(1, (10000, 10000, 1), 8000)
+    ue.append(ue4)
+    #Olofstroem
+    ue5 = env_manager.env1.insert_ue(1, (13000, 13000, 1), 7000)
+    ue.append(ue5)
+
+    # ue6 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
+    # ue.append(ue6)
+    # ue7 = env_manager.env1.insert_ue(1, (1000, 1000, 1), 5000)
+    # ue.append(ue7)
+    # ue8 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
+    # ue.append(ue8)
     
     env_manager.env1.initial_timestep()
-
-    #util.find_ue_by_id(1).connect_to_bs_id(1)
-    #util.find_ue_by_id(2).connect_to_bs_id(2)
-    #util.find_ue_by_id(2).connect_to_bs_id(2)
-
-    #env_manager.env1.next_timestep()
     return True
     
 def main():

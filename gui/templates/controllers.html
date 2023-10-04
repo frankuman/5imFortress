@@ -8,7 +8,7 @@
     $(document).ready(function() {
         re_updateBitrate();
         re_update_status();
-        
+        page_load_checkbox();
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -17,24 +17,14 @@
             $(this).addClass("active");
         });
     });
-    // Check if the checkbox state is stored in localStorage
-    var checkbox = document.getElementById('powerb');
-    var isChecked = localStorage.getItem('checkboxState');
-    
-    if (isChecked === 'false') {
-        checkbox.checked = false;
-    }
 
-    // Add an event listener to update localStorage when the checkbox state changes
-    checkbox.addEventListener('change', function () {
-        localStorage.setItem('checkboxState', this.checked);
-    });
-
+   
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
 
 {% block body %}
+
 <!-- The sidebar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
@@ -52,74 +42,154 @@
         <li>                <a href="/"> <i class="fa fa-fw fa-plus"></i> Add Tower</a></li>
     </ul>
 </div>
-<div><img src="C:\Users\olive\OneDrive\Desktop\5imFortressGit\5imFortress\templates\img\logowhite.png" alt="Logo">
-</div>
-
-<div class="controllers1content1">
-    <table class = "controllers1table">
-        <tr class = "controllers1tablerow">
-            <th class="controllers1tablehead">Tower name</th>
-            <th class="controllers1tablehead">Status</th>
-            <th class="controllers1tablehead">Power</th>
-            <th class="controllers1tablehead">Bitrate</th>
-        </tr>
-        <tr class = "controllers1tablerow">
-            <td>
-                <a>Karlskrona</a>
-            </td>
-            <td>
-                <a id=bsstatus1>UP</a>
-            </td>
-            <td>
-                <div class="powerbutton">
-                        <label class="switch">
-                            <input type="checkbox" id="powerb" checked autocomplete="off" onclick="change_power(1);">
+<body>
+    <div class="controllers1content1">
+        <!-- HMI table containing information and controls for each base station -->
+        <table class = "controllers1table">
+            <tr class = "controllers1tablerow">
+                <th class="controllers1tablehead">Tower name</th>
+                <th class="controllers1tablehead">Status</th>
+                <th class="controllers1tablehead">Power</th>
+                <th class="controllers1tablehead">Bitrate</th>
+            </tr>
+            <!-- BS 1 -->
+            <tr class = "controllers1tablerow">
+                <td>
+                    <a>Karlskrona</a>
+                </td>
+                <td>
+                    <a id=bsstatus1>UP</a>
+                </td>
+                <td>
+                    <div class="powerbutton">
+                            <label class="switch">
+                                <input type="checkbox" id="powerb1" checked autocomplete="off" onclick="change_power(1);store_checkbox_value(this,1);">
+                            
+                                <div class="button">
+                                <div class="light"></div>
+                                <div class="dots"></div>
+                                <div class="characters"></div>
+                                <div class="shine"></div>
+                                <div class="shadow"></div>
                         
+                                </div>
+                            </label>
+                    </div>
+                </td>
+                <td>
+                    <a id=bitrate1>0</a>
+                </td>
+            </tr>
+            <!-- BS 2 -->
+            <tr class = "controllers1tablerow">
+                <td>
+                    <a>Karlshamn</a>
+                </td>
+                <td>
+                    <a id=bsstatus2>UP</a>
+                </td>
+                <td>
+                    <div class="powerbutton">
+                        <label class="switch">
+                            <input type="checkbox" id="powerb2" checked  onclick="change_power(2);store_checkbox_value(this,2);">
                             <div class="button">
                             <div class="light"></div>
                             <div class="dots"></div>
                             <div class="characters"></div>
                             <div class="shine"></div>
                             <div class="shadow"></div>
-                       
                             </div>
                         </label>
-                </div>
-            </td>
-            <td>
-                <a id=bitrate1>0</a>
-            </td>
-        </tr>
-        <tr class = "controllers1tablerow">
-            <td>
-                <a>Karlshamn</a>
-            </td>
-            <td>
-                <a id=bsstatus2>UP</a>
-            </td>
-            <td>
-                <div class="powerbutton">
-                    <label class="switch">
-                        <input type="checkbox" id="powerb" checked  onclick="change_power(2);">
-                        <div class="button">
-                        <div class="light"></div>
-                        <div class="dots"></div>
-                        <div class="characters"></div>
-                        <div class="shine"></div>
-                        <div class="shadow"></div>
-                        </div>
-                    </label>
-                </div>
-                
-            </td>
-            <td>
-                <a id=bitrate2>0</a>
-            </td>
-        </tr>
-        <!-- Add a bunch more rows for base towers -->
-    </table>
-</div>
-
-
+                    </div>
+                    
+                </td>
+                <td>
+                    <a id=bitrate2>0</a>
+                </td>
+            </tr>
+            <!-- BS 3 -->
+            <tr class = "controllers1tablerow">
+                <td>
+                    <a>Ronneby</a>
+                </td>
+                <td>
+                    <a id=bsstatus3>UP</a>
+                </td>
+                <td>
+                    <div class="powerbutton">
+                        <label class="switch">
+                            <input type="checkbox" id="powerb3" checked  onclick="change_power(3);store_checkbox_value(this,3);">
+                            <div class="button">
+                            <div class="light"></div>
+                            <div class="dots"></div>
+                            <div class="characters"></div>
+                            <div class="shine"></div>
+                            <div class="shadow"></div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                </td>
+                <td>
+                    <a id=bitrate3>0</a>
+                </td>
+            </tr>
+            <!-- BS 4 -->
+            <tr class = "controllers1tablerow">
+                <td>
+                    <a>Sölvesborg</a>
+                </td>
+                <td>
+                    <a id=bsstatus4>UP</a>
+                </td>
+                <td>
+                    <div class="powerbutton">
+                        <label class="switch">
+                            <input type="checkbox" id="powerb4" checked  onclick="change_power(4);store_checkbox_value(this,4);">
+                            <div class="button">
+                            <div class="light"></div>
+                            <div class="dots"></div>
+                            <div class="characters"></div>
+                            <div class="shine"></div>
+                            <div class="shadow"></div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                </td>
+                <td>
+                    <a id=bitrate4>0</a>
+                </td>
+            </tr>
+            <!-- BS 5 -->
+            <tr class = "controllers1tablerow">
+                <td>
+                    <a>Olofström</a>
+                </td>
+                <td>
+                    <a id=bsstatus5>UP</a>
+                </td>
+                <td>
+                    <div class="powerbutton">
+                        <label class="switch">
+                            <input type="checkbox" id="powerb5" checked  onclick="change_power(5);store_checkbox_value(this,5);">
+                            <div class="button">
+                            <div class="light"></div>
+                            <div class="dots"></div>
+                            <div class="characters"></div>
+                            <div class="shine"></div>
+                            <div class="shadow"></div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                </td>
+                <td>
+                    <a id=bitrate5>0</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
 
 {% endblock %}

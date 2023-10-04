@@ -59,7 +59,7 @@ def get_bitrate(id):
         return [0,0]
     util.find_ue_by_id(ue_id).update_connection()
     if bs.bs_status() == "UP":
-        bitlist = [round(bs.allocated_bitrate,3), round(bs.total_bitrate,3)]
+        bitlist = [int(bs.allocated_bitrate), int(bs.total_bitrate)]
     else:
         bitlist = [0,0]
     env_man = class_environment.EnvironmentManager().instance()

@@ -125,8 +125,10 @@ class NRBaseStation:
         If change from DOWN -> UP, then add base station to bs_list again.
         """
         if self.status == bs_status[1]: # status is UP
-            for ue in list(self.ue_pb_allocation.keys()):
-                self.request_disconnection(ue)
+            if self.ue_id is not None:
+                util.find_ue_by_id(self.ue_id).disconnect_from_bs(self.bs_id)
+            # for ue in list(self.ue_pb_allocation.keys()):
+            #     self.request_disconnection(ue)
                 #del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
             environment.wireless_environment.bs_list.remove(self)
             self.status = bs_status[2] # change status to DOWN
@@ -272,17 +274,11 @@ class NRBaseStation:
         #print(self.allocated_prb)
         self.resource_utilization_array[self.resource_utilization_counter] = self.allocated_prb
         if self.ue_id is not None:
-            ue_users = util.find_ue_by_id(self.ue_id).users
-            self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*ue_users
             randomizer = random.randint(98,102)
             randomizer = randomizer / 100
             self.allocated_bitrate = self.allocated_bitrate * randomizer
-    
-        #Bitrate goes over cap
         if self.allocated_bitrate > self.total_bitrate:
-            self.allocated_bitrate = util.find_ue_by_id(self.ue_id).users*self.ue_bitrate_allocation[self.ue_id]
-        ## Check here so bitrate can never go below a certain value
-        
+            self.allocated_bitrate -= self.total_bitrate*0.05
         
         self.resource_utilization_counter += 1
         if self.resource_utilization_counter % self.T == 0:

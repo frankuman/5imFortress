@@ -8,9 +8,9 @@ import main
 import time
 app = Flask(__name__)
 
-statuses = ["IGNORE","UP","UP"]
-bsbitrate = ["IGNORE","0","0"]
-bsusers = ["IGNORE", "0", "0"]
+statuses = ["IGNORE","UP","UP","UP","UP","UP"]
+bsbitrate = ["IGNORE","0","0","0","0","0"]
+bsusers = ["IGNORE", "0","0","0","0","0"]
 #To run flask
 #flask --app dashboard run 
 
@@ -57,7 +57,7 @@ def power_off(id):
     statuses[id] = status
 
     #render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
-    return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2])
+    return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2],bsstatus3=statuses[3],bsstatus4=statuses[4],bsstatus5=statuses[5])
     #except:
         #return 'Error turning off power'
 
@@ -70,7 +70,7 @@ def get_bitrate():
         else:
              bsbitrate[id] = "0"
     
-    return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2])
+    return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
 
 @app.route("/get_users", methods=['GET'])
 def get_users():
@@ -81,8 +81,8 @@ def get_users():
         else:
             bsusers[id] = "0"
         #print(statuses,bsusers)
-    return jsonify(bsusers1=bsusers[1],bsusers2=bsusers[2])
+    return jsonify(bsusers1=bsusers[1],bsusers2=bsusers[2],bsusers3=bsusers[3],bsusers4=bsusers[4],bsusers5=bsusers[5])
 
 @app.route("/get_status", methods=['GET'])
 def get_status():
-    return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2])
+    return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2],bsstatus3=statuses[3],bsstatus4=statuses[4],bsstatus5=statuses[5])

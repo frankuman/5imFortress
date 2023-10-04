@@ -94,7 +94,7 @@ class wireless_environment:
                 res = thread_pool[i].result() 
                 #if res > -1000000:
                 if (res > util.MIN_RSRP):
-                    rsrp[i] = res
+                    rsrp[self.bs_list[i].bs_id] = res
        #print(rsrp)
     #    rsrp = {}
     #    for bs in self.bs_list:
