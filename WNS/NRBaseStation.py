@@ -2,6 +2,7 @@ import math
 import random
 from scipy import constants
 import WNS.environment as environment
+from datalogger import logger
 import WNS.util as util
 
 #Table 5.3.3-1: Minimum guardband [kHz] (FR1) and Table: 5.3.3-2: Minimum guardband [kHz] (FR2), 3GPPP 38.104
@@ -125,6 +126,9 @@ class NRBaseStation:
         If change from DOWN -> UP, then add base station to bs_list again.
         """
         if self.status == bs_status[1]: # status is UP
+            print("[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id))
+            log = "[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id)
+            logger.log(self.bs_id, log)
             if self.ue_id is not None:
                 util.find_ue_by_id(self.ue_id).disconnect_from_bs(self.bs_id)
             # for ue in list(self.ue_pb_allocation.keys()):
@@ -134,7 +138,11 @@ class NRBaseStation:
             self.status = bs_status[2] # change status to DOWN
             self.allocated_bitrate = 0
             self.ue_id = None
+            self.reset()
         else: # status is DOWN
+            print("[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id))
+            log = "[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id)
+            logger.log(self.bs_id, log)
             self.status = bs_status[1] # change status to UP
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
         return self.status
@@ -215,9 +223,12 @@ class NRBaseStation:
             self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000  
             self.allocated_bitrate += r * N_prb / 1000000
         else:
-            self.allocated_bitrate -= self.ue_bitrate_allocation[ue_id]
+            # self.allocated_bitrate -= self.ue_bitrate_allocation[ue_id] #It shouldn't trigger this
             self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000
             self.allocated_bitrate += r * N_prb / 1000000
+            print("NEW BITRATE [debug]",self.allocated_bitrate,r,N_prb)
+            log = str("[NEW_BITRATE(debugger)]"+self.allocated_bitrate+r+N_prb)
+            logger.log(ue_id,log)
         ue_users = util.find_ue_by_id(self.ue_id).users
         self.allocated_bitrate = self.allocated_bitrate*ue_users
         
@@ -228,6 +239,7 @@ class NRBaseStation:
         N_prb = self.ue_pb_allocation[ue_id]
         self.allocated_prb -= N_prb
         del self.ue_pb_allocation[ue_id]
+        del self.ue_bitrate_allocation[ue_id]
         self.allocated_bitrate = 0
         self.ue_id = None
 

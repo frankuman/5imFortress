@@ -98,6 +98,6 @@ def status(env1):
     for bs in env1.all_bs_list:
         if bs.bs_type == "nr":
             print("Basestation with ID: ", bs.bs_id)
-            print(" status: ", bs.bs_status())
+            print("status: ", bs.bs_status())
             for ele in bs.bs_properties().keys():
                 print("     ", ele, ": ", bs.bs_properties()[ele])

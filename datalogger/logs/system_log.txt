@@ -1,0 +1,5 @@
+INFO:root:
+
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 957-015-455
+INFO:werkzeug:127.0.0.1 - - [05/Oct/2023 14:00:31] "GET /get_users HTTP/1.1" 200 -

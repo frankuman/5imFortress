@@ -6,6 +6,7 @@ from WNS import util
 from WNS import Satellite as sat
 from SFclasses import class_environment
 import gui.dashboard as dashboard
+import scada.modbus_server as modbus_server
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +15,7 @@ import time
 import os
 import pandas as pd
 
-def setup_env(ue,bs):
+def setup_env(ue, bs):
     """
     Setup for environment
     """
@@ -79,13 +80,17 @@ def setup_env(ue,bs):
     # ue.append(ue7)
     # ue8 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
     # ue.append(ue8)
-    
+
     env_manager.env1.initial_timestep()
     return True
-    
+ 
 def main():
-    
+
     # env1 = env.wireless_environment(4000, sampling_time = 0.1)
+    #Empty old logs
+    for i in "12345":
+        filename = "datalogger/logs/bs_log_" + i + ".txt"
+        open(filename,"w").close()
 
     not_done = True
     ue = []
@@ -96,7 +101,8 @@ def main():
     bitrates = {}
     setup_env(ue,bs)
     env_man = class_environment.EnvironmentManager().instance()
-    dashboard.app.run()
+    dashboard.app.run(debug=True)
     
+
 if __name__ == "__main__":
     main()

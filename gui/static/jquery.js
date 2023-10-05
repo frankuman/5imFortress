@@ -245,7 +245,33 @@ cities.forEach(function(city) {
     L.marker(city.coordinates, { icon: towerIcon }).addTo(map).bindPopup(city.name);
 });
 
-    
+   
+function get_logs(){
+    // Use jQuery's AJAX function to load the content of the text file
+    $.ajax({
+        url: '/loggers/get_log',
+        method: "GET",
+        dataType: 'json',
+        success: function(data) {
+            
+            $('#log1').text(data.bslog1); //
+            $('#log2').text(data.bslog2);
+            $('#log3').text(data.bslog3);
+            $('#log4').text(data.bslog4);
+            $('#log5').text(data.bslog5);
+            $('#log6').text(data.systemlog);
+
+        },
+        error: function() {
+            console.log('Error loading text file.');
+        }
+    });
+};
+
+function re_get_log() {
+    get_logs();
+    setInterval(get_logs, 2000);
+};
 // function store_checkbox_value(checkbox){
 
 

@@ -160,75 +160,6 @@ INDEX.HTML
 }
 
 
-/* The side navigation menu */
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #282B30;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  box-shadow: 6px 12px 14px #282B30;
-}
-
-/* Sidebar links */
-.sidebar a {
-  display: block;
-  color: #ECECF9;
-  padding: 16px;
-  opacity: 0.5;
-  text-decoration: none;
-}
-
-/* Active/current link */
-.sidebar a.active:not(.img-link) {
-  background-color: #565880;
-  color: white;
-}
-
-/* Links on mouse-over */
-.sidebar a:hover:not(.active, .img-link) {
-  background-color: #565880;
-  color: white;
-  opacity: 1;
-}
-.sidebar a:hover:is(.img-link){
-  background-color: #282B30;
-  color: white;
-  opacity: 1;
-}
-.sidebar a:selected:is(.active):not(.img-link){
-  background-color: #565880;
-}
-.sidebar a:active:not(.img-link){
-  background-color: #565880 !important;
-} 
-.sidebar ul li {
-  list-style: none;
-  
-}
-.sidebar ul li:is(.active):not(.img-link) {
-  background-color: #565880 !important;
-}
-.sidebar ul {
-  padding: 0;
-  margin: 0;
-  
-}
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-
-.img-sidebar {
-  width: 160px;
-  height: 170px;
-}
-
 /* Power button */
 .powerbutton {
   display: flex;
@@ -357,6 +288,381 @@ div.content {
   80% {
     opacity: 0;
   }
+}
+
+/*
+LOGGERS.HTML
+*/
+.fakeButtons {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  position: relative;
+  top: 6px;
+  left: 6px;
+  background-color: #ff3b47;
+  border-color: #9d252b;
+  display: inline-block;
+}
+
+.fakeMinimize {
+  left: 11px;
+  background-color: #ffc100;
+  border-color: #9d802c;
+}
+
+.fakeZoom {
+  left: 16px;
+  background-color: #00d742;
+  border-color: #049931;
+}
+
+.fakeMenu {
+  width: 820px;
+  box-sizing: border-box;
+  height: 25px;
+  background-color: #bbb;
+  margin-top: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+
+}
+
+.fakeScreen {
+  background-color: #282B30;
+  box-sizing: border-box;
+  width: 820px;
+  margin-top: 0 auto;
+  margin-bottom: 5px;
+  padding: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 6px 12px 14px #282B30
+}
+
+p {
+  position: relative;
+  left: 13%;
+  margin-left: -8.5em;
+  text-align: left;
+  font-size: 12px;
+  font-family: monospace;
+  white-space: normal;
+  overflow: hidden;
+  width: 700px;
+}
+.logarea1{
+  width: 700px;
+  height: 150px;
+  background-color: transparent; /* Make the background transparent */
+  border: none;
+  resize: none; /* Disable the resizer */
+
+}
+.logarea1#log1,.logarea1#log2,.logarea1#log3,.logarea1#log4,.logarea1#log5,.logarea1#log6{
+  position: relative;
+  left: 13%;
+  margin-left: -8.5em;
+  text-align: left;
+  font-size: 12px;
+  font-family: monospace;
+  white-space: normal;
+  width: 700px;
+  color: #CDEE69;
+  -webkit-animation: type .5s 4.25s steps(20, end) forwards;
+  -moz-animation: type .5s 4.25s steps(20, end) forwards;
+  -o-animation: type .5s 4.25s steps(20, end) forwards;
+  animation: type .5s 4.25s steps(20, end) forwards;
+}
+.logarea1::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar in webkit browsers (e.g., Chrome, Safari) */
+}
+
+.logarea1:focus {
+  outline: none;
+}
+.logarea1::-webkit-scrollbar-thumb {
+  background: transparent; /* Hide the thumb in webkit browsers */
+}
+
+.logarea1::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track in webkit browsers */
+}
+
+
+span {
+  color: #fff;
+  font-weight: bold;
+}
+
+.line1 {
+  margin-top: 0;
+  color: #9CD9F0;
+  -webkit-animation: type .5s 1s steps(20, end) forwards;
+  -moz-animation: type .5s 1s steps(20, end) forwards;
+  -o-animation: type .5s 1s steps(20, end) forwards;
+  animation: type .5s 1s steps(20, end) forwards;
+}
+
+.cursor1 {
+  -webkit-animation: blink 1s 2s 2 forwards;
+  -moz-animation: blink 1s 2s 2 forwards;
+  -o-animation: blink 1s 2s 2 forwards;
+  animation: blink 1s 2s 2 forwards;
+}
+
+.line2 {
+  color: #CDEE69;
+  -webkit-animation: type .5s 4.25s steps(20, end) forwards;
+  -moz-animation: type .5s 4.25s steps(20, end) forwards;
+  -o-animation: type .5s 4.25s steps(20, end) forwards;
+  animation: type .5s 4.25s steps(20, end) forwards;
+}
+
+.cursor2 {
+  -webkit-animation: blink 1s 5.25s 2 forwards;
+  -moz-animation: blink 1s 5.25s 2 forwards;
+  -o-animation: blink 1s 5.25s 2 forwards;
+  animation: blink 1s 5.25s 2 forwards;
+}
+
+.line3 {
+  color: #E09690;
+  -webkit-animation: type .5s 7.5s steps(20, end) forwards;
+  -moz-animation: type .5s 7.5s steps(20, end) forwards;
+  -o-animation: type .5s 7.5s steps(20, end) forwards;
+  animation: type .5s 7.5s steps(20, end) forwards;
+}
+
+.cursor3 {
+  -webkit-animation: blink 1s 8.5s 2 forwards;
+  -moz-animation: blink 1s 8.5s 2 forwards;
+  -o-animation: blink 1s 8.5s 2 forwards;
+  animation: blink 1s 8.5s 2 forwards;
+}
+
+.line4 {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  color: #fff;
+  -webkit-animation: type .5s 10.75s steps(20, end) forwards;
+  -moz-animation: type .5s 10.75s steps(20, end) forwards;
+  -o-animation: type .5s 10.75s steps(20, end) forwards;
+  animation: type .5s 10.75s steps(20, end) forwards;
+}
+
+.cursor4 {
+  -webkit-animation: blink 1s 11.5s infinite;
+  -moz-animation: blink 1s 8.5s infinite;
+  -o-animation: blink 1s 8.5s infinite;
+  animation: blink 1s 8.5s infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes type {
+  to {
+    width: 17em;
+  }
+}
+
+@-moz-keyframes type {
+  to {
+    width: 17em;
+  }
+}
+
+@-o-keyframes type {
+  to {
+    width: 17em;
+  }
+}
+
+@keyframes type {
+  to {
+    width: 17em;
+  }
+}
+@keyframes type {
+  to {
+    width: 700px; /* Keep the width constant at 700px */
+  }
+}
+.logger1, .logger2, .logger3, .logger4, .logger5, .logger6{
+  position: absolute !important;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+.logger1{
+  margin-top: 10px;
+  margin-left: 220px;
+}
+
+.logger2{
+  margin-top: 330px;
+  margin-left: 220px;
+}
+
+.logger3{
+  margin-top: 650px;
+  margin-left: 220px;
+}
+
+.logger4{
+  margin-top: 10px;
+  margin-left: 1062px;
+}
+
+.logger5{
+  margin-top: 330px;
+  margin-left: 1062px;
+}
+.logger6{
+  margin-top: 650px;
+  margin-left: 1062px;
+}
+
+/* SIDEBAR*/
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #282B30;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 6px 12px 14px #282B30;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: #ECECF9;
+  padding: 16px;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active:not(.img-link) {
+  background-color: #565880;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active, .img-link) {
+  background-color: #565880;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:hover:is(.img-link){
+  background-color: #282B30;
+  color: white;
+  opacity: 1;
+}
+.sidebar a:selected:is(.active):not(.img-link){
+  background-color: #565880;
+}
+.sidebar a:active:not(.img-link){
+  background-color: #565880 !important;
+} 
+.sidebar ul li {
+  list-style: none;
+  
+}
+.sidebar ul li:is(.active):not(.img-link) {
+  background-color: #565880 !important;
+}
+.sidebar ul {
+  padding: 0;
+  margin: 0;
+  
+}
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+
+.img-sidebar {
+  width: 160px;
+  height: 170px;
 }
 
 

@@ -1,0 +1,36 @@
+<core>
+    <template>
+        <!-- General information about the template -->
+        <entity name="unit">S7-200</entity>
+        <entity name="vendor">Siemens</entity>
+        <entity name="description">Yyyyyyyy</entity>
+        <entity name="protocols">MODBUS</entity>
+        <entity name="creator">the nioguard team</entity>
+    </template>
+    <databus>
+        <key_value_mappings>
+            <key name="SystemName">
+                <value type="value">"SIMATIC 300(1)"</value>
+            </key>
+            <key name="SystemDescription">
+                <value type="value">"Siemens, SIMATIC, S7-300"</value>
+            </key>
+            <key name="Uptime">
+                <value type="function">conpot.emulators.misc.uptime.Uptime</value>
+            </key>
+            <key name="Temperature">
+                <value type="value">[0 for b in range(0,11)]</value>
+            </key>
+            <key name="Pressure">
+                <value type="value">[0 if b % 2 == 0 else 1 for b in range(0,32)]</value>
+            </key>
+            <key name="Level">
+                <value type="value">[0 if b % 3 == 0 else 1 for b in range(0,7)]</value>
+            </key>
+            <key name="empty">
+                <value type="value">""</value>
+            </key>
+        </key_value_mappings>
+    </databus>
+</core>
+

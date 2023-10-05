@@ -3,24 +3,35 @@ from flask import Flask, render_template, url_for, request, redirect, jsonify
 from SFclasses import class_environment
 from api import dashboard_handler
 import threading
-#from main import *
+import logging
+import scada.modbus_tk.modbus_tcp as modbus_tcp
+from datalogger import logger
 import main
 import time
-app = Flask(__name__)
 
+
+
+logging.basicConfig(filename='datalogger/logs/system_log.txt', level=logging.INFO, filemode='w')
+logging.info('\n')
+
+master = modbus_tcp.TcpMaster(host="127.0.0.1", port=502)
+master.set_timeout(1.0)
+
+app = Flask(__name__)
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
 bsusers = ["IGNORE", "0","0","0","0","0"]
-#To run flask
-#flask --app dashboard run 
+
 
 @app.route("/", methods=['POST', 'GET'])
 def first_request():
     """
-    Placeholder
+    Request site for dashboard
+    Returns:
+        template: 
     """
     if request.method == 'POST':
-        return ("Gingong")
+        return ("5imSERVER ERROR")
     else:
         pass
     return render_template('index.html',bspower=statuses)
@@ -28,27 +39,49 @@ def first_request():
 @app.route("/controllers", methods=['POST', 'GET'])
 def hmi_request():
     """
-    Placeholder
+    Request site for HMI
+    Returns:
+        template: 
     """
     if request.method == 'POST':
-        return ("Gingong")
+        return ("5imSERVER ERROR")
     else:
         pass
     return render_template('controllers.html',bspower=statuses, bsbitrate=bsbitrate)
-# @app.context_processor
-# @app.context_processor
-# def bitrate_updater():
 
-#     bitrate_tower, t_bitrate = main.get_bitrate(1)
-#     bsbitrate[1] = str(bitrate_tower)
-#     bitrate_tower, t_bitrate = main.get_bitrate(2)
-#     bsbitrate[2] = str(bitrate_tower)
-#     return bsbitrate
+@app.route("/loggers", methods=['POST', 'GET'])
+def loggers_request():
+    """
+    Request site for logging
+    Returns:
+        template: 
+    """
+    if request.method == 'POST':
+        return ("5imSERVER ERROR")
+    else:
+        pass
+    return render_template('loggers.html')
+
+@app.route("/loggers/get_log", methods=['POST', 'GET'])
+def get_log():
+    """
+    Gets the log for all towers AND the system
+    Returns:
+        jsonify: all logs
+    """
+    log1 = logger.read_log(1)
+    log2 = logger.read_log(2)
+    log3 = logger.read_log(3)
+    log4 = logger.read_log(4)
+    log5 = logger.read_log(5)
+    system_log = logger.read_log(0)
+
+    return jsonify(bslog1=log1,bslog2=log2,bslog3=log3,bslog4=log4,bslog5=log5,systemlog=system_log)
 
 @app.route('/power/<int:id>')
 def power_off(id):
     """
-    Turn off base station, update status in gui
+    Turn off/on base station, update status in gui
     """
     #try:
     print("TURNING ON/OFF TOWER:",id)
@@ -63,6 +96,11 @@ def power_off(id):
 
 @app.route("/get_bitrate", methods=['GET'])
 def get_bitrate():
+    """
+    Gets the bitrate for all towers
+    Returns:
+        jsonify: all bitrates
+    """
     for id,status in enumerate(statuses):
         if status == "UP":
             returned_bitrate = dashboard_handler.get_bitrate(id)
@@ -73,7 +111,13 @@ def get_bitrate():
     return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
 
 @app.route("/get_users", methods=['GET'])
+
 def get_users():
+    """
+    Gets the users to it can display it in the GUI
+    Returns:
+        jsonify: all the users
+    """
     for id, status in enumerate(statuses):
         if status == "UP":
             returned_users = dashboard_handler.get_users(id)
@@ -85,4 +129,9 @@ def get_users():
 
 @app.route("/get_status", methods=['GET'])
 def get_status():
+    """
+    Gets all of the statuses
+    Returns:
+        jsonify: all statuses from statuseslist
+    """
     return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2],bsstatus3=statuses[3],bsstatus4=statuses[4],bsstatus5=statuses[5])
