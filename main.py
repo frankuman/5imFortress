@@ -5,8 +5,8 @@ from WNS import environment as env
 from WNS import util
 from WNS import Satellite as sat
 from SFclasses import class_environment
-import gui.dashboard as dashboard
-import scada.modbus_server as modbus_server
+
+import scada.modbus_slave as modbus_slave
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,6 +14,7 @@ import random
 import time
 import os
 import pandas as pd
+
 
 def setup_env(ue, bs):
     """
@@ -100,8 +101,10 @@ def main():
     prbs = {}
     bitrates = {}
     setup_env(ue,bs)
+    
     env_man = class_environment.EnvironmentManager().instance()
-    dashboard.app.run(debug=True)
+    modbus_slave.start_server()
+    
     
 
 if __name__ == "__main__":

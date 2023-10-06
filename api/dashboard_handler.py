@@ -13,6 +13,9 @@ import random
 import time
 import os
 import pandas as pd
+import scada.modbus_master as modbus_master
+
+
 
 def start_tower(id,env1):
     """
@@ -21,7 +24,7 @@ def start_tower(id,env1):
     print(env1.all_bs_list[id].bs_change_status())
     env1.next_timestep()
 
-def stop_tower(id,env1): #"IndexError: pop index out of range" if pressed to many times too fast
+def stop_tower(id,env1):
     """
     Stops the tower with id (if tower is do, it will go down)
     """
@@ -64,6 +67,7 @@ def get_bitrate(id):
         bitlist = [0,0]
     env_man = class_environment.EnvironmentManager().instance()
     env_man.env1.next_timestep()
+    modbus_master.write_coil()
     return bitlist
 
     ## Tower 1 UP    42/100

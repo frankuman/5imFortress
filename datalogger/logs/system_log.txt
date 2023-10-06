@@ -2,4 +2,19 @@ INFO:root:
 
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 957-015-455
-INFO:werkzeug:127.0.0.1 - - [05/Oct/2023 14:00:31] "GET /get_users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:50] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:51] "GET /power/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:53] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:57] "GET /power/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:58] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:03] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:08] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:13] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:15] "GET /power/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:18] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:23] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:23] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:28] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:33] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:38] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:43] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -

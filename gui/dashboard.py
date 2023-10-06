@@ -4,24 +4,26 @@ from SFclasses import class_environment
 from api import dashboard_handler
 import threading
 import logging
-import scada.modbus_tk.modbus_tcp as modbus_tcp
+
 from datalogger import logger
 import main
 import time
 
-
+import scada.modbus_master as modbus_master
 
 logging.basicConfig(filename='datalogger/logs/system_log.txt', level=logging.INFO, filemode='w')
 logging.info('\n')
 
-master = modbus_tcp.TcpMaster(host="127.0.0.1", port=502)
-master.set_timeout(1.0)
+
 
 app = Flask(__name__)
+
+
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
 bsusers = ["IGNORE", "0","0","0","0","0"]
 
+modbus_master.start_client()
 
 @app.route("/", methods=['POST', 'GET'])
 def first_request():
@@ -84,12 +86,20 @@ def power_off(id):
     Turn off/on base station, update status in gui
     """
     #try:
-    print("TURNING ON/OFF TOWER:",id)
-    env_man = class_environment.EnvironmentManager().instance()
-    status = dashboard_handler.stop_tower(id,env_man.env1)
-    statuses[id] = status
+    if statuses[id] == "UP":
+        modbus_master.write_coil(id,0)
+        statuses[id] == "DOWN"
+    else:
+        modbus_master.write_coil(id,1)
+        statuses[id] == "UP"
 
-    #render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
+
+    print("TURNING ON/OFF TOWER:",id)
+    # env_man = class_environment.EnvironmentManager().instance()
+    # status = dashboard_handler.stop_tower(id,env_man.env1)
+    # statuses[id] = status
+
+    # #render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
     return jsonify(bsstatus1=statuses[1],bsstatus2=statuses[2],bsstatus3=statuses[3],bsstatus4=statuses[4],bsstatus5=statuses[5])
     #except:
         #return 'Error turning off power'
@@ -107,7 +117,7 @@ def get_bitrate():
             bsbitrate[id] = str(returned_bitrate[0]) + "/" + str(returned_bitrate[1])
         else:
              bsbitrate[id] = "0"
-    
+    modbus_master.read_coil()
     return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
 
 @app.route("/get_users", methods=['GET'])
