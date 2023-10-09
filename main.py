@@ -1,30 +1,30 @@
-#This is a temporary start file
+#!/usr/bin/env python3
 # 21/09/2023
 # 5imFortress
-from WNS import environment as env
-from WNS import util
-from WNS import Satellite as sat
+
+#import numpy as np
+#import matplotlib.pyplot as plt
+#import random
+import datetime
+#import os
+#import pandas as pd
+#from WNS import environment as env
+#from WNS import util
+#from WNS import Satellite as sat
+
 from SFclasses import class_environment
-
-import scada.modbus_slave as modbus_slave
-
-import numpy as np
-import matplotlib.pyplot as plt
-import random
-import time
-import os
-import pandas as pd
+from scada import modbus_slave
+from scada import PLC as plc
 
 
 def setup_env(ue, bs):
     """
-    Setup for environment
+    Setup for WNS environment
     """
-
     #Environment manager for singleton environment
     env_manager = class_environment.EnvironmentManager.instance()
 
-    #Satellite, need multiple base stations, otherwise IGNORE
+    #Satellite, fills out bs list, otherwise IGNORE
     sat_bs = env_manager.env1.place_SAT_base_station(10000, (1000, 2000))
     bs.append(sat_bs)
 
@@ -44,17 +44,9 @@ def setup_env(ue, bs):
     #Olofstroem
     bs_5 = env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 16, 3, 20, 100000)
     bs.append(bs_5)
-    #
-    #bs_6 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
-    #bs.append(bs_6)
-    #
-    #bs_7 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 100000)
-    #bs.append(bs_7)
-    #
-    #bs_8 = env_manager.env1.place_NR_base_station((9000, 9000, 80), 800, 1, 20, 16, 3, 20, 100000)
-    #bs.append(bs_8)
 
-    #5G user equipment, 1 per base station, sat bs
+    #5G user equipment, 1 per base station
+    #Sat ue, fills out ue list, otherwise IGNORE
     ue_sat = env_manager.env1.insert_ue(1, (10000000, 10000000, 1), 10000) # connects to satellite
     ue.append(ue_sat)
 
@@ -84,28 +76,37 @@ def setup_env(ue, bs):
 
     env_manager.env1.initial_timestep()
     return True
- 
-def main():
 
+def main():
+    """
+    Setup backend, WNS environment and modbus server/slave
+    """
     # env1 = env.wireless_environment(4000, sampling_time = 0.1)
     #Empty old logs
     for i in "12345":
         filename = "datalogger/logs/bs_log_" + i + ".txt"
-        open(filename,"w").close()
+        open(filename, "w").close()
+    filename = "datalogger/logs/system_log.txt"
+    open(filename, "w").close()
+    #not_done = True
+    #error = []
+    #latency = {}
+    #prbs = {}
+    #bitrates = {}
 
-    not_done = True
     ue = []
     bs = []
-    error = []
-    latency = {}
-    prbs = {}
-    bitrates = {}
-    setup_env(ue,bs)
-    
+
+    setup_env(ue, bs)
+
     env_man = class_environment.EnvironmentManager().instance()
+    plc.reset_mem()
+    #Remove try and except when debugging
+    # try:
     modbus_slave.start_server()
-    
-    
+    plc.plc_loop()
+    # except:
+    modbus_slave.stop_server()
 
 if __name__ == "__main__":
     main()

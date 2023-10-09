@@ -1,29 +1,17 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify
 
-from SFclasses import class_environment
 from api import dashboard_handler
-import threading
-import logging
-
 from datalogger import logger
-import main
-import time
-
-import scada.modbus_master as modbus_master
-
-logging.basicConfig(filename='datalogger/logs/system_log.txt', level=logging.INFO, filemode='w')
-logging.info('\n')
-
-
-
+from scada import modbus_master
+import datetime
 app = Flask(__name__)
-
 
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
 bsusers = ["IGNORE", "0","0","0","0","0"]
-
-modbus_master.start_client()
+current_time = datetime.datetime.now()
+time_string = current_time.strftime('%H:%M:%S')
+logger.log(0,f"({time_string})-[SERVER] Starting up server on 127.0.0.1:5000")
 
 @app.route("/", methods=['POST', 'GET'])
 def first_request():
@@ -87,14 +75,16 @@ def power_off(id):
     """
     #try:
     if statuses[id] == "UP":
-        modbus_master.write_coil(id,0)
-        statuses[id] == "DOWN"
+        modbus_master.write_coil(id = id, value = 0, data = "POW")
+        statuses[id] = "DOWN"
     else:
-        modbus_master.write_coil(id,1)
-        statuses[id] == "UP"
+        modbus_master.write_coil(id = id, value = 1, data = "POW")
+        statuses[id] = "UP"
 
 
     print("TURNING ON/OFF TOWER:",id)
+
+    
     # env_man = class_environment.EnvironmentManager().instance()
     # status = dashboard_handler.stop_tower(id,env_man.env1)
     # statuses[id] = status
@@ -111,13 +101,18 @@ def get_bitrate():
     Returns:
         jsonify: all bitrates
     """
-    for id,status in enumerate(statuses):
+    
+    for id, status in enumerate(statuses):
         if status == "UP":
-            returned_bitrate = dashboard_handler.get_bitrate(id)
+            returned_bitrate = modbus_master.get_bitrate(id)
+            if returned_bitrate is None:
+                current_time = datetime.datetime.now()
+                time_string = current_time.strftime('%H:%M:%S')
+                logger.log(0, f"///----({time_string})-MODBUS_MASTER ERROR WITH INFO: - Gettig bitrate did not work as intended///----")
+                return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
             bsbitrate[id] = str(returned_bitrate[0]) + "/" + str(returned_bitrate[1])
         else:
              bsbitrate[id] = "0"
-    modbus_master.read_coil()
     return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
 
 @app.route("/get_users", methods=['GET'])

@@ -1,20 +1,28 @@
-INFO:root:
+(18:20:34)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
 
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 957-015-455
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:50] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:51] "GET /power/1 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:53] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:57] "GET /power/1 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:41:58] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:03] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:08] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:13] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:15] "GET /power/1 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:18] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:23] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:23] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:28] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:33] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:38] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
-INFO:werkzeug:127.0.0.1 - - [06/Oct/2023 13:42:43] "[35m[1mGET /get_bitrate HTTP/1.1[0m" 500 -
+(18:20:34)-[MODBUS_SLAVE] Server is online
+
+(18:20:39)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(18:20:39)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
+
+(18:20:39)-[MODBUS_MASTER] Master is online...
+
+(18:20:39)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(18:20:40)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(18:20:40)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
+
+(18:20:40)-[MODBUS_MASTER] Master is online...
+
+(18:20:40)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(18:26:33)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(18:26:39)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
+
+(18:26:39)-[MODBUS_MASTER] Master is online...
+
+(18:26:39)-[MODBUS_MASTER] Slave connection -  1:False, 2:False, 3:False, 4:False, 5:False
+

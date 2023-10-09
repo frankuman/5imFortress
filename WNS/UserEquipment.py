@@ -1,6 +1,6 @@
 import random
 import math
-
+import datetime
 from datalogger import logger
 
 
@@ -46,16 +46,18 @@ class user_equipment:
     def connect_to_bs_id(self, bs_id):
         available_bs = self.env.discover_bs(self.ue_id)
         data_rate = None
+        current_time = datetime.datetime.now()
 
+        time_string = current_time.strftime('%H:%M:%S')
         if bs_id not in available_bs:
             print("[NO BASE STATION FOUND]: User ID %s has not found the selected base station (BS %s)" %(self.ue_id, bs_id))
-            log = "[NO BASE STATION FOUND]: User ID %s has not found the selected base station (BS %s)" %(self.ue_id, bs_id)
+            log = f"({time_string})-[NO BASE STATION FOUND]: User ID %s has not found the selected base station (BS %s)" %(self.ue_id, bs_id)
             logger.log(bs_id,log)
             return False
         else:
             if bs_id not in self.bs_bitrate_allocation:
                 print("[NO ALLOCATION FOR THIS BASE STATION FOUND]: User ID %s has not found any bitrate allocation for the selected base station (BS %s)" %(self.ue_id, bs_id))
-                log = "[NO ALLOCATION FOR THIS BASE STATION FOUND]: User ID %s has not found any bitrate allocation for the selected base station (BS %s)" %(self.ue_id, bs_id)
+                log = f"({time_string})-[NO ALLOCATION FOR THIS BASE STATION FOUND]: User ID %s has not found any bitrate allocation for the selected base station (BS %s)" %(self.ue_id, bs_id)
                 logger.log(bs_id,log)
                 return False
             
@@ -63,16 +65,19 @@ class user_equipment:
             data_rate = util.find_bs_by_id(bs_id).request_connection(self.ue_id, self.bs_bitrate_allocation[bs_id], available_bs)
             self.current_bs[bs_id] = data_rate
         print("[CONNECTION_ESTABLISHED]: Users ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate))
-        log = "[CONNECTION_ESTABLISHED]: Users ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate)
+        log = f"({time_string})-[CONNECTION_ESTABLISHED]: Users ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate)
         logger.log(bs_id,log)
 
         return True
 
     def disconnect_from_bs(self, bs_id):
         if bs_id in self.current_bs:
+            current_time = datetime.datetime.now()
+
+            time_string = current_time.strftime('%H:%M:%S')
             util.find_bs_by_id(bs_id).request_disconnection(self.ue_id)
             print("[CONNECTION_TERMINATED]: Users ID %s is now disconnected from base_station %s" %(self.ue_id, bs_id))
-            log = "[CONNECTION_TERMINATED]: Users ID %s is now disconnected from base_station %s" %(self.ue_id, bs_id)
+            log = f"({time_string})-[CONNECTION_TERMINATED]: Users ID %s is now disconnected from base_station %s" %(self.ue_id, bs_id)
             logger.log(bs_id,log)
             del self.current_bs[bs_id]
             del self.bs_bitrate_allocation[bs_id]
@@ -85,12 +90,15 @@ class user_equipment:
             log = "UE_ID: ", self.ue_id, " NO CURRENT BS"
             logger.log(self.ue_id,log)
             return False
+        current_time = datetime.datetime.now()
 
+        time_string = current_time.strftime('%H:%M:%S')
         available_bs = self.env.discover_bs(self.ue_id)
         #print("UE_ID: ", self.ue_id, " AVAILABLE BS: ", available_bs)
         if len(self.bs_bitrate_allocation) == 0:
+            
             print("[NO BASE STATION FOUND]: Users ID %s has not found any base station during connection update" %(self.ue_id))
-            log = "[NO BASE STATION FOUND]: Users ID %s has not found any base station during connection update" %(self.ue_id)
+            log = f"({time_string})-[NO BASE STATION FOUND]: Users ID %s has not found any base station during connection update" %(self.ue_id)
             logger.log(self.ue_id,log)
             #print("UE_ID: ", self.ue_id, " NO BS AVAILABLE")
             return False
@@ -98,7 +106,7 @@ class user_equipment:
         if self.bs_id in available_bs:
             if self.current_bs[self.bs_id] == 0:
                 print("UE_ID: ", self.ue_id, " NO CONNECTION TO BS: ", self.bs_id)
-                log = "UE_ID: ", self.ue_id, " NO CONNECTION TO BS: ", self.bs_id
+                log = f"({time_string})-UE_ID: ", self.ue_id, " NO CONNECTION TO BS: ", self.bs_id
                 logger.log(self.bs_id,log)
                 self.connect_to_bs_id(self.bs_id)
                 return False
@@ -109,7 +117,7 @@ class user_equipment:
         else:
             #in this case no current base station is anymore visible
             print("[BASE_STATION_LOST]: Users ID %s has not found their base station during connection update" %(self.ue_id))
-            log = "[BASE_STATION_LOST]: Users ID %s has not found their base station during connection update" %(self.ue_id)
+            log = f"({time_string})-[BASE_STATION_LOST]: Users ID %s has not found their base station during connection update" %(self.ue_id)
             logger.log(self.ue_id,log)
             self.disconnect_from_bs(self.bs_id)
             #print("[CONNECTION_UPDATE]: User ID %s has updated its connection to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, elem, self.current_bs[elem], self.bs_bitrate_allocation[elem]))

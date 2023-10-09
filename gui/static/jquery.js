@@ -130,7 +130,7 @@ function update_status() {
         method: "GET",
         dataType: "json",
         success: function(data) {
-            // Update the bitrate in the HTML element
+            //  update the statuses
             $("#bsstatus1").html(data.bsstatus1);
             $("#bsstatus2").html(data.bsstatus2);
             $("#bsstatus3").html(data.bsstatus3);

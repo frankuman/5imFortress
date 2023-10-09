@@ -1,32 +1,78 @@
-from pyModbusTCP.server import ModbusServer, DataBank
+
 from time import sleep
 from random import uniform
 
+from pyModbusTCP.server import ModbusServer, DataBank, DataHandler
+import scada.PLC as plc
+import scada.slave_data_handler as class_handler
+from datalogger import logger
+import datetime
+
+#Initiate data_bank for server, with all bits as 1
+#to make sure all towers start with status UP
+data_bank = DataBank(coils_size=0x10000, coils_default_value = True)
+#Create modbus server to use for towers
+server = ModbusServer("127.0.0.1", 502, no_block=True,data_bank=data_bank)
+
+server = class_handler.server_manager().instance()
+server = server.srv
 def start_server():
-    # Create an instance of ModbusServer
-    server = ModbusServer("127.0.0.1", 502, no_block=True)
+    """"
+    Start modbus server and loop for updating status coils
+    """
+    # try:
+    current_time = datetime.datetime.now()
 
-    try:
-        print("Start server...")
-        server.start()
+    time_string = current_time.strftime('%H:%M:%S')
+    log = f"({time_string})-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502"
+    logger.log(0,log)
+    #log = "Starting slave..."
 
-        print("Server is online")
-        #state = [0]
-        while True:
-            print("")
-            sleep(3)
-            re = server.data_bank.get_coils(1)
-            print(re)
-            if re:
-                pass
-            
-                #PLC.change_power(1)
-        #     DataBank.set_words(0, [int(uniform(0, 100))])
-        #     if state != DataBank.get_words(1):
-        #         state = DataBank.get_words(1)
-        #         print("Value of Register 1 has changed to " +str(state))
-        #     sleep(0.5)
-    except:
-        print("Shutdown server ...")
-        server.stop()
-        print("Server is offline")
+    server.start()
+    print("[MODBUS_SLAVE] Server is online")
+    current_time = datetime.datetime.now()
+
+    time_string = current_time.strftime('%H:%M:%S')
+    log = f"({time_string})-[MODBUS_SLAVE] Server is online"
+    logger.log(0,log)
+    #state = [0]
+    #check_slaves()
+    
+
+def stop_server():
+
+    print("[MODBUS_SLAVE] Slave is shutting down ...")
+    current_time = datetime.datetime.now()
+
+    time_string = current_time.strftime('%H:%M:%S')
+    log = f"({time_string})-[MODBUS_SLAVE] Slave is shutting down ..."
+    logger.log(0,log)
+    server.stop()
+    current_time = datetime.datetime.now()
+
+    time_string = current_time.strftime('%H:%M:%S')
+    print("[MODBUS_SLAVE] Slave is offline")
+    log = f"({time_string})-[MODBUS_SLAVE] Slave is offline"
+    logger.log(0,log)
+
+
+def check_power():
+    slave_data = class_handler.slave_data_handler(server.data_bank)
+    srv_info = server.ServerInfo()
+
+    bs_coil_pow = slave_data.read_coils(1, 5, srv_info)
+
+    return [1,2,3,4,5], bs_coil_pow
+
+    # bs_coil_pow = slave_data.read_d_inputs(1, 5, srv_info)
+    # print("BS_COIL_POW = ", bs_coil_pow)
+
+
+    # bs_coil_pow = server.data_bank.get_coils(1, 5, srv_info)
+    # print("BS_COIL_POW = ", bs_coil_pow)
+
+    # bs_reg_pow = server.data_bank.get_holding_registers(14, 1)
+    # print("BS_COIL_POW = ", bs_reg_pow)
+    #plc.gather_coil_info([1, 2, 3, 4, 5], bs_coil_pow)
+
+
