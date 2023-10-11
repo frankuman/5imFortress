@@ -8,7 +8,7 @@
   
   <body>
     <div align="center">
-      <img src="https://github.com/frankuman/5imFortress/blob/main/Documentation/Images/type5-banner-big.png?raw=true" width="850" title="GPipe Logo">
+      <img src="https://github.com/frankuman/5imFortress/blob/main/docs/Images/type5-banner-big.png?raw=true" width="850" title="GPipe Logo">
       <p><strong>5imFortress</strong></p>
 
   <p><strong>Oliver Bölin, Farhad Asadi, Kim Budischewski, Michael Törnvall</strong></p>
