@@ -11,7 +11,7 @@
         "output_coil": [
             {
                 "addr": 2,
-                "bit_value": 0
+                "bit_value": 1
             }
         ]
     },
@@ -35,7 +35,7 @@
         "output_coil": [
             {
                 "addr": 5,
-                "bit_value": 0
+                "bit_value": 1
             }
         ]
     }

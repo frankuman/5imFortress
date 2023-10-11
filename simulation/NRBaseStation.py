@@ -1,9 +1,9 @@
 import math
 import random
 from scipy import constants
-import WNS.environment as environment
+from simulation import environment
 from datalogger import logger
-import WNS.util as util
+from simulation import util
 import datetime
 #Table 5.3.3-1: Minimum guardband [kHz] (FR1) and Table: 5.3.3-2: Minimum guardband [kHz] (FR2), 3GPPP 38.104
 #number of prb depending on the numerology (0,1,2,3), on the frequency range (FR1, FR2) and on the base station bandwidth
@@ -134,14 +134,12 @@ class NRBaseStation:
             logger.log(self.bs_id, log)
             if self.ue_id is not None:
                 util.find_ue_by_id(self.ue_id).disconnect_from_bs(self.bs_id)
-            # for ue in list(self.ue_pb_allocation.keys()):
-            #     self.request_disconnection(ue)
-                #del util.find_ue_by_id(ue).bs_bitrate_allocation[self.bs_id]
             environment.wireless_environment.bs_list.remove(self)
             self.status = bs_status[2] # change status to DOWN
             self.allocated_bitrate = 0
             self.ue_id = None
             self.reset()
+            
         else: # status is DOWN
             print("[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id))
             log = f"({time_string})-[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id)

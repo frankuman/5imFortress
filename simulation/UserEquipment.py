@@ -3,8 +3,7 @@ import math
 import datetime
 from datalogger import logger
 
-
-import WNS.util as util
+from simulation import util
 
 #import matlab.engine
 

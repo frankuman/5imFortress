@@ -1,13 +1,9 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import random
-import time
-import os
+import matplotlib.pyplot as plt
 import pandas as pd
 
-import WNS.environment as environment
-import WNS.util as util
-import WNS.Satellite as Satellite
+from simulation import environment
+from simulation import util
 
 #############
 #############

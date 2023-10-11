@@ -1,15 +1,11 @@
 from enum import Enum
 import math
-import WNS.environment as environment
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import numpy as np
+from simulation import environment
 
 class EnvType (Enum):
     RURAL = 0
     SUBURBAN = 1
     URBAN = 2
-
 
 MIN_RSRP = -120 # -140 #dB
 
@@ -48,7 +44,7 @@ def compute_path_loss_cost_hata(ue, bs, env, save = None):
             C_m = 0
         else:
             raise Exception("COST-HATA model is not defined for frequencies in 1500-2000MHz with RURAL environments")
-    
+
     if env.env_type == EnvType.SUBURBAN or env.env_type == EnvType.RURAL:
         a = (1.1*math.log10(bs.carrier_frequency) - 0.7)*ue.h_m - 1.56*math.log10(bs.carrier_frequency) + 0.8
     else:

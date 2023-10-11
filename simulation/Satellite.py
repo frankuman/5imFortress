@@ -2,7 +2,7 @@ import numpy as np
 from scipy import constants
 import math
 
-from WNS import util
+from simulation import util
 
 
 class Satellite:

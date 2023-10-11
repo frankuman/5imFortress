@@ -272,22 +272,6 @@ function re_get_log() {
     get_logs();
     setInterval(get_logs, 2000);
 };
-// function store_checkbox_value(checkbox){
 
 
-// };
-//     // On page load
-// function page_load_checkbox(){
-    
-// };
 
-// // function get_check(){
-//     let isChecked = localStorage.getItem("checkedbox");
-//     // now set it
-//     $('#checkbox').prop('checked', isChecked)
-// };
-
-// function change_checked(checkbox) {
-//     localStorage.setItem("checkedbox", checkbox.prop('checked'));
-//     $("form").submit();
-// };

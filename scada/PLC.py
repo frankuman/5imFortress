@@ -2,11 +2,10 @@
 This file connects PLC to modbus server/slave
 """
 from time import sleep
-from random import uniform
 import json
-import api.dashboard_handler as handler
-import scada.modbus_slave as slave
-import scada.slave_data_handler as slave_handler
+from api import handler
+from scada import modbus_slave as slave
+from SFclasses import slave_data_handler as slave_handler
 
 def plc_loop():
     """
@@ -14,38 +13,29 @@ def plc_loop():
     and writes new information from sensors to appropriate registers
     """
     while True:
-        sleep(1)
+        sleep(0.5)
         addr, coil = slave.check_power()
-        gather_coil_info(addr, coil)
-        for id in range(1, 6):
-            sensors(id)
+        addr.sort()
+        check_if_coil_pow_changed(addr, coil)
+        for bs_id in range(1, 6):
+            sensors(bs_id)
 
-def sensors(id):
+def sensors(bs_id):
     """
     Updates registers with data from sensors
-    Currently only bitrates for BS's
+    """
+    sensor_bitrate(bs_id)
+    sensor_users(bs_id)
+
+def sensor_bitrate(bs_id):
+    """
+    Sensor for bitrate
     """
     #gets bitrate via "handler" file
-    bitrate_list = handler.get_bitrate(id)
-
-    # [201956, 250000]
-    # i = 0
-    # br = 201956
-    # 65535 on addr 12416
-    # br = 136421
-    # addr = 12432
-    # 65535 on addr 12432
-    # br = 70886
-    # addr = 12448
-    # br = 5351
-    # addr = 12464
-    #----
-    # i = 1
-    # br = 250000
-    #print("Bitrate List:", bitrate_list)
+    bitrate_list = handler.get_bitrate(bs_id)
+    #Bitrate address is between 0-48
     for i, br in enumerate(bitrate_list):
-        #bitrate_addr = 12288 + id * 128 + i * 16
-        bitrate_addr = id * 8 + i * 4
+        bitrate_addr = (bs_id - 1) * 8 + i * 4
         while br > 0:
             if br > 2**16 - 1:
                 slave_handler.plc_data_handler().write_i_regs(bitrate_addr, [2**16 - 1])
@@ -55,19 +45,23 @@ def sensors(id):
                 slave_handler.plc_data_handler().write_i_regs(bitrate_addr, [br])
                 br = br - br
             bitrate_addr = bitrate_addr + 1
+    return True
 
-    #bitrate = bitrate
-    #Calculate address for bitrate register
-    #0x3000 and 128 bits for each
-    # bitrate_addr = 12288 + id * 128
-    # slave_handler.plc_data_handler().write_i_regs(bitrate_addr, [bitrate_list[0]])
-    # bitrate_addr = 12288 + id * 128 + 64
-    # slave_handler.plc_data_handler().write_i_regs(bitrate_addr, [bitrate_list[1]])
-
-def gather_coil_info(coil_addr, coil_info):
-    coil_addr.sort()
-    check_if_coil_pow_changed(coil_addr,coil_info)
-
+def sensor_users(bs_id):
+    """
+    Sensor for users
+    """
+    users = handler.get_users(bs_id)
+    user_addr = 100 + (bs_id - 1) * 2
+    while users > 0:
+        if users > 2**16 - 1:
+            slave_handler.plc_data_handler().write_i_regs(user_addr, [2**16 - 1])
+            users = users - 2**16 + 1
+        else:
+            slave_handler.plc_data_handler().write_i_regs(user_addr, [users])
+            users = users - users
+        user_addr = user_addr + 1
+    return True
 
 def check_if_coil_pow_changed(coil_addr,coil_info):
     """
@@ -76,37 +70,36 @@ def check_if_coil_pow_changed(coil_addr,coil_info):
     """
     addr_list = []
     bit_value_list = []
-    with open("scada/plc_mem.json", "r") as f:
+    with open("scada/plc_mem.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 
     for item in json_data:
         for output_coil in item.get("output_coil", []):
             addr_list.append(output_coil.get("addr", None))
             bit_value_list.append(output_coil.get("bit_value", None))
-    #print(json_data)
+
     # Check if coil_addr and addr have the same bit values, then check if coil bit has changed
     for i in range(len(coil_addr)):
         if coil_addr[i] == addr_list[i] and coil_info[i] != bit_value_list[i]:
-           print("PLC stoppped power for id", i)
-           handler.stop_tower(i+1)
-           #print(json_data[0].get('output_coil')[0])
-           json_data[i]["output_coil"][0]["bit_value"] = int(coil_info[i])
-           #
-    with open("scada/plc_mem.json", "w") as f:
+            print("PLC stoppped power for id", i)
+            handler.change_tower_status(i + 1)
+            json_data[i]["output_coil"][0]["bit_value"] = int(coil_info[i])
+
+    with open("scada/plc_mem.json", "w", encoding = "utf-8") as f:
         json.dump(json_data, f, indent = 4)
 
 def reset_mem():
     """
     Reset memory json file to default
     """
-    with open("scada/plc_mem.json", "r") as f:
+    with open("scada/plc_mem.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 
     #print(json_data)
     # Check if coil_addr and addr have the same bit values, then check if coil bit has changed
     for i in range(len(json_data)):
-           #print(json_data[0].get('output_coil')[0])
-           json_data[i]["output_coil"][0]["bit_value"] = int(True)
-           #
-    with open("scada/plc_mem.json", "w") as f:
+        #print(json_data[0].get('output_coil')[0])
+        json_data[i]["output_coil"][0]["bit_value"] = int(True)
+
+    with open("scada/plc_mem.json", "w", encoding = "utf-8") as f:
         json.dump(json_data, f, indent = 4)

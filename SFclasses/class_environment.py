@@ -1,8 +1,8 @@
-from WNS import environment as env
+from simulation import environment as env
 
-class EnvironmentManager:
+class environment_manager:
     """
-    Singleton class for sharing the enviroment with other modules
+    Singleton class for sharing the environment with other modules
 
     How to get environment:  env_man = classes.EnvironmentManager().instance()
     then environment can be referenced as env_man.env1

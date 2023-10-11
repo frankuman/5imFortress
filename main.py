@@ -1,28 +1,20 @@
 #!/usr/bin/env python3
 # 21/09/2023
 # 5imFortress
-
-#import numpy as np
-#import matplotlib.pyplot as plt
-#import random
-import datetime
-#import os
-#import pandas as pd
-#from WNS import environment as env
-#from WNS import util
-#from WNS import Satellite as sat
+"""
+Starts backend, WNS and modbus server/slave
+"""
 
 from SFclasses import class_environment
 from scada import modbus_slave
-from scada import PLC as plc
-
+from scada import plc
 
 def setup_env(ue, bs):
     """
     Setup for WNS environment
     """
     #Environment manager for singleton environment
-    env_manager = class_environment.EnvironmentManager.instance()
+    env_manager = class_environment.environment_manager.instance()
 
     #Satellite, fills out bs list, otherwise IGNORE
     sat_bs = env_manager.env1.place_SAT_base_station(10000, (1000, 2000))
@@ -67,13 +59,6 @@ def setup_env(ue, bs):
     ue5 = env_manager.env1.insert_ue(1, (13000, 13000, 1), 7000)
     ue.append(ue5)
 
-    # ue6 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
-    # ue.append(ue6)
-    # ue7 = env_manager.env1.insert_ue(1, (1000, 1000, 1), 5000)
-    # ue.append(ue7)
-    # ue8 = env_manager.env1.insert_ue(1, (9000, 9000, 1), 10000)
-    # ue.append(ue8)
-
     env_manager.env1.initial_timestep()
     return True
 
@@ -81,25 +66,19 @@ def main():
     """
     Setup backend, WNS environment and modbus server/slave
     """
-    # env1 = env.wireless_environment(4000, sampling_time = 0.1)
     #Empty old logs
     for i in "12345":
         filename = "datalogger/logs/bs_log_" + i + ".txt"
         open(filename, "w").close()
     filename = "datalogger/logs/system_log.txt"
     open(filename, "w").close()
-    #not_done = True
-    #error = []
-    #latency = {}
-    #prbs = {}
-    #bitrates = {}
 
     ue = []
     bs = []
 
     setup_env(ue, bs)
 
-    env_man = class_environment.EnvironmentManager().instance()
+    env_man = class_environment.environment_manager().instance()
     plc.reset_mem()
     #Remove try and except when debugging
     # try:

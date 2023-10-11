@@ -1,13 +1,8 @@
-import math
-import random
-
-import WNS.NRBaseStation as NRbs
-import WNS.UserEquipment as ue
-import WNS.Satellite as SATbs
-import WNS.util as util
-from concurrent.futures import ThreadPoolExecutor
-
-
+from simulation import NRBaseStation as NRbs
+from simulation import UserEquipment as ue
+from simulation import Satellite as SATbs
+from simulation import util
+#from concurrent.futures import ThreadPoolExecutor
 
 class wireless_environment:
     bs_list = []
@@ -26,21 +21,21 @@ class wireless_environment:
         self.sampling_time = sampling_time
         self.wardrop_epsilon = 0.5 #TODO
         self.wardrop_beta = 0
-    
+
     def insert_ue(self, ue_class, starting_position, users):
         if (starting_position[2] > 10 or starting_position[2] < 1):
             raise Exception("COST-HATA model requires UE height in [1,10]m")
         elif ue_class not in ue.ue_class:
             raise Exception("Invalid service class for the UE, available service classes are: %s" %(ue.ue_class.keys()))
         ue_id = -1
-        
+
         if None in self.ue_list:
             ue_id = self.ue_list.index(None)
         else:
             ue_id = len(self.ue_list)
-        
+
         new_ue = ue.user_equipment(ue.ue_class[ue_class], ue_class, ue_id, starting_position, users, self)
-        
+
         if (ue_id == len(self.ue_list)):
             self.ue_list.append(new_ue)
         else:
@@ -49,14 +44,14 @@ class wireless_environment:
 
     def remove_ue(self, ue_id):
         self.ue_list[ue_id] = None
-    
+
     def place_SAT_base_station(self, total_bitrate, position):       
         new_bs = SATbs.Satellite(len(self.bs_list), total_bitrate, position, self)
-        
+
         self.bs_list.append(new_bs)
         self.all_bs_list.append(new_bs)
         return new_bs.bs_id
-    
+
     def place_NR_base_station(self, position, carrier_frequency, numerology, antenna_power, antenna_gain, feeder_loss, available_bandwidth, total_bitrate):
         #check if the bandwith is in line with the specified numerology and specified carrier frequency
         fr = -1
@@ -79,31 +74,31 @@ class wireless_environment:
         self.all_bs_list.append(new_bs)
         return new_bs.bs_id
 
-    #this method shall be called by an UE 
-    #that wants to have a measure of the RSRP 
+    #this method shall be called by an UE
+    #that wants to have a measure of the RSRP
     #associated to each BS
     def discover_bs(self, ue_id):
-       thread_pool = []
-       #rsrp = [None]*len(self.bs_list)
-       rsrp = dict()
-       with ThreadPoolExecutor(max_workers=len(self.bs_list)) as executor:
-            for i in range(0, len(self.bs_list)):
-                thread = executor.submit(util.compute_rsrp, self.ue_list[ue_id], self.bs_list[i], self)
-                thread_pool.append(thread)
-            for i in range(0, len(self.bs_list)):
-                res = thread_pool[i].result() 
-                #if res > -1000000:
-                if (res > util.MIN_RSRP):
-                    rsrp[self.bs_list[i].bs_id] = res
-       #print(rsrp)
-    #    rsrp = {}
-    #    for bs in self.bs_list:
-    #         ues = util.find_ue_by_id(ue_id)
-    #         if bs.bs_type == "nr":
-    #             path_loss = util.compute_path_loss_cost_hata(ues, bs, self)
-    #             if path_loss < 100:
-    #                 rsrp[bs.bs_id] = path_loss
-       return rsrp
+        #thread_pool = []
+        #rsrp = [None]*len(self.bs_list)
+        rsrp = dict()
+        # with ThreadPoolExecutor(max_workers=len(self.bs_list)) as executor:
+        #     for i in range(0, len(self.bs_list)):
+        #         thread = executor.submit(util.compute_rsrp, self.ue_list[ue_id], self.bs_list[i], self)
+        #         thread_pool.append(thread)
+        #     for i in range(0, len(self.bs_list)):
+        #         res = thread_pool[i].result()
+        #         #if res > -1000000:
+        #         if (res > util.MIN_RSRP):
+        #             rsrp[self.bs_list[i].bs_id] = res
+
+        for i in range(0, len(self.bs_list)):
+            if self.bs_list[i].bs_type == "nr":
+                path_loss = util.compute_path_loss_cost_hata(self.ue_list[ue_id], self.bs_list[i], self)
+                if path_loss <= 100:
+                    res = util.compute_rsrp(self.ue_list[ue_id], self.bs_list[i], self)
+                    if res > util.MIN_RSRP:
+                        rsrp[self.bs_list[i].bs_id] = res
+        return rsrp
 
     def initial_timestep(self):
         #compute beta value:
@@ -112,9 +107,9 @@ class wireless_environment:
         for ue in self.ue_list:
             rsrp = self.discover_bs(ue.ue_id)
             for elem in rsrp:
-               r = util.find_bs_by_id(elem).compute_r(ue.ue_id, rsrp)
-               if util.find_bs_by_id(elem).wardrop_alpha/(r/1000000) > self.wardrop_beta: #we convert r in Mbps
-                   self.wardrop_beta =  util.find_bs_by_id(elem).wardrop_alpha/(r/1000000)
+                r = util.find_bs_by_id(elem).compute_r(ue.ue_id, rsrp)
+                if util.find_bs_by_id(elem).wardrop_alpha/(r/1000000) > self.wardrop_beta: #we convert r in Mbps
+                    self.wardrop_beta =  util.find_bs_by_id(elem).wardrop_alpha/(r/1000000)
 
         #now call each initial_timestep function in order to set the initial conditions for each commodity in terms of bitrate
         #to be requested to each BS
@@ -127,7 +122,6 @@ class wireless_environment:
             ues.next_timestep()
         for bss in self.bs_list:
             bss.next_timestep()
-
 
     def reset(self, cycle):
         for ues in self.ue_list:
