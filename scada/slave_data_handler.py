@@ -48,7 +48,12 @@ class server_manager:
             cls.srv = ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_bank)
         return cls._instance
           
-class plc_data_handler():#->Farhad
+class plc_data_handler():
+    """
+    Class for data that only the PLC can handle
+    i.e some device has measured antenna gain so plc will set the coil itself
+
+    """
     #Class for data that only the PLC can handle, i.e some device has measured antenna gain so plc will set the coil itself
 
     # id1 = 3001
@@ -64,6 +69,9 @@ class plc_data_handler():#->Farhad
         self.slave = self.slave.srv
 
     def write_i_regs(self, address, words_l):
+        """
+        Allows the PLC to write to servers/slaves input registers
+        """
         return self.slave.data_bank.set_input_registers(address, words_l)
 
     

@@ -1,7 +1,9 @@
 #This is a temporary start file
 # 21/09/2023
 # 5imFortress
-
+"""
+This file connects the WNS backend to the PLC
+"""
 #import numpy as np
 #import matplotlib.pyplot as plt
 #import random
@@ -14,8 +16,6 @@ from WNS import Satellite as sat
 from SFclasses import class_environment
 import gui.dashboard as dashboard
 import scada.modbus_master as modbus_master
-
-
 
 def start_tower(id,env1):
     """
@@ -34,7 +34,7 @@ def stop_tower(id):
     #if tower_status == "UP":
         #util.find_ue_by_id(id).connect_to_bs_id(id)
     env_man.env1.next_timestep()
-    return(tower_status)
+    return tower_status
 
 # BS 1 -> UE 1
 # BS 2 -> UE 2

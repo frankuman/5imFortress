@@ -1,3 +1,6 @@
+"""
+This file connects PLC to modbus server/slave
+"""
 from time import sleep
 from random import uniform
 import json
@@ -6,6 +9,10 @@ import scada.modbus_slave as slave
 import scada.slave_data_handler as slave_handler
 
 def plc_loop():
+    """
+    PLC constantly checks status bits for change
+    and writes new information from sensors to appropriate registers
+    """
     while True:
         sleep(1)
         addr, coil = slave.check_power()
@@ -14,6 +21,11 @@ def plc_loop():
             sensors(id)
 
 def sensors(id):
+    """
+    Updates registers with data from sensors
+    Currently only bitrates for BS's
+    """
+    #gets bitrate via "handler" file
     bitrate_list = handler.get_bitrate(id)
 
     # [201956, 250000]
@@ -58,7 +70,10 @@ def gather_coil_info(coil_addr, coil_info):
 
 
 def check_if_coil_pow_changed(coil_addr,coil_info):
-
+    """
+    Compares status bits with memory to check for changes
+    If there are changes, update memory and change BS status via "handler" file
+    """
     addr_list = []
     bit_value_list = []
     with open("scada/plc_mem.json", "r") as f:
@@ -81,6 +96,9 @@ def check_if_coil_pow_changed(coil_addr,coil_info):
         json.dump(json_data, f, indent = 4)
 
 def reset_mem():
+    """
+    Reset memory json file to default
+    """
     with open("scada/plc_mem.json", "r") as f:
         json_data = json.load(f)
 

@@ -1,14 +1,16 @@
-
+"""
+This file connects modbus communicates with modbus client/master via modbustcp protocol
+"""
 from time import sleep
 from random import uniform
-
+import datetime
 from pyModbusTCP.server import ModbusServer, DataBank, DataHandler
 import scada.PLC as plc
 import scada.slave_data_handler as class_handler
 from datalogger import logger
-import datetime
 
-#Initiate data_bank for server, with all bits as 1
+
+#Initiate data_bank for server, with all coils as 1
 #to make sure all towers start with status UP
 data_bank = DataBank(coils_size=0x10000, coils_default_value = True)
 #Create modbus server to use for towers
@@ -37,10 +39,12 @@ def start_server():
     logger.log(0,log)
     #state = [0]
     #check_slaves()
-    
+
 
 def stop_server():
-
+    """
+    Stop server/slave and logging
+    """
     print("[MODBUS_SLAVE] Slave is shutting down ...")
     current_time = datetime.datetime.now()
 
@@ -57,6 +61,9 @@ def stop_server():
 
 
 def check_power():
+    """
+    Server/slave reads coils containing BS statuses from databank
+    """
     slave_data = class_handler.slave_data_handler(server.data_bank)
     srv_info = server.ServerInfo()
 

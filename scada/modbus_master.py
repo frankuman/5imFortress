@@ -1,14 +1,15 @@
 from time import sleep
+import datetime
 from random import uniform
 import logging
 from pyModbusTCP.client import ModbusClient
 from datalogger import logger
-import datetime
 client = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
 
 def start_client():
     """
     Setup for modbus client/master
+    Start client/master and set up logging
     """
     logging.basicConfig()
     a = client.open()
@@ -38,7 +39,7 @@ def start_client():
 
 def get_bitrate(id):
     """
-    Calls the right input register
+    Calls the read_register to get the bitrate registers
     """
     #Calculate address for bitrate register
     #0x3000 and 128 bits for each tower
@@ -48,6 +49,11 @@ def get_bitrate(id):
     return bitlist
 
 def read_register(id, data):
+    """
+    Reads registers on address calculated by id and data
+    data is "function code" and determines address and length to read
+    """
+    #read bitrate registers
     if data == "BITR":
         bitrate = []
         # addr = 12288 + id * 128
@@ -66,7 +72,7 @@ def read_register(id, data):
         #addr = 12288 + id * 128 + 16
         addr = id * 8 + 4
         for i in range(4):
-            
+
             bitrate_2.append(client.read_input_registers(addr, 1)[0])
             addr += 1
 
@@ -75,10 +81,14 @@ def read_register(id, data):
         bitrate.append(sum(bitrate_1))
         bitrate.append(sum(bitrate_2))
 
-        
+
         return bitrate
 
 def read_coil():
+    """
+    Reads coils
+    """
+    #read 5 bits contining statuses for bs's
     coil_bitrate = client.read_coils(0, 5)
     print("coil", coil_bitrate)
 

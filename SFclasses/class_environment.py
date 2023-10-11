@@ -1,6 +1,5 @@
 from WNS import environment as env
 
-
 class EnvironmentManager:
     """
     Singleton class for sharing the enviroment with other modules
