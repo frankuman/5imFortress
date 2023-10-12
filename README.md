@@ -68,6 +68,43 @@
 ## Documentation
 (Explain that detailed documentation will be provided in the future)
 
+## Roadmap (currently in sprint 1)
+Sprint 1:
+
+✅ F1: Simulate 5G Base Station (basic)
+
+✅ F2: SCADA HMI (basic)
+
+✅ F3: Simulate User Equipment (basic)
+
+✅ F4: Simulate Base Station SCADA
+
+✅ F5: Dashboard Map of Base Stations
+
+✅ F6: View All Base Stations’ Info
+
+✅ F9: Notifications (log)
+
+✅ F12: Simulation Dashboard (basic)
+
+❌ (Bonus): Login page
+
+❌ (Testing & Finetuning):
+
+Sprint 2:
+
+❌ F7: HMI (advanced)
+
+❌ F8: Simulate 5G Base Station (advanced)
+
+Sprint 3:
+
+❌ F10: Add Base Station from Dashboard
+
+❌ F11: Launch Attack on SCADA Server
+
+❌ F13: Simulation Dashboard (advanced)
+
 ## Contact
 - You can contact the project team at [email@example.com](mailto:email@example.com).
 
