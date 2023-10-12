@@ -15,9 +15,15 @@
 - [Project Overview](#project-overview)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Usage Examples](#usage-examples)
+- [Testing](#testing)
 - [Features](#features)
+- [Known Issues](#known-issues)
 - [Contributing](#contributing)
+- [Security Considerations](#security-considerations)
 - [License](#license)
+- [Documentation](#documentation)
+- [Contact](#contact)
   
 ## Requirements
 (List the software and hardware requirements necessary to run the project)
