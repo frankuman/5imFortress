@@ -1,7 +1,7 @@
-from simulation import NRBaseStation as NRbs
-from simulation import UserEquipment as ue
-from simulation import Satellite as SATbs
-from simulation import util
+from backend.simulation import NRBaseStation as NRbs
+from backend.simulation import UserEquipment as ue
+from backend.simulation import Satellite as SATbs
+from backend.simulation import util
 #from concurrent.futures import ThreadPoolExecutor
 
 class wireless_environment:

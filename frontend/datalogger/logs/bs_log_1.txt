@@ -1,0 +1,10 @@
+(11:59:36)-[CONNECTION_ESTABLISHED]: Users ID 1 is now connected to base_station 1 with a data rate of 3.322073101276241/3 Mbps
+
+(11:59:52)-[BASE_STATION_SHUTDOWN]: BASE STATION ID 1 IS NOW DOWN
+
+(11:59:52)-[CONNECTION_TERMINATED]: Users ID 1 is now disconnected from base_station 1
+
+(11:59:56)-[BASE_STATION_POWER_UP]: BASE STATION ID 1 IS NOW UP
+
+(11:59:56)-[CONNECTION_ESTABLISHED]: Users ID 1 is now connected to base_station 1 with a data rate of 3.322073101276241/3 Mbps
+

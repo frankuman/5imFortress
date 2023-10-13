@@ -56,7 +56,7 @@ def create_users():
     password_list = []
     auth_level = []
     User.query.delete()
-    with open("gui/templates/credentials.json", "r", encoding = "utf-8") as f:
+    with open("frontend/gui/templates/credentials.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 
     for item in json_data:

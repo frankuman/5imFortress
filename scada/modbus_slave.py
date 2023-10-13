@@ -1,11 +1,10 @@
 """
 This file connects modbus communicates with modbus client/master via modbustcp protocol
 """
-
 import datetime
 from pyModbusTCP.server import DataBank
-from SFclasses import slave_data_handler as class_handler
-from datalogger import logger
+from backend.helpers import slave_data_handler as class_handler
+from frontend.datalogger import logger
 
 #Initiate data_bank for server, with all coils as 1
 #to make sure all towers start with status UP

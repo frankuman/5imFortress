@@ -3,13 +3,13 @@ Flask frontend
 Gets information about backend via modbus client/master
 """
 import datetime
-from flask import Flask, render_template, request, jsonify, redirect, make_response
+#import json
+from flask import Flask, render_template, request, jsonify, redirect
 from flask_login import LoginManager, login_required,login_user
-from datalogger import logger
+from frontend.datalogger import logger
 from scada import modbus_master
-from SFclasses.user_handler import User, db, LoginForm, generate_random_cookie
-import json
-import gui_main
+from frontend.helpers.user_handler import User, db, LoginForm, generate_random_cookie
+import gui_main as gui_main
 
 app = Flask(__name__)
 gui_main.create_app(app)
@@ -119,7 +119,7 @@ def get_log():
 
     return jsonify(bslog1=log1, bslog2=log2, bslog3=log3, bslog4=log4, bslog5=log5, systemlog=system_log)
 
-@app.route('/power/<int:id>')
+@app.route('/power/<int:bs_id>')
 @login_required
 def power_off(bs_id):
     """
@@ -133,7 +133,7 @@ def power_off(bs_id):
         modbus_master.write_coil(bs_id, 1, "POW")
         statuses[bs_id] = "UP"
 
-    print("TURNING ON/OFF TOWER:", id)
+    print("TURNING ON/OFF TOWER:", bs_id)
 
     # env_man = class_environment.EnvironmentManager().instance()
     # status = dashboard_handler.stop_tower(id,env_man.env1)

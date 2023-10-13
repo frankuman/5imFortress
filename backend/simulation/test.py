@@ -2,8 +2,8 @@ import random
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from simulation import environment
-from simulation import util
+from SimFortress.backend.simulation import environment
+from SimFortress.backend.simulation import util
 
 #############
 #############

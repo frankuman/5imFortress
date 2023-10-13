@@ -1,5 +1,4 @@
-from simulation import environment as env
-
+from backend.simulation import environment as env
 class environment_manager:
     """
     Singleton class for sharing the environment with other modules

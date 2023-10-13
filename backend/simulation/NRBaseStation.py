@@ -1,9 +1,9 @@
 import math
 import random
 from scipy import constants
-from simulation import environment
-from datalogger import logger
-from simulation import util
+from backend.simulation import environment
+from frontend.datalogger import logger
+from backend.simulation import util
 import datetime
 #Table 5.3.3-1: Minimum guardband [kHz] (FR1) and Table: 5.3.3-2: Minimum guardband [kHz] (FR2), 3GPPP 38.104
 #number of prb depending on the numerology (0,1,2,3), on the frequency range (FR1, FR2) and on the base station bandwidth
@@ -72,10 +72,10 @@ class NRBaseStation:
     def __init__(self, bs_id, total_prb, prb_bandwidth_size, number_subcarriers, numerology, antenna_power, antenna_gain, feeder_loss, carrier_frequency, total_bitrate, position, env):
         if position[2] > 200 or position[2] < 30:
             raise Exception("COST-HATA model requires BS height in [30, 200]m")
-        
+
         if (carrier_frequency < 150 or carrier_frequency > 2000):
             raise Exception("your results may be incorrect because your carrier frequency is outside the boundaries of COST-HATA path loss model")
-        
+
         self.prb_bandwidth_size = prb_bandwidth_size
         self.total_prb = total_prb
         self.total_bitrate = total_bitrate #Mbps

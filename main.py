@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # 21/09/2023
-# 5imFortress
+# 5imFortressRelevance 10, Login page , Necessary 10, Achievement 10
 """
 Starts backend, WNS and modbus server/slave
 """
 
-from SFclasses import class_environment
+from backend.helpers import class_environment
 from scada import modbus_slave
 from scada import plc
-
+from multiprocessing import Process, Pool
+import time
+import gui_main
 def setup_env(ue, bs):
     """
     Setup for WNS environment
@@ -68,10 +70,10 @@ def main():
     """
     #Empty old logs
     for i in "12345":
-        filename = "datalogger/logs/bs_log_" + i + ".txt"
-        open(filename, "w").close()
-    filename = "datalogger/logs/system_log.txt"
-    open(filename, "w").close()
+        filename = "frontend/datalogger/logs/bs_log_" + i + ".txt"
+        open(filename, "w", encoding = "utf-8").close()
+    filename = "frontend/datalogger/logs/system_log.txt"
+    open(filename, "w", encoding = "utf-8").close()
 
     ue = []
     bs = []
@@ -81,11 +83,20 @@ def main():
     env_man = class_environment.environment_manager().instance()
     plc.reset_mem()
     #Remove try and except when debugging
-    # try:
-    modbus_slave.start_server()
-    plc.plc_loop()
-    # except:
-    modbus_slave.stop_server()
+    try:
+        modbus_slave.start_server()
+        plc.plc_loop()
 
+    except:
+        modbus_slave.stop_server()
+    
 if __name__ == "__main__":
-    main()
+    p1 = Process(target=main)  # Pass a reference to the main function
+    p2 = Process(target=gui_main.main)  # Pass a reference to gui_main.main
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+

@@ -7,7 +7,7 @@ import datetime
 #from random import uniform
 import logging
 from pyModbusTCP.client import ModbusClient
-from datalogger import logger
+from frontend.datalogger import logger
 
 client = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
 

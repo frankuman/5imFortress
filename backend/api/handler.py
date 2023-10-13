@@ -5,8 +5,8 @@
 This file connects the WNS simulation backend to the PLC
 """
 
-from simulation import util
-from SFclasses import class_environment
+from backend.simulation import util
+from backend.helpers import class_environment
 
 def change_tower_status(id):
     """

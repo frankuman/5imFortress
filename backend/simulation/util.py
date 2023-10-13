@@ -1,6 +1,6 @@
 from enum import Enum
 import math
-from simulation import environment
+from backend.simulation import environment
 
 class EnvType (Enum):
     RURAL = 0

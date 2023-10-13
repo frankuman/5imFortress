@@ -7,10 +7,10 @@ def log(id,log):
     """
     log = log + "\n\n"
     if id != 0:
-        log_name = "datalogger/logs/bs_log_"+str(id)+".txt"
+        log_name = "frontend/datalogger/logs/bs_log_"+str(id)+".txt"
     else:
-        log_name = "datalogger/logs/system_log.txt"
-    with open(log_name, "a") as file:
+        log_name = "frontend/datalogger/logs/system_log.txt"
+    with open(log_name, "a", encoding = "utf-8") as file:
         file.write(log)
 
 
@@ -21,10 +21,10 @@ def read_log(id):
         id (int):  
     """
     if id != 0:
-        log_name = "datalogger/logs/bs_log_"+str(id)+".txt"
+        log_name = "frontend/datalogger/logs/bs_log_"+str(id)+".txt"
     else:
-        log_name = "datalogger/logs/system_log.txt"
-    file = open(log_name, "r")
+        log_name = "frontend/datalogger/logs/system_log.txt"
+    file = open(log_name, "r", encoding = "utf-8")
     log = file.read()
     log = log.replace("INFO:werkzeug:127.0.0.1 - - ","")
     log = log.replace("INFO:werkzeug:","")

@@ -3,9 +3,9 @@ This file connects PLC to modbus server/slave
 """
 from time import sleep
 import json
-from api import handler
+from backend.api import handler
 from scada import modbus_slave as slave
-from SFclasses import slave_data_handler as slave_handler
+from backend.helpers import slave_data_handler as slave_handler
 
 def plc_loop():
     """
