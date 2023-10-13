@@ -87,7 +87,7 @@ Sprint 1:
 
 ✅ F12: Simulation Dashboard (basic)
 
-❌ (Bonus): Login page
+✅ (Bonus): Login page
 
 ❌ (Testing & Finetuning):
 
@@ -96,6 +96,8 @@ Sprint 2:
 ❌ F7: HMI (advanced)
 
 ❌ F8: Simulate 5G Base Station (advanced)
+
+❌ (Bonus): Login page for HMI
 
 Sprint 3:
 
