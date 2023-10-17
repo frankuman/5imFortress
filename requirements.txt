@@ -3,5 +3,5 @@ pymodbusTCP==0.2.0
 WTForms==2.3.3
 Flask-Login==0.6.2
 Flask-SQLAlchemy==3.1.1
-Flas-WTF==1.2.1
+Flask-WTF==1.2.1
 werkzeug==2.3.0
