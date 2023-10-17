@@ -1,16 +1,12 @@
-(13:35:43)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+(13:43:58)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
 
-(13:35:43)-[MODBUS_SLAVE] Server is online
+(13:43:58)-[MODBUS_SLAVE] Server is online
 
-(13:35:43)-[SERVER] Starting up server on 127.0.0.1:5000
+(13:43:59)-[SERVER] Starting up server on 127.0.0.1:5000
 
-(13:35:43)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
+(13:43:59)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
 
-(13:35:43)-[MODBUS_MASTER] Master is online...
+(13:43:59)-[MODBUS_MASTER] Master is online...
 
-(13:35:43)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
-
-(13:37:26)-[MODBUS_SLAVE] Slave is shutting down ...
-
-(13:37:27)-[MODBUS_SLAVE] Slave is offline
+(13:43:59)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
 

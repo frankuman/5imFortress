@@ -1,2 +1,2 @@
-(13:35:43)-[CONNECTION_ESTABLISHED]: Users ID 2 is now connected to base_station 2 with a data rate of 3.322073101276241/3 Mbps
+(13:43:58)-[CONNECTION_ESTABLISHED]: Users ID 2 is now connected to base_station 2 with a data rate of 3.322073101276241/3 Mbps
 

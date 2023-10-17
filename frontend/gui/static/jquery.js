@@ -206,7 +206,7 @@ var bounds = L.latLngBounds(southWest, northEast);
 
 
 var towerIcon = L.icon({
-    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/gui/templates/img/tower2.png?raw=true', // URL to your tower icon image
+    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/tower2.png?raw=true', // URL to your tower icon image
     iconSize: [42, 42], // Size of the icon
     iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
     popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
