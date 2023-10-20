@@ -108,6 +108,6 @@ Sprint 3:
 ❌ F13: Simulation Dashboard (advanced)
 
 ## Contact
-- You can contact the project team at [email@example.com](mailto:email@example.com).
+- You can contact the project team at [email@example.com](mailto:olbo20@student.bth.se).
 
 We are actively working on this project and will provide more detailed documentation soon. Stay tuned for updates and improvements!
