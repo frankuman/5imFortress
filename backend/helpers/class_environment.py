@@ -13,6 +13,6 @@ class environment_manager:
         if cls._instance is None:
             print('Creating new instance')
             cls._instance = cls.__new__(cls)
-            cls.env1 = env.wireless_environment(4000, sampling_time = 0.1)
+            cls.env1 = env.wireless_environment(4000)
         return cls._instance
     

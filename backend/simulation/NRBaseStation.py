@@ -82,7 +82,10 @@ class NRBaseStation:
         self.allocated_prb = 0
         self.allocated_bitrate = 0
         self.antenna_power = antenna_power
-        self.antenna_gain = antenna_gain
+        if antenna_gain == 0:
+            self.antenna_gain = 1
+        else:
+            self.antenna_gain = antenna_gain
         self.feeder_loss = feeder_loss
         self.bs_id = bs_id
         self.carrier_frequency = carrier_frequency
@@ -98,19 +101,16 @@ class NRBaseStation:
         self.numerology = numerology
         self.ue_pb_allocation = {}
         self.ue_bitrate_allocation = {}
-        self.T = 10
-        self.resource_utilization_array = [0] * self.T
-        self.resource_utilization_counter = 0
 
         #turn tower on/off
         self.status = bs_status[1]
 
+        #tower antennas?
+        self.nr_antennas = 0 # from constructor?
+        self.antennas = [bs_status[1]] * self.nr_antennas
+
         self.ue_id = None
 
-        if(self.antenna_power < 5):
-            self.wardrop_alpha = 0.1
-        else:
-            self.wardrop_alpha = 0.2
 
     def bs_status(self):
         """
@@ -126,50 +126,52 @@ class NRBaseStation:
         If change from DOWN -> UP, then add base station to bs_list again.
         """
         current_time = datetime.datetime.now()
-
         time_string = current_time.strftime('%H:%M:%S')
+
         if self.status == bs_status[1]: # status is UP
             print("[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id))
             log = f"({time_string})-[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id)
             logger.log(self.bs_id, log)
-            if self.ue_id is not None:
-                util.find_ue_by_id(self.ue_id).disconnect_from_bs(self.bs_id)
             environment.wireless_environment.bs_list.remove(self)
+            # turn of antennas?
             self.status = bs_status[2] # change status to DOWN
-            self.allocated_bitrate = 0
-            self.ue_id = None
             self.reset()
             
         else: # status is DOWN
             print("[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id))
             log = f"({time_string})-[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id)
             logger.log(self.bs_id, log)
+            # turn on antennas?
             self.status = bs_status[1] # change status to UP
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
         return self.status
 
-    def bs_properties(self):
-        """
-        Return base station properties:
-        pos (position), freq (carrier_frequency), numerology, power (antenna_power),
-        gain (antenna_gain), loss (feeder_loss), bitrate (allocated_bitrate), max_bitrate (total_bitrate)
-        """
-        return {"pos": self.position, "freq": self.carrier_frequency, "numerology": self.numerology, "power": self.antenna_power,
-                "gain": self.antenna_gain, "loss": self.feeder_loss, "bitrate": self.allocated_bitrate, "max_bitrate": self.total_bitrate}
-
-    def compute_rbur(self):
-        return sum(self.resource_utilization_array)/(self.T*self.total_prb)
+    def dec_gain(self):
+        if self.antenna_gain > 1:
+            self.antenna_gain -= 1
+        return True
+    def inc_gain(self):
+        if self.antenna_gain < 100:
+            self.antenna_gain += 1
+        return True
+    
+    def compute_bitrate(self):
+        users = util.find_ue_by_id(self.ue_id).users
+        self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*users
+        self.allocated_bitrate = self.allocated_bitrate*((100-self.antenna_gain)/100)
+        self.allocated_bitrate = int(self.allocated_bitrate)
+        return True
 
     
     def compute_nprb_NR(self, data_rate, rsrp):
         #compute SINR
         interference = 0
-        
+
         for elem in rsrp:
             if elem != self.bs_id and util.find_bs_by_id(elem).bs_type != "sat" and util.find_bs_by_id(elem).carrier_frequency == self.carrier_frequency:
                 total, used = util.find_bs_by_id(elem).get_state()
                 interference = interference + (10 ** (rsrp[elem]/10))*(used/total)*(self.allocated_prb/self.total_prb)
-        
+
         #thermal noise is computed as k_b*T*delta_f, where k_b is the Boltzmann's constant, T is the temperature in kelvin and delta_f is the bandwidth
         #thermal_noise = constants.Boltzmann*293.15*list(NRbandwidth_prb_lookup[self.numerology][self.fr].keys())[list(NRbandwidth_prb_lookup[self.numerology][self.fr].values()).index(self.total_prb / (10 * 2**self.numerology))]*1000000*(self.compute_rbur()+0.001)
         thermal_noise = constants.Boltzmann*293.15*15*(2**self.numerology)*1000 # delta_F = 15*2^mu KHz each subcarrier since we are considering measurements at subcarrirer level (like RSRP)
@@ -183,26 +185,26 @@ class NRBaseStation:
         N_prb = math.ceil(data_rate*1000000 / r) #data rate is in Mbps
         return N_prb, r
 
-    def compute_sinr(self, rsrp):
-        interference = 0
-    
-        for elem in rsrp:
-            if elem != self.bs_id and util.find_bs_by_id(elem).bs_type != "sat" and util.find_bs_by_id(elem).carrier_frequency != self.carrier_frequency:
-                interference = interference + (10 ** (rsrp[elem]/10))*util.find_bs_by_id(elem).compute_rbur()
-    
-        #thermal noise is computed as k_b*T*delta_f, where k_b is the Boltzmann's constant, T is the temperature in kelvin and delta_f is the bandwidth
-        #thermal_noise = constants.Boltzmann*293.15*list(NRbandwidth_prb_lookup[self.numerology][self.fr].keys())[list(NRbandwidth_prb_lookup[self.numerology][self.fr].values()).index(self.total_prb / (10 * 2**self.numerology))]*1000000*(self.compute_rbur()+0.001)
-        thermal_noise = constants.Boltzmann*293.15*15*(2**self.numerology)*1000 # delta_F = 15*2^mu KHz each subcarrier since we are considering measurements at subcarrirer level (like RSRP)
-        sinr = (10**(rsrp[self.bs_id]/10))/(thermal_noise + interference)
-        return sinr
+    # def compute_sinr(self, rsrp):
+    #     interference = 0
+
+    #     for elem in rsrp:
+    #         if elem != self.bs_id and util.find_bs_by_id(elem).bs_type != "sat" and util.find_bs_by_id(elem).carrier_frequency != self.carrier_frequency:
+    #             interference = interference + (10 ** (rsrp[elem]/10))*util.find_bs_by_id(elem).compute_rbur()
+
+    #     #thermal noise is computed as k_b*T*delta_f, where k_b is the Boltzmann's constant, T is the temperature in kelvin and delta_f is the bandwidth
+    #     #thermal_noise = constants.Boltzmann*293.15*list(NRbandwidth_prb_lookup[self.numerology][self.fr].keys())[list(NRbandwidth_prb_lookup[self.numerology][self.fr].values()).index(self.total_prb / (10 * 2**self.numerology))]*1000000*(self.compute_rbur()+0.001)
+    #     thermal_noise = constants.Boltzmann*293.15*15*(2**self.numerology)*1000 # delta_F = 15*2^mu KHz each subcarrier since we are considering measurements at subcarrirer level (like RSRP)
+    #     sinr = (10**(rsrp[self.bs_id]/10))/(thermal_noise + interference)
+    #     return sinr
 
     #this method will be called by an UE that tries to connect to this BS.
     #the return value will be the actual bandwidth assigned to the user
     def request_connection(self, ue_id, data_rate, rsrp):
-        
+
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
         self.ue_id = ue_id
-        
+
         #check if there is enough bitrate, if not then do not allocate the user
         if self.total_bitrate - self.allocated_bitrate < r*N_prb/1000000:
             dr = self.total_bitrate - self.allocated_bitrate
@@ -233,10 +235,10 @@ class NRBaseStation:
             print("NEW BITRATE [debug]",self.allocated_bitrate,r,N_prb)
             log = str(f"({time_string})-[NEW_BITRATE(debugger)]"+self.allocated_bitrate+r+N_prb)
             logger.log(ue_id,log)
+
         ue_users = util.find_ue_by_id(self.ue_id).users
         self.allocated_bitrate = self.allocated_bitrate*ue_users
-        
-        #print("Allocated %s/%s NR PRB" %(N_prb, old_N_prb))    
+
         return r*N_prb/1000000 #we want a data rate in Mbps, not in bps
 
     def request_disconnection(self, ue_id):
@@ -247,15 +249,11 @@ class NRBaseStation:
         self.allocated_bitrate = 0
         self.ue_id = None
 
-    
+
     def update_connection(self, ue_id, data_rate, rsrp):
 
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
-        #if (ue_id == 3 and self.bs_id == 2):
-        #    print(N_prb, r)
         diff = N_prb - self.ue_pb_allocation[ue_id]
-        #print("BS_ID", self.bs_id, "UE_ID: ", ue_id ," data_rate: ", data_rate," diff: ", diff, "ALREADY ALLOCATED: ", self.ue_pb_allocation[ue_id])
-        #print(N_prb*r/1000000)
 
         #check before if there is enough bitrate
         if  diff >= 0 and self.total_bitrate > self.allocated_bitrate and self.total_bitrate - self.allocated_bitrate < diff * r / 1000000:
@@ -283,47 +281,21 @@ class NRBaseStation:
             self.ue_bitrate_allocation[ue_id] += diff * r / 1000000
 
         N_prb = self.ue_pb_allocation[ue_id]
+        self.compute_bitrate()
         return N_prb*r/1000000 #remember that we want the result in Mbps 
 
     #things to do before moving to the next timestep
     def next_timestep(self):
-        #print(self.allocated_prb)
-        self.resource_utilization_array[self.resource_utilization_counter] = self.allocated_prb
         if self.ue_id is not None:
-            randomizer = random.randint(98,102)
-            randomizer = randomizer / 100
-            self.allocated_bitrate = self.allocated_bitrate * randomizer
-        if self.allocated_bitrate > self.total_bitrate:
-            self.allocated_bitrate -= self.total_bitrate*0.05
-        
-        self.resource_utilization_counter += 1
-        if self.resource_utilization_counter % self.T == 0:
-            self.resource_utilization_counter = 0
-        
-    def new_state(self):
-        return (sum(self.resource_utilization_array) - self.resource_utilization_array[self.resource_utilization_counter] + self.allocated_prb)/(self.total_prb*self.T)
-    
-    def get_state(self):
-        return self.total_prb, self.allocated_prb
-    
-    def get_connection_info(self, ue_id):
-        return self.ue_pb_allocation[ue_id], self.total_prb
-    
+            self.compute_bitrate()
+
     def get_connected_users(self):
         return self.ue_id
-        #return list(self.ue_pb_allocation.keys())
 
     def reset(self):
-        self.resource_utilization_array = [0] * self.T
-        self.resource_utilization_counter = 0
-
-    def compute_latency(self, ue_id):
-        if ue_id in self.ue_pb_allocation:
-            return self.wardrop_alpha * self.ue_pb_allocation[ue_id]
-            #return self.wardrop_alpha * self.allocated_prb
-        return 0
-
-    def compute_r(self, ue_id, rsrp):
-        N_prb, r = self.compute_nprb_NR(1, rsrp)
-        return r
-    
+        N_prb = self.ue_pb_allocation[self.ue_id]
+        self.allocated_prb -= N_prb
+        del self.ue_pb_allocation[self.ue_id]
+        del self.ue_bitrate_allocation[self.ue_id]
+        self.allocated_bitrate = 0
+        self.ue_id = None

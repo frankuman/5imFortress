@@ -4,8 +4,8 @@ This file connects PLC to modbus server/slave
 from time import sleep
 import json
 from backend.api import handler
-from scada import modbus_slave as slave
 from backend.helpers import slave_data_handler as slave_handler
+from scada import modbus_slave as slave
 
 def plc_loop():
     """
@@ -34,6 +34,7 @@ def sensor_bitrate(bs_id):
     #gets bitrate via "handler" file
     bitrate_list = handler.get_bitrate(bs_id)
     #Bitrate address is between 0-48
+    index = 0
     for i, br in enumerate(bitrate_list):
         bitrate_addr = (bs_id - 1) * 8 + i * 4
         while br > 0:
@@ -45,6 +46,10 @@ def sensor_bitrate(bs_id):
                 slave_handler.plc_data_handler().write_i_regs(bitrate_addr, [br])
                 br = br - br
             bitrate_addr = bitrate_addr + 1
+            index += 1
+        if index < 4:
+            for i in range(4 - index):
+                slave_handler.plc_data_handler().write_i_regs(bitrate_addr + i, [0])
     return True
 
 def sensor_users(bs_id):
@@ -53,6 +58,7 @@ def sensor_users(bs_id):
     """
     users = handler.get_users(bs_id)
     user_addr = 100 + (bs_id - 1) * 2
+    index = 0
     while users > 0:
         if users > 2**16 - 1:
             slave_handler.plc_data_handler().write_i_regs(user_addr, [2**16 - 1])
@@ -61,6 +67,10 @@ def sensor_users(bs_id):
             slave_handler.plc_data_handler().write_i_regs(user_addr, [users])
             users = users - users
         user_addr = user_addr + 1
+        index += 1
+    if index < 2:
+        for i in range(2 - index):
+            slave_handler.plc_data_handler().write_i_regs(user_addr + i, [0])
     return True
 
 def check_if_coil_pow_changed(coil_addr,coil_info):

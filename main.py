@@ -11,6 +11,7 @@ from scada import plc
 from multiprocessing import Process, Pool
 import time
 import gui_main
+
 def setup_env(ue, bs):
     """
     Setup for WNS environment
@@ -83,13 +84,13 @@ def main():
     env_man = class_environment.environment_manager().instance()
     plc.reset_mem()
     #Remove try and except when debugging
-    try:
-        modbus_slave.start_server()
-        plc.plc_loop()
+    #try:
+    modbus_slave.start_server()
+    plc.plc_loop()
 
-    except:
-        modbus_slave.stop_server()
-    
+    #except:
+    modbus_slave.stop_server()
+
 if __name__ == "__main__":
     p1 = Process(target=main)  # Pass a reference to the main function
     p2 = Process(target=gui_main.main)  # Pass a reference to gui_main.main
