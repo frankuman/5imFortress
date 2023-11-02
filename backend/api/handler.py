@@ -55,6 +55,15 @@ def get_users(id):
     env_man.env1.next_timestep()
     return users
 
+def change_gain(id, gain):
+    """
+    Change antenna_gain of base station
+    In parameter change_gain(id, gain)
+    """
+    bs = util.find_bs_by_id(id)
+    bs.change_gain(gain)
+    return True
+
 def status(env1):
     """
     Prints out all of the general information for towers

@@ -26,6 +26,170 @@ function re_updateBitrate() {
     setInterval(updateBitrate, 5000);
 };
 
+function send_current_gain() {
+    const storedGainValue1 = sessionStorage.getItem('GainValue1');
+    const storedGainValue2 = sessionStorage.getItem('GainValue2');
+    const storedGainValue3 = sessionStorage.getItem('GainValue3');
+    const storedGainValue4 = sessionStorage.getItem('GainValue4');
+    const storedGainValue5 = sessionStorage.getItem('GainValue5');
+    $.ajax({
+            url: "/change_gain/" +  storedGainValue1+ "/" + storedGainValue2+ "/" + storedGainValue3+ "/" + storedGainValue4+ "/" + storedGainValue5,
+            method: "POST",
+            dataType: "json",
+            success: function(data) {
+                // Handle success if needed
+            },
+            error: function(xhr, status, error) {
+                console.error("Error sending gain: " + error);
+            }
+    });
+    // for (let bs_id = 1; bs_id <= 5; bs_id++) {
+    //     const storedGainValue = sessionStorage.getItem('GainValue' + bs_id);
+    //     if (storedGainValue) {
+    //         $.ajax({
+    //             url: "/change_gain/" + bs_id + "/" + storedGainValue,
+    //             method: "POST",
+    //             dataType: "json",
+    //             success: function(data) {
+    //                 // Handle success if needed
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.error("Error sending gain: " + error);
+    //             }
+    //         });
+    //     }
+    // }
+}
+function re_send_current_gain() {
+    send_current_gain();
+    setInterval(send_current_gain, 3000);
+};
+
+async function update(){
+    await send_current_gain();
+    await updateBitrate();
+    await update_status();
+}
+function re_update(){
+    setInterval(update, 5000);
+}
+
+function ChangeGain(id) {
+    GainElement = "Gain"+id
+    RangeElement = "GainValue"+id
+    var val = document.getElementById(GainElement).value //gets the oninput value
+    document.getElementById(RangeElement).innerHTML = val+"% GAIN" //displays this value to the html page
+    console.log(val)
+
+    // Store the checkbox state in local storage
+    sessionStorage.setItem('GainValue'+id, val);
+}
+function page_load_gainvalue(){
+    const storedGainValue1 = sessionStorage.getItem('GainValue1');
+    document.getElementById("GainValue1").innerHTML = storedGainValue1+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain1").value = storedGainValue1 //displays this value to the html page
+
+    const storedGainValue2 = sessionStorage.getItem('GainValue2');
+    document.getElementById("GainValue2").innerHTML = storedGainValue2+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain2").value = storedGainValue2 //displays this value to the html page
+
+    const storedGainValue3 = sessionStorage.getItem('GainValue3');
+    document.getElementById("GainValue3").innerHTML = storedGainValue3+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain3").value = storedGainValue3 //displays this value to the html page
+
+    const storedGainValue4 = sessionStorage.getItem('GainValue4');
+    document.getElementById("GainValue4").innerHTML = storedGainValue4+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain4").value = storedGainValue4 //displays this value to the html page
+
+    const storedGainValue5 = sessionStorage.getItem('GainValue5');
+    document.getElementById("GainValue5").innerHTML = storedGainValue5+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain5").value = storedGainValue5 //displays this value to the html page
+
+    // Set initial state based on local storage
+
+};
+function ShowSettings(id){
+    if (id == 1) {
+        document.getElementById("GainValue1").hidden = false;
+        document.getElementById("GainValue2").hidden = true;
+        document.getElementById("GainValue3").hidden = true;
+        document.getElementById("GainValue4").hidden = true;
+        document.getElementById("GainValue5").hidden = true;
+        document.getElementById("Gain1").hidden = false;
+        document.getElementById("Gain2").hidden = true;
+        document.getElementById("Gain3").hidden = true;
+        document.getElementById("Gain4").hidden = true;
+        document.getElementById("Gain5").hidden = true;
+    }
+    if (id == 2) {
+        document.getElementById("GainValue1").hidden = true;
+        document.getElementById("GainValue2").hidden = false;
+        document.getElementById("GainValue3").hidden = true;
+        document.getElementById("GainValue4").hidden = true;
+        document.getElementById("GainValue5").hidden = true;
+        document.getElementById("Gain1").hidden = true;
+        document.getElementById("Gain2").hidden = false;
+        document.getElementById("Gain3").hidden = true;
+        document.getElementById("Gain4").hidden = true;
+        document.getElementById("Gain5").hidden = true;
+        
+    }
+    if (id == 3) {
+        document.getElementById("GainValue1").hidden = true;
+        document.getElementById("GainValue2").hidden = true;
+        document.getElementById("GainValue3").hidden = false;
+        document.getElementById("GainValue4").hidden = true;
+        document.getElementById("GainValue5").hidden = true;
+        document.getElementById("Gain1").hidden = true;
+        document.getElementById("Gain2").hidden = true;
+        document.getElementById("Gain3").hidden = false;
+        document.getElementById("Gain4").hidden = true;
+        document.getElementById("Gain5").hidden = true;
+    }
+    if (id == 4) {
+        document.getElementById("GainValue1").hidden = true;
+        document.getElementById("GainValue2").hidden = true;
+        document.getElementById("GainValue3").hidden = true;
+        document.getElementById("GainValue4").hidden = false;
+        document.getElementById("GainValue5").hidden = true;
+        document.getElementById("Gain1").hidden = true;
+        document.getElementById("Gain2").hidden = true;
+        document.getElementById("Gain3").hidden = true;
+        document.getElementById("Gain4").hidden = false;
+        document.getElementById("Gain5").hidden = true;
+    }
+    if (id == 5) {
+        document.getElementById("GainValue1").hidden = true;
+        document.getElementById("GainValue2").hidden = true;
+        document.getElementById("GainValue3").hidden = true;
+        document.getElementById("GainValue4").hidden = true;
+        document.getElementById("GainValue5").hidden = false;
+        document.getElementById("Gain1").hidden = true;
+        document.getElementById("Gain2").hidden = true;
+        document.getElementById("Gain3").hidden = true;
+        document.getElementById("Gain4").hidden = true;
+        document.getElementById("Gain5").hidden = false;
+    }
+}
+function store_checkbox_value(checkbox, id) {
+    // Get the checkbox state
+    const isChecked = checkbox.checked;
+    
+    // Store the checkbox state in local storage
+    sessionStorage.setItem('powerButtonState'+id, isChecked);
+}
+
+// Check if the button state is stored in local storage
+function page_load_checkbox(){
+    const storedPowerButtonState1 = sessionStorage.getItem('powerButtonState1');
+    const storedPowerButtonState2 = sessionStorage.getItem('powerButtonState2');
+    const storedPowerButtonState3 = sessionStorage.getItem('powerButtonState3');
+    const storedPowerButtonState4 = sessionStorage.getItem('powerButtonState4');
+    const storedPowerButtonState5 = sessionStorage.getItem('powerButtonState5');
+    // Set initial state based on local storage
+};
+
+
 function update_users() {
   $.ajax({
       url: "/get_users",  // Update this URL with the endpoint of your Flask backend
@@ -97,10 +261,6 @@ function re_update_status_color(){
     setInterval(update_status_color, 5000);
 }
 
-
-
-
-
 function change_power(switchId){
   
   $.ajax({
@@ -122,7 +282,6 @@ function change_power(switchId){
   
   });
 }
-
 
 function update_status() {
     $.ajax({
@@ -154,11 +313,9 @@ function re_update_status() {
 function store_checkbox_value(checkbox,id) {
     // Get the checkbox state
     const isChecked = checkbox.checked;
-    
     // Store the checkbox state in local storage
     sessionStorage.setItem('powerButtonState'+id, isChecked);
 }
-
 // Check if the button state is stored in local storage
 function page_load_checkbox(){
     const storedPowerButtonState1 = sessionStorage.getItem('powerButtonState1');
@@ -194,16 +351,12 @@ function page_load_checkbox(){
     }
 };
 
-
-
-
 var karlshamnCoordinates = [56.1714, 14.8640];
 
 // Define the boundaries including Karlshamn at the center
 var southWest = L.latLng(karlshamnCoordinates[0] - 0.1, karlshamnCoordinates[1] - 0.1);
 var northEast = L.latLng(karlshamnCoordinates[0] + 0.1, karlshamnCoordinates[1] + 0.1);
 var bounds = L.latLngBounds(southWest, northEast);
-
 
 var towerIcon = L.icon({
     iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/tower2.png?raw=true', // URL to your tower icon image
@@ -221,12 +374,10 @@ var map = L.map('map', {
     maxBounds: bounds // Set the maximum boundaries for the map
 });
 
-
 // Add CartoDB dark tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
-
 
 // Add markers for each city
 var cities = [
@@ -245,7 +396,6 @@ cities.forEach(function(city) {
     L.marker(city.coordinates, { icon: towerIcon }).addTo(map).bindPopup(city.name);
 });
 
-   
 function get_logs(){
     // Use jQuery's AJAX function to load the content of the text file
     $.ajax({
@@ -272,6 +422,3 @@ function re_get_log() {
     get_logs();
     setInterval(get_logs, 2000);
 };
-
-
-

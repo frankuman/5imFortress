@@ -60,4 +60,9 @@ class plc_data_handler():
         Allows the PLC to write to servers/slaves input registers
         """
         return self.slave.data_bank.set_input_registers(address, words_l)
-    
+
+    def read_h_regs(self, address):
+        """
+        Allows the PLC to read servers/slave input registers
+        """
+        return self.slave.data_bank.get_holding_registers(address)

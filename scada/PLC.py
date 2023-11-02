@@ -26,6 +26,16 @@ def sensors(bs_id):
     """
     sensor_bitrate(bs_id)
     sensor_users(bs_id)
+    sensor_gain(bs_id)
+
+def sensor_gain(bs_id):
+    """
+    Sensor for antenna gain
+    """
+    gain_addr = 50 + (bs_id - 1)
+    gain = slave_handler.plc_data_handler().read_h_regs(gain_addr)
+    handler.change_gain(bs_id, gain[0])
+    return True
 
 def sensor_bitrate(bs_id):
     """
@@ -33,6 +43,7 @@ def sensor_bitrate(bs_id):
     """
     #gets bitrate via "handler" file
     bitrate_list = handler.get_bitrate(bs_id)
+    
     #Bitrate address is between 0-48
     index = 0
     for i, br in enumerate(bitrate_list):

@@ -85,7 +85,6 @@ CONTROLLERS.HTML
   background-color: #4e535a;
   border-radius: 20px;
   box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.1), 0 0 1px 0px black, inset 0 2px 2px -1px white, inset 0 0 1px 20px #4e535a, inset 0 0 27px 20px #4e535a;
-
   z-index: -10;
 }
 
@@ -98,7 +97,6 @@ CONTROLLERS.HTML
   padding: 8px;
   background-color: #4e535a;
   box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.1), 0 0 1px 0px black, inset 0 2px 2px -1px white, inset 0 0 1px 20px #4e535a, inset 0 0 27px 20px #4e535a;
-
   border-radius: 20px;
   z-index: -10;
 }
@@ -248,23 +246,41 @@ svg {
   display: flex;
 }
 @import "compass/css3";
+#Gain1, #Gain2, #Gain3, #Gain4, #Gain5{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
 
- input[type='range'] {
-	 position: absolute;
-	 top: 50%;
-	 left: 10%;
-	 border: solid 0 transparent;
-	 border-width: 0 0.5em 0.75em;
-	 padding: 0 0 1.5em;
-	 width: 19.75em;
-	 height: 4.5em;
-	 border-radius: 0;
-	 transform: translate(-50%, -50%) rotate(-90deg);
-	 background: linear-gradient(#868686, #868686) calc(100% - 0.1825em) calc(100% - 0.6875em), linear-gradient(90deg, #868686, #868686 0.125em, transparent 0.125em, transparent 18.635em) 0.495em calc(100% - 0.375em), radial-gradient(#919191, rgba(145, 145, 145, 0)) 2.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 3.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 5.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 6.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 8.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 9.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 11.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 12.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 14.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 15.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 17.3125em 100%;
-	 background-repeat: no-repeat, repeat-x, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-	 background-size: 0.75em 0.125em, 18.635em 0.75em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em;
-	 font-size: 1em;
-	 cursor: pointer;
+
+#GainValue1, #GainValue2, #GainValue3, #GainValue4, #GainValue5{
+  margin: 0 auto;
+  margin-top: 0;
+  padding: 0;
+  width: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: 17px;
+  color: #ECECF9;
+  background-color: #282B30;
+  opacity: 0.9;
+}
+input[type='range'] {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    border: solid 0 transparent;
+    border-width: 0 0.5em 0.75em;
+    padding: 0 0 1.5em;
+    width: 19.75em;
+    height: 4.5em;
+    border-radius: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    background: linear-gradient(#868686, #868686) calc(100% - 0.1825em) calc(100% - 0.6875em), linear-gradient(90deg, #868686, #868686 0.125em, transparent 0.125em, transparent 18.635em) 0.495em calc(100% - 0.375em), radial-gradient(#919191, rgba(145, 145, 145, 0)) 2.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 3.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 5.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 6.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 8.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 9.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 11.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 12.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 14.3125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 15.8125em 100%, radial-gradient(#919191, rgba(145, 145, 145, 0)) 17.3125em 100%;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 0.75em 0.125em, 18.635em 0.75em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em, 0.125em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
 }
  input[type='range'], input[type='range']::-webkit-slider-runnable-track, input[type='range']::-webkit-slider-thumb {
 	 -webkit-appearance: none;
@@ -334,10 +350,6 @@ input[type='range']::-ms-thumb {
 }
  input[type='range']::-ms-fill-lower, input[type='range']::-ms-tooltip {
 	display: none;
-}
- input[type='range']:nth-of-type(2) {
-	left: 66%;
-	transform: translate(-50%, -50%) rotate(-90deg) scaleY(-1);
 }
  input[type='range']:focus {
 	outline: none;
@@ -543,8 +555,6 @@ INDEX.HTML
   background-repeat: no-repeat;
 }
 
-
-
 @keyframes flicker {
   0% {
     opacity: 1;
@@ -580,19 +590,16 @@ LOGGERS.HTML
   border-color: #9d252b;
   display: inline-block;
 }
-
 .fakeMinimize {
   left: 11px;
   background-color: #ffc100;
   border-color: #9d802c;
 }
-
 .fakeZoom {
   left: 16px;
   background-color: #00d742;
   border-color: #049931;
 }
-
 .fakeMenu {
   width: 820px;
   box-sizing: border-box;
@@ -601,10 +608,7 @@ LOGGERS.HTML
   margin-top: 10px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-
-
 }
-
 .fakeScreen {
   background-color: #282B30;
   box-sizing: border-box;

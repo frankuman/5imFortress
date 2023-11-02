@@ -146,13 +146,8 @@ class NRBaseStation:
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
         return self.status
 
-    def dec_gain(self):
-        if self.antenna_gain > 1:
-            self.antenna_gain -= 1
-        return True
-    def inc_gain(self):
-        if self.antenna_gain < 100:
-            self.antenna_gain += 1
+    def change_gain(self, gain):
+        self.antenna_gain = gain
         return True
     
     def compute_bitrate(self):

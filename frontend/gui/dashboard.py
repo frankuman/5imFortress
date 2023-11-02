@@ -32,19 +32,24 @@ def login():
     For POSTS, login the current user by processing the form.
     """
     form = LoginForm()
-
+    current_time = datetime.datetime.now()
+    time_string = current_time.strftime('%H:%M:%S')
     if form.validate_on_submit():
         user = User.query.get(form.username.data)
         print(user)
+
+
         if user:
-            #if bcrypt.check_password_hash(user.password, form.password.data):
-            # // Add encryption here?
-            user.authenticated = True
-            db.session.add(user)
-            db.session.commit()
-            login_user(user, remember=True)
-            app.secret_key = generate_random_cookie() #generate new cookie after login
-            return redirect("/dashboard")
+            if user.password == form.password.data:
+                logger.log(0,f"({time_string})-[SERVER] User {user} successfully logged in")
+                # // Add encryption here?
+                user.authenticated = True
+                db.session.add(user)
+                db.session.commit()
+                login_user(user, remember=True)
+                app.secret_key = generate_random_cookie() #generate new cookie after login
+                return redirect("/dashboard")
+        logger.log(0,f"({time_string})-[SERVER] User {user} tried to log in")
     return render_template('index.html', form=form)
 
 @login_manager.user_loader
@@ -87,6 +92,17 @@ def hmi_request():
     else:
         pass
     return render_template('controllers.html', bspower=statuses, bsbitrate=bsbitrate)
+
+@app.route("/change_gain/<int:gain1>/<int:gain2>/<int:gain3>/<int:gain4>/<int:gain5>", methods=['POST', 'GET'])
+@login_required
+def send_gain(gain1,gain2,gain3,gain4,gain5):
+    """
+    Sends gain to master
+    """
+    gain_list = [gain1,gain2,gain3,gain4,gain5]
+    modbus_master.change_gain(gain_list)
+    print("CHANGING GAIN TO",gain_list)
+    return "Success"
 
 @app.route("/loggers", methods=['POST', 'GET'])
 @login_required

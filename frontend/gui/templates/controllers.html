@@ -6,9 +6,13 @@
 <script>
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
-        re_updateBitrate();
-        re_update_status();
+        re_update();
+        // re_update_status();
+        // re_send_current_gain();
         page_load_checkbox();
+        page_load_gainvalue();
+        ChangeGain();
+        
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -35,6 +39,59 @@
             }
         });
     });
+
+    // Dynamic Graphs
+    window.onload = function () {
+
+        var dps = [];
+        var chart = new CanvasJS.Chart("chartContainer", {
+            axisY2: {
+                minimum: 0,
+                maximum: 100,
+                suffix: "K MBPS"
+            },
+            axisX: {
+                labelFormatter: function () {
+                    return " ";
+                } 
+            },
+
+            data: [{
+                type: "spline",
+                axisYType: "secondary",
+                markerSize: 0,
+                dataPoints: dps 
+            }]
+        });
+        
+        var xVal = 0;
+        var yVal = 100;
+        var updateInterval = 2000; // update interval in milliseconds 
+        var dataLength = 50; // number of dataPoints visible at any point
+        
+        var updateChart = function (count) {
+            count = count || 1;
+            // count is number of times loop runs to generate random dataPoints.
+            for (var j = 0; j < count; j++) {	
+                yVal = yVal + Math.round(5 + Math.random() *(-5-5));
+                yVal = Math.min(yVal, 100);
+                dps.push({
+                    x: xVal,
+                    y: yVal
+                });
+                xVal++;
+            }
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+            chart.render();
+        };
+        
+        updateChart(dataLength); 
+        setInterval(function(){ updateChart() }, updateInterval); 
+        
+        }
+
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
@@ -212,13 +269,20 @@
 
         
         <div class="controllers1content2"></div>
-        <div class="controllers1content3"></div>
+        <div class="controllers1content3">
+            <!-- Här Farhad -->
+            <div id="chartContainer" class="chartContainer" style="height: 370px; width: 100%;"></div>
+            <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script> 
+                
+
+
+        </div>
     </div>
     <div class = "controllers1bottomcontent">
         <nav class="navigation navigation--inline">
             <ul>
               <li act class="setnav active">
-                <a href="#">1
+                <a href="#" onclick="ShowSettings(1)">1
                   <svg class="icon icon--2x">
                     <use xlink:href="#icon-home" />
                   </svg>
@@ -226,7 +290,7 @@
                 </a>
               </li>
               <li class="setnav">
-                <a href="#">2
+                <a href="#" onclick="ShowSettings(2)">2
                   <svg class="icon icon--2x">
                     <use xlink:href="#icon-search" />
                   </svg>
@@ -234,7 +298,7 @@
                 </a>
               </li>
               <li class="setnav">
-                <a href="#">3
+                <a href="#" onclick="ShowSettings(3)">3
                   <svg class="icon icon--2x">
                     <use xlink:href="#icon-cart" />
                   </svg>
@@ -242,27 +306,40 @@
                 </a>
               </li>
               <li>
-                <a href="#">4
+                <a href="#" onclick="ShowSettings(4)">4
 
                   <span class="invisible">4</span>
                 </a>
               </li>
               <li class="setnav">
-                <a href="#">5
+                <a href="#" onclick="ShowSettings(5)">5
 
                   <span class="invisible">5</span>
                 </a>
               </li>
             </ul>
         </nav>
-        <div class="controllers1content4"></div>
-        
-        <div class="controllers1content5"></div>
-        <div class="controllers1content6">
-            <input type='range' value='50'/>
+        <div class="controllers1content4">
             
         </div>
+        
+        <div class="controllers1content5">
+            <output id="GainValue1">0% GAIN</output>
+            <output hidden id="GainValue2">0% GAIN</output>
+            <output hidden id="GainValue3">0% GAIN</output>
+            <output hidden id="GainValue4">0% GAIN</output>
+            <output hidden id="GainValue5">0% GAIN</output>
+
+        </div>
+        <div class="controllers1content6">
+            <input id="Gain1" type='range' value='0' oninput="ChangeGain(1)"/>
+            <input hidden id="Gain3" type='range' value='0' oninput="ChangeGain(3)"/>
+            <input hidden id="Gain4" type='range' value='0' oninput="ChangeGain(4)"/>
+            <input hidden id="Gain5" type='range' value='0' oninput="ChangeGain(5)"/>
+            <input hidden id="Gain2" type='range' value='0' oninput="ChangeGain(2)"/>
+        </div>
     </div>
+
 </body>
 
 {% endblock %}

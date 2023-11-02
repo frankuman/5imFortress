@@ -9,7 +9,7 @@ import logging
 from pyModbusTCP.client import ModbusClient
 from frontend.datalogger import logger
 
-client = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1) #, debug=True
 
 def start_client():
     """
@@ -47,9 +47,7 @@ def get_bitrate(bs_id):
     Calls the read_register to get the bitrate registers
     """
     #Calculate address for bitrate register
-    #0x3000 and 128 bits for each tower
-    #addr = 12288 + id*128
-    bitlist = read_register(bs_id = bs_id, data = "BITR")
+    bitlist = read_register(bs_id = bs_id, choice = "BITR")
     #convert to readable
     return bitlist
 
@@ -57,19 +55,26 @@ def get_users(bs_id):
     """
     Calls the read_register to get user registers
     """
-    users = read_register(bs_id,"USR")
+    users = read_register(bs_id, "USR")
     return users
 
-def read_register(bs_id, data):
+def change_gain(gain_list):
     """
-    Reads registers on address calculated by id and data
+    Write to holding register the value of antenna gain
+    """
+    write_register(0, gain_list, "GAIN")
+    return True
+
+def read_register(bs_id, choice):
+    """
+    Reads registers on address calculated by id and choice
     data is "function code" and determines address and length to read
     """
     #read bitrate registers
-    if data == "BITR":
+    if choice == "BITR":
         bitrate = []
-
         bitrate_1 = []
+        print("\n",client.last_error_as_txt)
         addr = (bs_id - 1) * 8
         for _ in range(4):
             bitrate_1.append(client.read_input_registers(addr, 1)[0])
@@ -83,10 +88,9 @@ def read_register(bs_id, data):
 
         bitrate.append(sum(bitrate_1))
         bitrate.append(sum(bitrate_2))
-
         return bitrate
 
-    if data == "USR":
+    if choice == "USR":
         users = 0
         addr = 100 + (bs_id - 1) * 2
         for _ in range(2):
@@ -94,6 +98,19 @@ def read_register(bs_id, data):
             addr += 1
 
         return users
+    return False
+
+def write_register(bs_id, data, choice):
+    """
+    Write to holding register, address calculated with bs_idand choice.
+    Data gets written to holding register.
+    """
+    if choice == "GAIN":
+        gain_addr = 50
+        ret = client.write_multiple_registers(gain_addr, data)
+        print("gain return: ", ret)
+        return True
+    return False
 
 def read_coil():
     """
