@@ -5,11 +5,24 @@ This file communicates with server/slave via modbustcp and dashboard
 import datetime
 #from time import sleep
 #from random import uniform
+
 import logging
 from pyModbusTCP.client import ModbusClient
 from frontend.datalogger import logger
 
-client = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1) #, debug=True
+POWER_ADDR_COIL = 1
+BITRATE_ACTIVE_ADDR_REG = 1
+BITRATE_TOTAL_ADDR_REG = 5
+USERS_ADDR_REG = 9
+GAIN_ADDR_REG = 11
+
+client1 = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client2 = ModbusClient(host = "127.0.0.2", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client3 = ModbusClient(host = "127.0.0.3", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client4 = ModbusClient(host = "127.0.0.4", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client5 = ModbusClient(host = "127.0.0.5", port = 502, auto_open = True, auto_close = True, timeout = 1)
+clients = [client1, client2, client3, client4, client5]
+
 
 def start_client():
     """
@@ -17,16 +30,18 @@ def start_client():
     Start client/master and set up logging
     """
     logging.basicConfig()
-    a = client.open()
-    print("CLIENT: ", a)
     slave_up_list = []
-    for i in range(1, 6):
-        a = client.write_single_coil(i, 1)
+    for client in clients:
+        a = client.open()
+
+        print("CLIENT: ", a)
+
+        a = client.write_single_coil(POWER_ADDR_COIL, 1)
         slave_up_list.append(a)
 
     current_time = datetime.datetime.now()
     time_string = current_time.strftime('%H:%M:%S')
-    log = f"({time_string})-[MODBUS_MASTER] Master starting on 127.0.0.1:502"
+    log = f"({time_string})-[MODBUS_MASTER] Master starting"
     logger.log(0, log)
 
     print("Master is online...")
@@ -58,11 +73,11 @@ def get_users(bs_id):
     users = read_register(bs_id, "USR")
     return users
 
-def change_gain(gain_list):
+def change_gain(bs_id, gain):
     """
     Write to holding register the value of antenna gain
     """
-    write_register(0, gain_list, "GAIN")
+    write_register(bs_id, gain, "GAIN")
     return True
 
 def read_register(bs_id, choice):
@@ -71,33 +86,22 @@ def read_register(bs_id, choice):
     data is "function code" and determines address and length to read
     """
     #read bitrate registers
+    
+    client = clients[bs_id - 1]
     if choice == "BITR":
-        bitrate = []
-        bitrate_1 = []
-        print("\n",client.last_error_as_txt)
-        addr = (bs_id - 1) * 8
-        for _ in range(4):
-            bitrate_1.append(client.read_input_registers(addr, 1)[0])
-            addr += 1
+        bitrate_list = []
+        bitrate = client.read_input_registers(BITRATE_ACTIVE_ADDR_REG, 8)
+        if bitrate is None:
+            return False
+        bitrate_list.append(sum(bitrate[0:4]))
+        bitrate_list.append(sum(bitrate[4:]))
 
-        bitrate_2 = []
-        addr = (bs_id - 1) * 8 + 4
-        for _ in range(4):
-            bitrate_2.append(client.read_input_registers(addr, 1)[0])
-            addr += 1
-
-        bitrate.append(sum(bitrate_1))
-        bitrate.append(sum(bitrate_2))
-        return bitrate
+        return bitrate_list
 
     if choice == "USR":
-        users = 0
-        addr = 100 + (bs_id - 1) * 2
-        for _ in range(2):
-            users += client.read_input_registers(addr, 1)[0]
-            addr += 1
-
+        users = sum(client.read_input_registers(USERS_ADDR_REG, 2))
         return users
+    print("One bitrate error here with", bs_id)
     return False
 
 def write_register(bs_id, data, choice):
@@ -105,17 +109,18 @@ def write_register(bs_id, data, choice):
     Write to holding register, address calculated with bs_idand choice.
     Data gets written to holding register.
     """
+    client = clients[bs_id - 1]
     if choice == "GAIN":
-        gain_addr = 50
-        ret = client.write_multiple_registers(gain_addr, data)
-        print("gain return: ", ret)
+        client.write_single_register(GAIN_ADDR_REG, data)
         return True
     return False
 
-def read_coil():
+def read_coil(bs_id):
     """
     Reads coils
     """
+
+    client = clients[bs_id - 1]
     #read 5 bits contining statuses for bs's
     coil_bitrate = client.read_coils(0, 5)
     print("coil", coil_bitrate)
@@ -127,7 +132,8 @@ def write_coil(bs_id = None, value = None, data = None, addr = None):
     #print("[Debug] trying to write", id, " to give it,", value)
 
     if data == "POW":
-        addr = bs_id
+        addr = POWER_ADDR_COIL
+    client = clients[bs_id - 1]
 
     a = client.write_single_coil(addr, value)
     #print("[Debug] Wrote to coil", id, " and gave it value,", value)

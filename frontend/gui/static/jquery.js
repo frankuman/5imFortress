@@ -12,7 +12,11 @@ function updateBitrate() {
             $("#bitrate3").html(data.bitrate3 + " Mbps");
             $("#bitrate4").html(data.bitrate4 + " Mbps");
             $("#bitrate5").html(data.bitrate5 + " Mbps");
-
+            sessionStorage.setItem('bitrate1', data.bitrate1 + " Mbps" );
+            sessionStorage.setItem('bitrate2', data.bitrate2  + " Mbps");
+            sessionStorage.setItem('bitrate3', data.bitrate3 + " Mbps" );
+            sessionStorage.setItem('bitrate4', data.bitrate4 + " Mbps" );
+            sessionStorage.setItem('bitrate5', data.bitrate5 + " Mbps" );
             console.log(bitrate1,bitrate2,bitrate3,bitrate4,bitrate5)
         },
         error: function(xhr, status, error) {
@@ -25,6 +29,39 @@ function re_updateBitrate() {
     updateBitrate();
     setInterval(updateBitrate, 5000);
 };
+function page_load_bitrate(){
+    const storedbitrate1 = sessionStorage.getItem('bitrate1');
+    const storedbitrate2 = sessionStorage.getItem('bitrate2');
+    const storedbitrate3 = sessionStorage.getItem('bitrate3');
+    const storedbitrate4 = sessionStorage.getItem('bitrate4');
+    const storedbitrate5 = sessionStorage.getItem('bitrate5');
+        
+    bitratevalue1 = storedbitrate1
+    if(bitratevalue1 == null){
+        bitratevalue1 = "Unknown"
+    }
+    bitratevalue2 = storedbitrate2
+    if(bitratevalue2 == null){
+        bitratevalue2 = "Unknown"
+    }
+    bitratevalue3 = storedbitrate3
+    if(bitratevalue3 == null){
+        bitratevalue3 = "Unknown"
+    }
+    bitratevalue4 = storedbitrate4
+    if(bitratevalue4 == null){
+        bitratevalue4 = "Unknown"
+    }
+    bitratevalue5 = storedbitrate5
+    if(bitratevalue5 == null){
+        bitratevalue5 = "Unknown"
+    }
+    document.getElementById("bitrate1").innerHTML = bitratevalue1 //displays this value to the html page
+    document.getElementById("bitrate2").innerHTML = bitratevalue2 //displays this value to the html page
+    document.getElementById("bitrate3").innerHTML = bitratevalue3 //displays this value to the html page
+    document.getElementById("bitrate4").innerHTML = bitratevalue4 //displays this value to the html page
+    document.getElementById("bitrate5").innerHTML = bitratevalue5 //displays this value to the html page
+};
 
 function send_current_gain() {
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
@@ -32,8 +69,29 @@ function send_current_gain() {
     const storedGainValue3 = sessionStorage.getItem('GainValue3');
     const storedGainValue4 = sessionStorage.getItem('GainValue4');
     const storedGainValue5 = sessionStorage.getItem('GainValue5');
+    
+    gainvalue1 = storedGainValue1
+    if(gainvalue1 == null){
+        gainvalue1 = 0
+    }
+    gainvalue2 = storedGainValue2
+    if(gainvalue2 == null){
+        gainvalue2 = 0
+    }
+    gainvalue3 = storedGainValue3
+    if(gainvalue3 == null){
+        gainvalue3 = 0
+    }
+    gainvalue4 = storedGainValue4
+    if(gainvalue4 == null){
+        gainvalue4 = 0
+    }
+    gainvalue5 = storedGainValue5
+    if(gainvalue5 == null){
+        gainvalue5 = 0
+    }
     $.ajax({
-            url: "/change_gain/" +  storedGainValue1+ "/" + storedGainValue2+ "/" + storedGainValue3+ "/" + storedGainValue4+ "/" + storedGainValue5,
+            url: "/change_gain/" +  gainvalue1 + "/" + gainvalue2 + "/" + gainvalue3 + "/" + gainvalue4 + "/" + gainvalue5,
             method: "POST",
             dataType: "json",
             success: function(data) {
@@ -65,13 +123,45 @@ function re_send_current_gain() {
     setInterval(send_current_gain, 3000);
 };
 
-async function update(){
-    await send_current_gain();
-    await updateBitrate();
-    await update_status();
+// function update(){
+//     send_current_gain();
+//     updateBitrate();
+//     update_status();
+// }
+// function re_update(){
+//     setInterval(update, 1000);
+// }
+function send_current_gain_t(callback) {
+    // Simulated asynchronous operation
+    setTimeout(function() {
+        send_current_gain();
+        callback();
+    }, 1000);
 }
-function re_update(){
-    setInterval(update, 5000);
+
+function updateBitrate_t(callback) {
+    // Simulated asynchronous operation
+    setTimeout(function() {
+        updateBitrate();
+        callback();
+    }, 1000);
+}
+
+function update_status_t() {
+    // Your update_status function
+    update_status();
+}
+
+function update() {
+    send_current_gain_t(function() {
+        updateBitrate_t(function() {
+            update_status_t();
+        });
+    });
+}
+
+function re_update() {
+    setInterval(update, 1000);
 }
 
 function ChangeGain(id) {
@@ -86,24 +176,44 @@ function ChangeGain(id) {
 }
 function page_load_gainvalue(){
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
-    document.getElementById("GainValue1").innerHTML = storedGainValue1+"% GAIN" //displays this value to the html page
-    document.getElementById("Gain1").value = storedGainValue1 //displays this value to the html page
+    gainvalue1 = storedGainValue1
+    if(gainvalue1 == null){
+        gainvalue1 = 0
+    }
+    document.getElementById("GainValue1").innerHTML = gainvalue1+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain1").value = gainvalue1 //displays this value to the html page
 
     const storedGainValue2 = sessionStorage.getItem('GainValue2');
-    document.getElementById("GainValue2").innerHTML = storedGainValue2+"% GAIN" //displays this value to the html page
-    document.getElementById("Gain2").value = storedGainValue2 //displays this value to the html page
+    gainvalue2 = storedGainValue2
+    if(gainvalue2 == null){
+        gainvalue2 = 0
+    }
+    document.getElementById("GainValue2").innerHTML = gainvalue2+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain2").value = gainvalue2 //displays this value to the html page
 
     const storedGainValue3 = sessionStorage.getItem('GainValue3');
-    document.getElementById("GainValue3").innerHTML = storedGainValue3+"% GAIN" //displays this value to the html page
-    document.getElementById("Gain3").value = storedGainValue3 //displays this value to the html page
+    gainvalue3 = storedGainValue3
+    if(gainvalue3 == null){
+        gainvalue3 = 0
+    }
+    document.getElementById("GainValue3").innerHTML = gainvalue3+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain3").value = gainvalue3 //displays this value to the html page
 
     const storedGainValue4 = sessionStorage.getItem('GainValue4');
-    document.getElementById("GainValue4").innerHTML = storedGainValue4+"% GAIN" //displays this value to the html page
-    document.getElementById("Gain4").value = storedGainValue4 //displays this value to the html page
+    gainvalue4 = storedGainValue4
+    if(gainvalue4 == null){
+        gainvalue4 = 0
+    }
+    document.getElementById("GainValue4").innerHTML = gainvalue4+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain4").value = gainvalue4 //displays this value to the html page
 
     const storedGainValue5 = sessionStorage.getItem('GainValue5');
-    document.getElementById("GainValue5").innerHTML = storedGainValue5+"% GAIN" //displays this value to the html page
-    document.getElementById("Gain5").value = storedGainValue5 //displays this value to the html page
+    gainvalue5 = storedGainValue5
+    if(gainvalue5 == null){
+        gainvalue5 = 0
+    }
+    document.getElementById("GainValue5").innerHTML = gainvalue5+"% GAIN" //displays this value to the html page
+    document.getElementById("Gain5").value = gainvalue5 //displays this value to the html page
 
     // Set initial state based on local storage
 
@@ -120,6 +230,12 @@ function ShowSettings(id){
         document.getElementById("Gain3").hidden = true;
         document.getElementById("Gain4").hidden = true;
         document.getElementById("Gain5").hidden = true;
+
+        document.getElementById("TowerSelect1").hidden = false;
+        document.getElementById("TowerSelect2").hidden = true;
+        document.getElementById("TowerSelect3").hidden = true;
+        document.getElementById("TowerSelect4").hidden = true;
+        document.getElementById("TowerSelect5").hidden = true;
     }
     if (id == 2) {
         document.getElementById("GainValue1").hidden = true;
@@ -132,7 +248,12 @@ function ShowSettings(id){
         document.getElementById("Gain3").hidden = true;
         document.getElementById("Gain4").hidden = true;
         document.getElementById("Gain5").hidden = true;
-        
+
+        document.getElementById("TowerSelect1").hidden = true;
+        document.getElementById("TowerSelect2").hidden = false;
+        document.getElementById("TowerSelect3").hidden = true;
+        document.getElementById("TowerSelect4").hidden = true;
+        document.getElementById("TowerSelect5").hidden = true;
     }
     if (id == 3) {
         document.getElementById("GainValue1").hidden = true;
@@ -145,6 +266,12 @@ function ShowSettings(id){
         document.getElementById("Gain3").hidden = false;
         document.getElementById("Gain4").hidden = true;
         document.getElementById("Gain5").hidden = true;
+
+        document.getElementById("TowerSelect1").hidden = true;
+        document.getElementById("TowerSelect2").hidden = true;
+        document.getElementById("TowerSelect3").hidden = false;
+        document.getElementById("TowerSelect4").hidden = true;
+        document.getElementById("TowerSelect5").hidden = true;
     }
     if (id == 4) {
         document.getElementById("GainValue1").hidden = true;
@@ -157,6 +284,12 @@ function ShowSettings(id){
         document.getElementById("Gain3").hidden = true;
         document.getElementById("Gain4").hidden = false;
         document.getElementById("Gain5").hidden = true;
+
+        document.getElementById("TowerSelect1").hidden = true;
+        document.getElementById("TowerSelect2").hidden = true;
+        document.getElementById("TowerSelect3").hidden = true;
+        document.getElementById("TowerSelect4").hidden = false;
+        document.getElementById("TowerSelect5").hidden = true;
     }
     if (id == 5) {
         document.getElementById("GainValue1").hidden = true;
@@ -169,6 +302,12 @@ function ShowSettings(id){
         document.getElementById("Gain3").hidden = true;
         document.getElementById("Gain4").hidden = true;
         document.getElementById("Gain5").hidden = false;
+
+        document.getElementById("TowerSelect1").hidden = true;
+        document.getElementById("TowerSelect2").hidden = true;
+        document.getElementById("TowerSelect3").hidden = true;
+        document.getElementById("TowerSelect4").hidden = true;
+        document.getElementById("TowerSelect5").hidden = false;
     }
 }
 function store_checkbox_value(checkbox, id) {
@@ -359,8 +498,8 @@ var northEast = L.latLng(karlshamnCoordinates[0] + 0.1, karlshamnCoordinates[1] 
 var bounds = L.latLngBounds(southWest, northEast);
 
 var towerIcon = L.icon({
-    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/tower2.png?raw=true', // URL to your tower icon image
-    iconSize: [42, 42], // Size of the icon
+    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/113141.png?raw=true', // URL to your tower icon image
+    iconSize: [30, 60], // Size of the icon
     iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
     popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
 });
@@ -394,6 +533,12 @@ var cities = [
 
 cities.forEach(function(city) {
     L.marker(city.coordinates, { icon: towerIcon }).addTo(map).bindPopup(city.name);
+
+    map.on('zoomend', function() {
+        var zoomLevel = map.getZoom();
+        var scaleFactor = zoomLevel; // Adjust as needed
+        marker.iconSize = [30 * scaleFactor, 60 * scaleFactor];
+    });
 });
 
 function get_logs(){

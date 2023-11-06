@@ -15,10 +15,8 @@ class slave_data_handler(DataHandler):
     # def read_d_inputs(self, address, count, srv_info):
     #     return super().read_d_inputs(address, count, srv_info)
 
-
-    # def read_h_regs(self, address, count, srv_info):
-    #     return super().read_h_regs(address, count, srv_info)
-
+    def read_h_regs(self, address, count, srv_info):
+        return super().read_h_regs(address, count, srv_info).data
 
     # def read_i_regs(self, address, count, srv_info):
     #     return super().read_i_regs(address, count, srv_info)
@@ -38,10 +36,17 @@ class server_manager:
     @classmethod
     def instance(cls):
         if cls._instance is None:
-            print('Creating new instance')
             cls._instance = cls.__new__(cls)
-            data_bank = DataBank(coils_size=0x10000, coils_default_value = True)
-            cls.srv = ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_bank)
+            data_banks = [DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
+                          DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
+                          DataBank(coils_size=0x10000, coils_default_value = True)]
+            cls.servers = [ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_banks[0]),ModbusServer("127.0.0.2", 502, no_block = True, data_bank = data_banks[1]),
+                           ModbusServer("127.0.0.3", 502, no_block = True, data_bank = data_banks[2]),ModbusServer("127.0.0.4", 502, no_block = True, data_bank = data_banks[3]),
+                           ModbusServer("127.0.0.5", 502, no_block = True, data_bank = data_banks[4])]
+            print('Creating new instance')
+            
+            # data_bank = DataBank(coils_size=0x10000, coils_default_value = True)
+            # cls.srv = ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_bank)
         return cls._instance
 
 class plc_data_handler():
@@ -53,16 +58,15 @@ class plc_data_handler():
 
     def __init__(self):
         self.slave = server_manager().instance()
-        self.slave = self.slave.srv
 
-    def write_i_regs(self, address, words_l):
+    def write_i_regs(self, bs_id, address, words_l):
         """
         Allows the PLC to write to servers/slaves input registers
         """
-        return self.slave.data_bank.set_input_registers(address, words_l)
+        return self.slave.servers[bs_id - 1].data_bank.set_input_registers(address, words_l)
 
-    def read_h_regs(self, address):
+    def read_h_regs(self, bs_id, address):
         """
         Allows the PLC to read servers/slave input registers
         """
-        return self.slave.data_bank.get_holding_registers(address)
+        return self.slave.servers[bs_id - 1].data_bank.get_holding_registers(address)

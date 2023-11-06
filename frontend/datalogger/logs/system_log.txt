@@ -1,14 +1,70 @@
-(17:10:46)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+(16:49:48)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
 
-(17:10:46)-[MODBUS_SLAVE] Server is online
+(16:49:48)-[MODBUS_SLAVE] Server is online
 
-(17:10:46)-[SERVER] Starting up server on 127.0.0.1:5000
+(16:49:49)-[SERVER] Starting up server on 127.0.0.1:5000
 
-(17:10:46)-[MODBUS_MASTER] Master starting on 127.0.0.1:502
+(16:49:49)-[MODBUS_MASTER] Master starting
 
-(17:10:46)-[MODBUS_MASTER] Master is online...
+(16:49:49)-[MODBUS_MASTER] Master is online...
 
-(17:10:46)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+(16:49:49)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
 
-(17:10:51)-[SERVER] User <User aca> successfully logged in
+(16:49:52)-[SERVER] User <User aca> successfully logged in
+
+(16:57:56)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+
+(16:57:56)-[MODBUS_SLAVE] Server is online
+
+(16:57:56)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(16:57:56)-[MODBUS_MASTER] Master starting
+
+(16:57:56)-[MODBUS_MASTER] Master is online...
+
+(16:57:56)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(16:58:02)-[SERVER] User <User aca> successfully logged in
+
+(17:02:59)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+
+(17:02:59)-[MODBUS_SLAVE] Server is online
+
+(17:03:00)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(17:03:00)-[MODBUS_MASTER] Master starting
+
+(17:03:00)-[MODBUS_MASTER] Master is online...
+
+(17:03:00)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(17:03:07)-[SERVER] User <User aca> successfully logged in
+
+(17:06:53)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+
+(17:06:53)-[MODBUS_SLAVE] Server is online
+
+(17:06:54)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(17:06:54)-[MODBUS_MASTER] Master starting
+
+(17:06:54)-[MODBUS_MASTER] Master is online...
+
+(17:06:54)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(17:07:03)-[SERVER] User <User aca> successfully logged in
+
+(17:09:59)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+
+(17:09:59)-[MODBUS_SLAVE] Server is online
+
+(17:10:00)-[SERVER] Starting up server on 127.0.0.1:5000
+
+(17:10:00)-[MODBUS_MASTER] Master starting
+
+(17:10:00)-[MODBUS_MASTER] Master is online...
+
+(17:10:00)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+
+(17:10:03)-[SERVER] User <User aca> successfully logged in
 

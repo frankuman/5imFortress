@@ -21,6 +21,8 @@ statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
 bsusers = ["IGNORE", "0","0","0","0","0"]
 
+lastbitrates = [[0, 0], [0, 250000], [0, 100000], [0, 100000], [0, 100000], [0, 100000]]
+
 current_time = datetime.datetime.now()
 time_string = current_time.strftime('%H:%M:%S')
 logger.log(0,f"({time_string})-[SERVER] Starting up server on 127.0.0.1:5000")
@@ -37,7 +39,6 @@ def login():
     if form.validate_on_submit():
         user = User.query.get(form.username.data)
         print(user)
-
 
         if user:
             if user.password == form.password.data:
@@ -100,9 +101,10 @@ def send_gain(gain1,gain2,gain3,gain4,gain5):
     Sends gain to master
     """
     gain_list = [gain1,gain2,gain3,gain4,gain5]
-    modbus_master.change_gain(gain_list)
-    print("CHANGING GAIN TO",gain_list)
-    return "Success"
+    for i in range(5):
+        modbus_master.change_gain(i+1,gain_list[i])
+    #print("CHANGING GAIN TO",gain_list)
+    return jsonify("S")
 
 @app.route("/loggers", methods=['POST', 'GET'])
 @login_required
@@ -168,18 +170,22 @@ def get_bitrate():
     Returns:
         jsonify: all bitrates
     """
-
+    global lastbitrates
     for bs_id, status in enumerate(statuses):
         if status == "UP":
             returned_bitrate = modbus_master.get_bitrate(bs_id)
+            if returned_bitrate == False:
+                bsbitrate[bs_id] = str(lastbitrates[bs_id][0]) + "/" + str(lastbitrates[bs_id][1])
+            else:
+                bsbitrate[bs_id] = str(returned_bitrate[0]) + "/" + str(returned_bitrate[1])
+                lastbitrates[bs_id][0] = returned_bitrate[0]
+                lastbitrates[bs_id][1] = returned_bitrate[1]
             if returned_bitrate is None:
-
                 cur_time = datetime.datetime.now()
                 t_string = cur_time.strftime('%H:%M:%S')
                 logger.log(0, f"///----({t_string})-MODBUS_MASTER ERROR WITH INFO: - Gettig bitrate did not work as intended///----")
 
                 return jsonify(bitrate1=bsbitrate[1], bitrate2=bsbitrate[2], bitrate3=bsbitrate[3], bitrate4=bsbitrate[4], bitrate5=bsbitrate[5])
-            bsbitrate[bs_id] = str(returned_bitrate[0]) + "/" + str(returned_bitrate[1])
         else:
             bsbitrate[bs_id] = "0"
     return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])

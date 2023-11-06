@@ -128,9 +128,12 @@ CONTROLLERS.HTML
 .controllers1tablehead {
   text-align: left;
 }
+
+/* tror inte gör något --------------------------------------------
 @use postcss-preset-env {
   stage: 0;
 }
+*/
 
 /* helpers/accessibility.css */
 
@@ -210,7 +213,6 @@ svg {
   padding: 19px;
   height: 50px;
   color: rgb(255, 255, 255);
-
 }
 
 
@@ -252,10 +254,26 @@ svg {
   left: 10%;
 }
 
+.controllers1content5{
+  text-align: center;
+}
+
+#TowerSelect1, #TowerSelect2, #TowerSelect3, #TowerSelect4, #TowerSelect5{
+
+  margin: 0;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 0;
+  width: 140px;
+  font-size: 24px;
+  text-align: center;
+  color: #ECECF9;
+  background-color: #282B30;
+}
 
 #GainValue1, #GainValue2, #GainValue3, #GainValue4, #GainValue5{
   margin: 0 auto;
-  margin-top: 0;
+  margin-top: 5;
   padding: 0;
   width: 50px;
   margin-left: 50px;
@@ -912,8 +930,6 @@ span {
 .sidebar a:hover:is(.img-link){
   background-color: #282B30;
   color: white;
- 
-
   opacity: 1;
 }
 .sidebar a:selected:is(.active):not(.img-link){
@@ -926,7 +942,6 @@ span {
 } 
 .sidebar ul li {
   list-style: none;
-  
 }
 .sidebar ul li:is(.active):not(.img-link) {
   background-color: #565880 !important;
@@ -935,7 +950,6 @@ span {
 .sidebar ul {
   padding: 0;
   margin: 0;
-  
 }
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
@@ -944,12 +958,10 @@ div.content {
   height: 1000px;
 }
 
-
 .img-sidebar {
   width: 160px;
   height: 170px;
 }
-
 
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {

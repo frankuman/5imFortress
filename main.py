@@ -55,7 +55,7 @@ def setup_env(ue, bs):
     #Ronneby
     ue3 = env_manager.env1.insert_ue(1, (7000, 7000, 1), 12000)
     ue.append(ue3)
-    #Soelvesborg
+    #Soelvesborg    
     ue4 = env_manager.env1.insert_ue(1, (10000, 10000, 1), 8000)
     ue.append(ue4)
     #Olofstroem
@@ -73,7 +73,7 @@ def main():
     for i in "12345":
         filename = "frontend/datalogger/logs/bs_log_" + i + ".txt"
         open(filename, "w", encoding = "utf-8").close()
-    filename = "frontend/datalogger/logs/system_log.txt"
+    filename = "frontend/datalogger/logs/system_lo  g.txt"
     open(filename, "w", encoding = "utf-8").close()
 
     ue = []
