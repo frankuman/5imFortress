@@ -13,10 +13,10 @@ db = SQLAlchemy()
 
 class User(db.Model):
     """
-    An admin user capable of viewing reports.
+    Users.
 
-    :param str email: email address of user
-    :param str password: encrypted password for the user
+    :param str user: username
+    :param str password:  password for the user
     """
     __tablename__ = 'user'
 
@@ -30,7 +30,7 @@ class User(db.Model):
         return True
 
     def get_id(self):
-        """Return the email address to satisfy Flask-Login's requirements."""
+        """Return the user to satisfy Flask-Login's requirements."""
         return self.username
 
     def is_authenticated(self):

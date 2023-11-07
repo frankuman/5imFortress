@@ -151,6 +151,21 @@ input{
     margin-top: -35px;
     
 }
+.error-message{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    
+}
     </style>
 
 
@@ -184,7 +199,11 @@ input{
             <button type="submit">Log in</button>
             -->
             <input class="formbutton" type="submit" formmethod="post" formaction="/" value="Login">
-
+            <div class="error-message">
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+            </div>
         </form>
         
     </form>

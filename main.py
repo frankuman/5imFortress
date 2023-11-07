@@ -73,7 +73,7 @@ def main():
     for i in "12345":
         filename = "frontend/datalogger/logs/bs_log_" + i + ".txt"
         open(filename, "w", encoding = "utf-8").close()
-    filename = "frontend/datalogger/logs/system_lo  g.txt"
+    filename = "frontend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
 
     ue = []

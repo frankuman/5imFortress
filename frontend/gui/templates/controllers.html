@@ -2,55 +2,189 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<script src="jquery.js"></script>
-<script>
-    // Make sure to call the function after the external script (jquery.js) is loaded
-    $(document).ready(function() {
-        re_update();
-        // re_update_status();
-        // re_send_current_gain();
-        page_load_checkbox();
-        page_load_apower();
-        page_load_gainvalue();
-        page_load_bitrate();
-        ChangeGain();
-        
-    });
-    $(function () {
-        $("li:not(.menu)").click(function (e) {
-            e.preventDefault();
-            $("li:not(.menu)").removeClass("active");
-            $(this).addClass("active");
-        });
-    });
-    $(function () {
-        $(".e-list").slideUp(function() {
-            $(".e-button").removeClass("open");
-        });
-        
-        $(".e-button").on("click", function() {
-            if ($(this).hasClass("open")) {
-                $(".e-list").slideUp(function() {
-                    $(".e-button").removeClass("open");
-                });
-            } else {
-                $(this).addClass("open");
-                setTimeout(function() {
-                    $(".e-list").stop().slideDown();
-                }, 200);
-            }
-        });
-    });
 
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>5imFortress</title>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+      *,
+
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #080710;
+    background-image: url("https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/hmiloginpage2blur.png?raw=true");
     
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        rgb(240, 240, 240),
+        #656565
+    );
+    left: 110px;
+    top: -110px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #f1f1f1,
+        #7b7b7b
+    );
+    right: 110px;
+    bottom: -120px;
+}
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+.formbutton{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+.social a{
+    text-decoration: none;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+.logo-login{
+    height: 140px;
+    width: 140px;
+    margin: 0 auto;
+    position: relative;
+    align-items: center;
+    align-content: center;
+    margin-left: 93px;
+    margin-top: -35px;
+    
+}
+.error-message{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    
+}
+.sidebar{
+    box-shadow: 7px 1px 20px 2px #000000;
+}
+    </style>
+
+
+
+<script>
+// Assuming you have the JSON data loaded from your file (users.json) or an API endpoint
+
 </script>
-<title class="Title">5imFortress</title>
 {% endblock %}
-
 {% block body %}
-
-<!-- The sidebar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
     <a href="/" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
@@ -68,358 +202,39 @@
     </ul>
 </div>
 <body>
-    <div class = "controllers1topcontent">
+<div class="social">
+    <a href="https://github.com/frankuman/5imFortress"><div class="go"><i class="fab fa-github"> </i>  Github</div></a>
 
-        <div class="controllers1content1">
-
-            <!-- HMI table containing information and controls for each base station -->
-            <table class = "controllers1table">
-                <tr class = "controllers1tablerow">
-                    <th class="controllers1tablehead">Tower name</th>
-                    <th class="controllers1tablehead">Status</th>
-                    <th class="controllers1tablehead">Power</th>
-                    <th class="controllers1tablehead">Bitrate</th>
-                </tr>
-                <!-- BS 1 -->
-                <tr class = "controllers1tablerow">
-                    <td>
-                        <a>Karlskrona</a>
-                    </td>
-                    <td>
-                        <a id=bsstatus1>UP</a>
-                    </td>
-                    <td>
-                        <div class="powerbutton">
-                                <label class="switch">
-                                    <input type="checkbox" id="powerb1" checked autocomplete="off" onclick="change_power(1);store_checkbox_value(this,1);">
-                                
-                                    <div class="button">
-                                    <div class="light"></div>
-                                    <div class="dots"></div>
-                                    <div class="characters"></div>
-                                    <div class="shine"></div>
-                                    <div class="shadow"></div>
-                            
-                                    </div>
-                                </label>
-                        </div>
-                    </td>
-                    <td>
-                        <a id=bitrate1>0</a>
-                    </td>
-                </tr>
-                <!-- BS 2 -->
-                <tr class = "controllers1tablerow">
-                    <td>
-                        <a>Karlshamn</a>
-                    </td>
-                    <td>
-                        <a id=bsstatus2>UP</a>
-                    </td>
-                    <td>
-                        <div class="powerbutton">
-                            <label class="switch">
-                                <input type="checkbox" id="powerb2" checked  onclick="change_power(2);store_checkbox_value(this,2);">
-                                <div class="button">
-                                <div class="light"></div>
-                                <div class="dots"></div>
-                                <div class="characters"></div>
-                                <div class="shine"></div>
-                                <div class="shadow"></div>
-                                </div>
-                            </label>
-                        </div>
-                        
-                    </td>
-                    <td>
-                        <a id=bitrate2>0</a>
-                    </td>
-                </tr>
-                <!-- BS 3 -->
-                <tr class = "controllers1tablerow">
-                    <td>
-                        <a>Ronneby</a>
-                    </td>
-                    <td>
-                        <a id=bsstatus3>UP</a>
-                    </td>
-                    <td>
-                        <div class="powerbutton">
-                            <label class="switch">
-                                <input type="checkbox" id="powerb3" checked  onclick="change_power(3);store_checkbox_value(this,3);">
-                                <div class="button">
-                                <div class="light"></div>
-                                <div class="dots"></div>
-                                <div class="characters"></div>
-                                <div class="shine"></div>
-                                <div class="shadow"></div>
-                                </div>
-                            </label>
-                        </div>
-                        
-                    </td>
-                    <td>
-                        <a id=bitrate3>0</a>
-                    </td>
-                </tr>
-                <!-- BS 4 -->
-                <tr class = "controllers1tablerow">
-                    <td>
-                        <a>Sölvesborg</a>
-                    </td>
-                    <td>
-                        <a id=bsstatus4>UP</a>
-                    </td>
-                    <td>
-                        <div class="powerbutton">
-                            <label class="switch">
-                                <input type="checkbox" id="powerb4" checked  onclick="change_power(4);store_checkbox_value(this,4);">
-                                <div class="button">
-                                <div class="light"></div>
-                                <div class="dots"></div>
-                                <div class="characters"></div>
-                                <div class="shine"></div>
-                                <div class="shadow"></div>
-                                </div>
-                            </label>
-                        </div>
-                        
-                    </td>
-                    <td>
-                        <a id=bitrate4>0</a>
-                    </td>
-                </tr>
-                <!-- BS 5 -->
-                <tr class = "controllers1tablerow">
-                    <td>
-                        <a>Olofström</a>
-                    </td>
-                    <td>
-                        <a id=bsstatus5>UP</a>
-                    </td>
-                    <td>
-                        <div class="powerbutton">
-                            <label class="switch">
-                                <input type="checkbox" id="powerb5" checked  onclick="change_power(5);store_checkbox_value(this,5);">
-                                <div class="button">
-                                <div class="light"></div>
-                                <div class="dots"></div>
-                                <div class="characters"></div>
-                                <div class="shine"></div>
-                                <div class="shadow"></div>
-                                </div>
-                            </label>
-                        </div>
-                        
-                    </td>
-                    <td>
-                        <a id=bitrate5>0</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        
-        <div class="controllers1content2"></div>
-
-        <!-- Dynamic graphs -->
-        <div class="controllers1content3">
-            <div id="y_axis"></div>
-            <div id="demo_chart"></div>
-        </div>
-
-
-    </div>
-    <div class = "controllers1bottomcontent">
-        <nav class="navigation navigation--inline">
-            <ul>
-              <li act class="setnav active">
-                <a href="#" onclick="ShowSettings(1)">1
-                  <svg class="icon icon--2x">
-                    <use xlink:href="#icon-home" />
-                  </svg>
-                  <span class="invisible">1</span>
-                </a>
-              </li>
-              <li class="setnav">
-                <a href="#" onclick="ShowSettings(2)">2
-                  <svg class="icon icon--2x">
-                    <use xlink:href="#icon-search" />
-                  </svg>
-                  <span class="invisible">2</span>
-                </a>
-              </li>
-              <li class="setnav">
-                <a href="#" onclick="ShowSettings(3)">3
-                  <svg class="icon icon--2x">
-                    <use xlink:href="#icon-cart" />
-                  </svg>
-                  <span class="invisible">3</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" onclick="ShowSettings(4)">4
-
-                  <span class="invisible">4</span>
-                </a>
-              </li>
-              <li class="setnav">
-                <a href="#" onclick="ShowSettings(5)">5
-
-                  <span class="invisible">5</span>
-                </a>
-              </li>
-            </ul>
-        </nav>
-        <div class="controllers1content4">
-            <p id="Ant1">Antenna 1</p>
-            <p id="Ant2">Antenna 2</p>
-            <p id="Ant3">Antenna 3</p>
-            <p id="Ant4">Antenna 4</p>
-            <div class="wrapper1" id="a1-1">
-                <input type="checkbox" checked id="onoff1-1" onclick="change_apower(11);store_apower_value(this,11);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div class="wrapper1" id="a1-2">
-                <input type="checkbox" checked id="onoff1-2" onclick="change_apower(12);store_apower_value(this,12);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div class="wrapper1" id="a1-3">
-                <input type="checkbox" checked id="onoff1-3" onclick="change_apower(13);store_apower_value(this,13);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div class="wrapper1" id="a1-4">
-                <input type="checkbox" checked id="onoff1-4" onclick="change_apower(14);store_apower_value(this,14);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a2-1">
-                <input type="checkbox" checked id="onoff2-1" onclick="change_apower(21);store_apower_value(this,21);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a2-2">
-                <input type="checkbox" checked id="onoff2-2" onclick="change_apower(22);store_apower_value(this,22);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a2-3">
-                <input type="checkbox" checked id="onoff2-3" onclick="change_apower(23);store_apower_value(this,23);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a2-4">
-                <input type="checkbox" checked id="onoff2-4" onclick="change_apower(24);store_apower_value(this,24);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a3-1">
-                <input type="checkbox" checked id="onoff3-1" onclick="change_apower(31);store_apower_value(this,31);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a3-2">
-                <input type="checkbox" checked id="onoff3-2" onclick="change_apower(32);store_apower_value(this,32);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a3-3">
-                <input type="checkbox" checked id="onoff3-3" onclick="change_apower(33);store_apower_value(this,33);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a3-4">
-                <input type="checkbox" checked id="onoff3-4" onclick="change_apower(34);store_apower_value(this,34);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a4-1">
-                <input type="checkbox" checked id="onoff4-1" onclick="change_apower(41);store_apower_value(this,41);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a4-2">
-                <input type="checkbox" checked id="onoff4-2" onclick="change_apower(42);store_apower_value(this,42);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a4-3">
-                <input type="checkbox" checked id="onoff4-3" onclick="change_apower(43);store_apower_value(this,43);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a4-4">
-                <input type="checkbox" checked id="onoff4-4" onclick="change_apower(44);store_apower_value(this,44);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a5-1">
-                <input type="checkbox" checked id="onoff5-1" onclick="change_apower(51);store_apower_value(this,51);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a5-2">
-                <input type="checkbox" checked id="onoff5-2" onclick="change_apower(52);store_apower_value(this,52);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a5-3">
-                <input type="checkbox" checked id="onoff5-3" onclick="change_apower(53);store_apower_value(this,53);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-            <div hidden class="wrapper1" id="a5-4">
-                <input type="checkbox" checked id="onoff5-4" onclick="change_apower(54);store_apower_value(this,54);">
-                <label for="onoff"><i class="fa-solid fa-power-off"></i>
-                <span class="lighta"></span>
-                </label>
-            </div>
-        </div>
-        
-        <div class="controllers1content5">
-            <p id="TowerSelect1">Karlskrona</p>
-            <output id="GainValue1">0% GAIN</output>
-            <p hidden id="TowerSelect2">Karlshamn</p>
-            <output hidden id="GainValue2">0% GAIN</output>
-            <p hidden id="TowerSelect3">Ronneby</p>
-            <output hidden id="GainValue3">0% GAIN</output>
-            <p hidden id="TowerSelect4">Sölvesborg</p>
-            <output hidden id="GainValue4">0% GAIN</output>
-            <p hidden id="TowerSelect5">Olofström</p>
-            <output hidden id="GainValue5">0% GAIN</output>
-
-        </div>
-        <div class="controllers1content6">
-            <input id="Gain1" type='range' value='0' oninput="ChangeGain(1)"/>
-            <input hidden id="Gain3" type='range' value='0' oninput="ChangeGain(3)"/>
-            <input hidden id="Gain4" type='range' value='0' oninput="ChangeGain(4)"/>
-            <input hidden id="Gain5" type='range' value='0' oninput="ChangeGain(5)"/>
-            <input hidden id="Gain2" type='range' value='0' oninput="ChangeGain(2)"/>
-        </div>
+</div>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
+    <form>
+        <img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="logo-login">
+        <!--
+        <label for="username">Username</label>
+        -->
+
+        <form form="post">
+            {{ form.csrf_token }}
+            {{ form.username.label }} {{ form.username(size=20) }}
+            {{ form.password.label }} {{ form.password(size=20) }}        
+            <!--
+            <label for="password">Password</label>
+            
+            <button type="submit">Log in</button>
+            -->
+            <input class="formbutton" type="submit" formmethod="post" formaction="/controllers" value="Login to HMI">
+            <div class="error-message">
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+            </div>
+        </form>
+
+    </form>
 </body>
-
 {% endblock %}
+

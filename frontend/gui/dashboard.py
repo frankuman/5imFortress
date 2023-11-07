@@ -5,7 +5,7 @@ Gets information about backend via modbus client/master
 import datetime
 #import json
 from flask import Flask, render_template, request, jsonify, redirect
-from flask_login import LoginManager, login_required,login_user
+from flask_login import LoginManager, login_required,login_user,utils
 from frontend.datalogger import logger
 from scada import modbus_master
 from frontend.helpers.user_handler import User, db, LoginForm, generate_random_cookie
@@ -16,6 +16,7 @@ gui_main.create_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
 
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
@@ -34,9 +35,11 @@ def login():
     For GET requests, display the login form. 
     For POSTS, login the current user by processing the form.
     """
+    message = ""
     form = LoginForm()
     current_time = datetime.datetime.now()
     time_string = current_time.strftime('%H:%M:%S')
+    
     if form.validate_on_submit():
         user = User.query.get(form.username.data)
         print(user)
@@ -49,10 +52,15 @@ def login():
                 db.session.add(user)
                 db.session.commit()
                 login_user(user, remember=True)
-                app.secret_key = generate_random_cookie() #generate new cookie after login
+                if user.accesslevel == "1":
+                    app.secret_key = generate_random_cookie() + "x1x0".encode(encoding='utf-8')
+                else:
+                    app.secret_key = generate_random_cookie() #generate new cookie after login
+                
                 return redirect("/dashboard")
         logger.log(0,f"({time_string})-[SERVER] User {user} tried to log in")
-    return render_template('index.html', form=form)
+        message = "Invalid username or password"
+    return render_template('index.html', form=form, message=message)
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -81,6 +89,7 @@ def unauthorized():
     """
     return redirect('/')
 
+
 @app.route("/controllers", methods=['POST', 'GET'])
 @login_required
 def hmi_request():
@@ -89,11 +98,54 @@ def hmi_request():
     Returns:
         template: 
     """
+    form = LoginForm()
+    message = ""
+    current_time = datetime.datetime.now()
+    time_string = current_time.strftime('%H:%M:%S')
+    if form.validate_on_submit():
+        user = User.query.get(form.username.data)
+        
+
+        if user:
+            print(user.accesslevel)
+            if user.password == form.password.data and user.accesslevel == "1":
+                logger.log(0,f"({time_string})-[SERVER]<!IMPORTAN!> User {user} successfully logged into HMI")
+                # // Add encryption here?
+                user.authenticated = True
+                db.session.add(user)
+                app.secret_key = generate_random_cookie() + "x1x0".encode(encoding='utf-8')
+                db.session.commit()
+                login_user(user, remember=True)
+                return redirect('/hmi')
+            else:
+                message = "Invalid credentials or insufficient access level"  # Set the error message for invalid credentials or access level
+                logger.log(0,f"({time_string})-[SERVER] User {user} tried to log in to HMI")
+                return render_template('controllers.html',form=form, message=message)
+
+        else:
+            message = "User not found"  # Set the error message for user not found
+            logger.log(0,f"({time_string})-[SERVER] User {user} tried to log in to HMI")
+            return render_template('controllers.html',form=form, message=message)
+
+
+    if(app.secret_key[len(app.secret_key)-4:len(app.secret_key)] == "x1x0".encode(encoding='utf-8')):
+        return redirect('/hmi')
+    else:
+        login_manager.unauthorized()
+        print(message)
+        return render_template('controllers.html',form=form, message=message)
+
+@app.route("/hmi", methods=['POST', 'GET'])
+@login_required
+def hmi():
+    if(app.secret_key[len(app.secret_key)-4:len(app.secret_key)] != "x1x0".encode(encoding='utf-8')):
+            return redirect('/controllers')
     if request.method == 'POST':
         return "5imSERVER ERROR"
     else:
         pass
-    return render_template('controllers.html', bspower=statuses, bsbitrate=bsbitrate)
+    return render_template('hmi.html', bspower=statuses, bsbitrate=bsbitrate)
+
 
 @app.route("/change_gain/<int:gain1>/<int:gain2>/<int:gain3>/<int:gain4>/<int:gain5>", methods=['POST', 'GET'])
 @login_required
