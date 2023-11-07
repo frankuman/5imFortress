@@ -1,14 +1,38 @@
-(19:14:19)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+(19:18:13)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
 
-(19:14:19)-[MODBUS_SLAVE] Server is online
+(19:18:13)-[MODBUS_SLAVE] Server is online
 
-(19:14:20)-[SERVER] Starting up server on 127.0.0.1:5000
+(19:18:13)-[SERVER] Starting up server on 127.0.0.1:5000
 
-(19:14:20)-[MODBUS_MASTER] Master starting
+(19:18:13)-[MODBUS_MASTER] Master starting
 
-(19:14:20)-[MODBUS_MASTER] Master is online...
+(19:18:13)-[MODBUS_MASTER] Master is online...
 
-(19:14:20)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+(19:18:13)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
 
-(19:14:23)-[SERVER] User <User aca> successfully logged in
+(19:18:17)-[SERVER] User <User aca> successfully logged in
+
+(19:25:12)-[SERVER]<!IMPORTAN!> User <User acawide> successfully logged into HMI
+
+(19:25:21)-[SERVER] User <User aca> tried to log in
+
+(19:25:23)-[SERVER] User <User aca> successfully logged in
+
+(19:25:31)-[SERVER] User <User aca> tried to log in to HMI
+
+(19:26:21)-[SERVER] User <User aca> tried to log in to HMI
+
+(19:26:23)-[SERVER] User <User aca> tried to log in to HMI
+
+(19:26:25)-[SERVER] User <User aca> tried to log in to HMI
+
+(19:26:29)-[SERVER]<!IMPORTAN!> User <User acawide> successfully logged into HMI
+
+(19:26:54)-[SERVER] User <User aca> tried to log in
+
+(19:26:55)-[SERVER] User <User aca> successfully logged in
+
+(19:27:18)-[SERVER]<!IMPORTAN!> User <User acawide> successfully logged into HMI
+
+(20:34:34)-[SERVER] User <User aca> successfully logged in
 

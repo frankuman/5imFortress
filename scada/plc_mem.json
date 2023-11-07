@@ -4,7 +4,7 @@
             {
                 "addr": 1,
                 "bit_value": 1,
-                "gain": 0,
+                "gain": 80,
                 "antenna_pow": [
                     1,
                     1,
