@@ -88,6 +88,17 @@ def check_power(bs_id):
 
     return bs_coil_pow
 
+def check_antenna_power(bs_id):
+    """
+    Server/slave reads coils containing antenna statuses from databank
+    """
+    server = server_man.servers[bs_id - 1]
+
+    slave_data = class_handler.slave_data_handler(server.data_bank)
+    srv_info = server.ServerInfo()
+    bs_antenna_pow = slave_data.read_coils(2, 4, srv_info)
+    return bs_antenna_pow
+
 def check_gain(bs_id):
     """
     Read gain from modbus server/slave of tower with id 'bs_id'

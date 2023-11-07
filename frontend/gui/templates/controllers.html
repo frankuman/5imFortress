@@ -10,6 +10,7 @@
         // re_update_status();
         // re_send_current_gain();
         page_load_checkbox();
+        page_load_apower();
         page_load_gainvalue();
         page_load_bitrate();
         ChangeGain();
@@ -41,58 +42,8 @@
         });
     });
 
-    // Dynamic Graphs
-    window.onload = function () {
 
-        var dps = [];
-        var chart = new CanvasJS.Chart("chartContainer", {
-            axisY2: {
-                minimum: 0,
-                maximum: 100,
-                suffix: "K MBPS"
-            },
-            axisX: {
-                labelFormatter: function () {
-                    return " ";
-                } 
-            },
-
-            data: [{
-                type: "spline",
-                axisYType: "secondary",
-                markerSize: 0,
-                dataPoints: dps 
-            }]
-        });
-        
-        var xVal = 0;
-        var yVal = 100;
-        var updateInterval = 2000; // update interval in milliseconds 
-        var dataLength = 50; // number of dataPoints visible at any point
-        
-        var updateChart = function (count) {
-            count = count || 1;
-            // count is number of times loop runs to generate random dataPoints.
-            for (var j = 0; j < count; j++) {	
-                yVal = yVal + Math.round(5 + Math.random() *(-5-5));
-                yVal = Math.min(yVal, 100);
-                dps.push({
-                    x: xVal,
-                    y: yVal
-                });
-                xVal++;
-            }
-            if (dps.length > dataLength) {
-                dps.shift();
-            }
-            chart.render();
-        };
-        
-        updateChart(dataLength); 
-        setInterval(function(){ updateChart() }, updateInterval); 
-        
-        }
-
+    
 </script>
 <title class="Title">5imFortress</title>
 {% endblock %}
@@ -270,14 +221,14 @@
 
         
         <div class="controllers1content2"></div>
+
+        <!-- Dynamic graphs -->
         <div class="controllers1content3">
-            <!-- Här Farhad -->
-            <div id="chartContainer" class="chartContainer" style="height: 370px; width: 100%;"></div>
-            <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script> 
-                
-
-
+            <div id="y_axis"></div>
+            <div id="demo_chart"></div>
         </div>
+
+
     </div>
     <div class = "controllers1bottomcontent">
         <nav class="navigation navigation--inline">
@@ -321,7 +272,130 @@
             </ul>
         </nav>
         <div class="controllers1content4">
-            
+            <p id="Ant1">Antenna 1</p>
+            <p id="Ant2">Antenna 2</p>
+            <p id="Ant3">Antenna 3</p>
+            <p id="Ant4">Antenna 4</p>
+            <div class="wrapper1" id="a1-1">
+                <input type="checkbox" checked id="onoff1-1" onclick="change_apower(11);store_apower_value(this,11);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div class="wrapper1" id="a1-2">
+                <input type="checkbox" checked id="onoff1-2" onclick="change_apower(12);store_apower_value(this,12);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div class="wrapper1" id="a1-3">
+                <input type="checkbox" checked id="onoff1-3" onclick="change_apower(13);store_apower_value(this,13);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div class="wrapper1" id="a1-4">
+                <input type="checkbox" checked id="onoff1-4" onclick="change_apower(14);store_apower_value(this,14);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a2-1">
+                <input type="checkbox" checked id="onoff2-1" onclick="change_apower(21);store_apower_value(this,21);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a2-2">
+                <input type="checkbox" checked id="onoff2-2" onclick="change_apower(22);store_apower_value(this,22);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a2-3">
+                <input type="checkbox" checked id="onoff2-3" onclick="change_apower(23);store_apower_value(this,23);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a2-4">
+                <input type="checkbox" checked id="onoff2-4" onclick="change_apower(24);store_apower_value(this,24);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a3-1">
+                <input type="checkbox" checked id="onoff3-1" onclick="change_apower(31);store_apower_value(this,31);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a3-2">
+                <input type="checkbox" checked id="onoff3-2" onclick="change_apower(32);store_apower_value(this,32);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a3-3">
+                <input type="checkbox" checked id="onoff3-3" onclick="change_apower(33);store_apower_value(this,33);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a3-4">
+                <input type="checkbox" checked id="onoff3-4" onclick="change_apower(34);store_apower_value(this,34);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a4-1">
+                <input type="checkbox" checked id="onoff4-1" onclick="change_apower(41);store_apower_value(this,41);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a4-2">
+                <input type="checkbox" checked id="onoff4-2" onclick="change_apower(42);store_apower_value(this,42);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a4-3">
+                <input type="checkbox" checked id="onoff4-3" onclick="change_apower(43);store_apower_value(this,43);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a4-4">
+                <input type="checkbox" checked id="onoff4-4" onclick="change_apower(44);store_apower_value(this,44);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a5-1">
+                <input type="checkbox" checked id="onoff5-1" onclick="change_apower(51);store_apower_value(this,51);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a5-2">
+                <input type="checkbox" checked id="onoff5-2" onclick="change_apower(52);store_apower_value(this,52);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a5-3">
+                <input type="checkbox" checked id="onoff5-3" onclick="change_apower(53);store_apower_value(this,53);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
+            <div hidden class="wrapper1" id="a5-4">
+                <input type="checkbox" checked id="onoff5-4" onclick="change_apower(54);store_apower_value(this,54);">
+                <label for="onoff"><i class="fa-solid fa-power-off"></i>
+                <span class="lighta"></span>
+                </label>
+            </div>
         </div>
         
         <div class="controllers1content5">

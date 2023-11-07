@@ -10,7 +10,7 @@ from backend.helpers import class_environment
 
 def change_tower_status(id):
     """
-    Stops the tower with id (if tower is do, it will go down)
+    Stops the tower with id (if tower is UP, it will go DOWN)
     """
     env_man = class_environment.environment_manager().instance()
     tower_status = env_man.env1.all_bs_list[id].bs_change_status()
@@ -24,7 +24,7 @@ def get_bitrate(id):
     Gets called every 2 seconds by dashboard
     """
     bs = util.find_bs_by_id(id)
-    ue_id = bs.get_connected_users()
+    ue_id = bs.get_connected_ue()
     if ue_id is None:
         return [0, 0]
     util.find_ue_by_id(ue_id).update_connection()
@@ -43,12 +43,12 @@ def get_users(id):
     Called by dashboard
     """
     bs = util.find_bs_by_id(id)
-    ue_id = bs.get_connected_users()
+    ue_id = bs.get_connected_ue()
     if ue_id is None:
         return 0
     util.find_ue_by_id(ue_id).update_connection()
     if bs.bs_status() == "UP":
-        users = util.find_ue_by_id(ue_id).get_users()
+        users = bs.get_connected_users()
     else:
         users = 0
     env_man = class_environment.environment_manager().instance()
@@ -64,13 +64,18 @@ def change_gain(id, gain):
     bs.change_gain(gain)
     return True
 
-def status(env1):
-    """
-    Prints out all of the general information for towers
-    """
-    for bs in env1.all_bs_list:
-        if bs.bs_type == "nr":
-            print("Basestation with ID: ", bs.bs_id)
-            print("status: ", bs.bs_status())
-            for ele in bs.bs_properties().keys():
-                print("     ", ele, ": ", bs.bs_properties()[ele])
+def change_antenna_pow(bs_id, antenna_index):
+    bs = util.find_bs_by_id(bs_id)
+    bs.change_antenna_status(antenna_index)
+    return True
+
+# def status(env1):
+#     """
+#     Prints out all of the general information for towers
+#     """
+#     for bs in env1.all_bs_list:
+#         if bs.bs_type == "nr":
+#             print("Basestation with ID: ", bs.bs_id)
+#             print("status: ", bs.bs_status())
+#             for ele in bs.bs_properties().keys():
+#                 print("     ", ele, ": ", bs.bs_properties()[ele])

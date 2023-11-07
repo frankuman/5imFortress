@@ -25,19 +25,19 @@ def setup_env(ue, bs):
 
     #5G base stations
     #Karlskrona
-    bs_1 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 250000)
+    bs_1 = env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 250000, 4)
     bs.append(bs_1)
     #Karlshamn
-    bs_2 = env_manager.env1.place_NR_base_station((4000, 4000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs_2 = env_manager.env1.place_NR_base_station((4000, 4000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
     bs.append(bs_2)
     #Ronneby
-    bs_3 = env_manager.env1.place_NR_base_station((7000, 7000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs_3 = env_manager.env1.place_NR_base_station((7000, 7000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
     bs.append(bs_3)
     #Soelvesborg
-    bs_4 = env_manager.env1.place_NR_base_station((10000, 10000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs_4 = env_manager.env1.place_NR_base_station((10000, 10000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
     bs.append(bs_4)
     #Olofstroem
-    bs_5 = env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 16, 3, 20, 100000)
+    bs_5 = env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
     bs.append(bs_5)
 
     #5G user equipment, 1 per base station

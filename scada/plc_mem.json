@@ -4,7 +4,13 @@
             {
                 "addr": 1,
                 "bit_value": 1,
-                "gain": 22
+                "gain": 0,
+                "antenna_pow": [
+                    0,
+                    1,
+                    1,
+                    1
+                ]
             }
         ]
     },
@@ -13,7 +19,13 @@
             {
                 "addr": 2,
                 "bit_value": 1,
-                "gain": 26
+                "gain": 0,
+                "antenna_pow": [
+                    1,
+                    1,
+                    1,
+                    1
+                ]
             }
         ]
     },
@@ -22,7 +34,13 @@
             {
                 "addr": 3,
                 "bit_value": 1,
-                "gain": 0
+                "gain": 0,
+                "antenna_pow": [
+                    1,
+                    1,
+                    1,
+                    1
+                ]
             }
         ]
     },
@@ -31,7 +49,13 @@
             {
                 "addr": 4,
                 "bit_value": 1,
-                "gain": 29
+                "gain": 0,
+                "antenna_pow": [
+                    1,
+                    1,
+                    1,
+                    1
+                ]
             }
         ]
     },
@@ -40,7 +64,13 @@
             {
                 "addr": 5,
                 "bit_value": 1,
-                "gain": 6
+                "gain": 0,
+                "antenna_pow": [
+                    1,
+                    1,
+                    1,
+                    1
+                ]
             }
         ]
     }

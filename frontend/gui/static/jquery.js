@@ -1,5 +1,5 @@
-
-
+// "Controllers" Tower Functions
+// Changing, storing and updating information
 function updateBitrate() {
     $.ajax({
         url: "/get_bitrate",  // Update this URL with the endpoint of your Flask backend
@@ -219,6 +219,7 @@ function page_load_gainvalue(){
 
 };
 function ShowSettings(id){
+    // show information and settings for the selected 'id' in bottom of controllers
     if (id == 1) {
         document.getElementById("GainValue1").hidden = false;
         document.getElementById("GainValue2").hidden = true;
@@ -236,7 +237,33 @@ function ShowSettings(id){
         document.getElementById("TowerSelect3").hidden = true;
         document.getElementById("TowerSelect4").hidden = true;
         document.getElementById("TowerSelect5").hidden = true;
+
+        document.getElementById("a1-1").hidden = false;
+        document.getElementById("a1-2").hidden = false;
+        document.getElementById("a1-3").hidden = false;
+        document.getElementById("a1-4").hidden = false;
+        
+        document.getElementById("a2-1").hidden = true;
+        document.getElementById("a2-2").hidden = true;
+        document.getElementById("a2-3").hidden = true;
+        document.getElementById("a2-4").hidden = true;
+
+        document.getElementById("a3-1").hidden = true;
+        document.getElementById("a3-2").hidden = true;
+        document.getElementById("a3-3").hidden = true;
+        document.getElementById("a3-4").hidden = true;
+
+        document.getElementById("a4-1").hidden = true;
+        document.getElementById("a4-2").hidden = true;
+        document.getElementById("a4-3").hidden = true;
+        document.getElementById("a4-4").hidden = true;
+        
+        document.getElementById("a5-1").hidden = true;
+        document.getElementById("a5-2").hidden = true;
+        document.getElementById("a5-3").hidden = true;
+        document.getElementById("a5-4").hidden = true;
     }
+    
     if (id == 2) {
         document.getElementById("GainValue1").hidden = true;
         document.getElementById("GainValue2").hidden = false;
@@ -254,6 +281,31 @@ function ShowSettings(id){
         document.getElementById("TowerSelect3").hidden = true;
         document.getElementById("TowerSelect4").hidden = true;
         document.getElementById("TowerSelect5").hidden = true;
+
+        document.getElementById("a1-1").hidden = true;
+        document.getElementById("a1-2").hidden = true;
+        document.getElementById("a1-3").hidden = true;
+        document.getElementById("a1-4").hidden = true;
+
+        document.getElementById("a2-1").hidden = false;
+        document.getElementById("a2-2").hidden = false;
+        document.getElementById("a2-3").hidden = false;
+        document.getElementById("a2-4").hidden = false;
+
+        document.getElementById("a3-1").hidden = true;
+        document.getElementById("a3-2").hidden = true;
+        document.getElementById("a3-3").hidden = true;
+        document.getElementById("a3-4").hidden = true;
+
+        document.getElementById("a4-1").hidden = true;
+        document.getElementById("a4-2").hidden = true;
+        document.getElementById("a4-3").hidden = true;
+        document.getElementById("a4-4").hidden = true;
+        
+        document.getElementById("a5-1").hidden = true;
+        document.getElementById("a5-2").hidden = true;
+        document.getElementById("a5-3").hidden = true;
+        document.getElementById("a5-4").hidden = true;
     }
     if (id == 3) {
         document.getElementById("GainValue1").hidden = true;
@@ -272,6 +324,31 @@ function ShowSettings(id){
         document.getElementById("TowerSelect3").hidden = false;
         document.getElementById("TowerSelect4").hidden = true;
         document.getElementById("TowerSelect5").hidden = true;
+
+        document.getElementById("a1-1").hidden = true;
+        document.getElementById("a1-2").hidden = true;
+        document.getElementById("a1-3").hidden = true;
+        document.getElementById("a1-4").hidden = true;
+
+        document.getElementById("a2-1").hidden = true;
+        document.getElementById("a2-2").hidden = true;
+        document.getElementById("a2-3").hidden = true;
+        document.getElementById("a2-4").hidden = true;
+        
+        document.getElementById("a3-1").hidden = false;
+        document.getElementById("a3-2").hidden = false;
+        document.getElementById("a3-3").hidden = false;
+        document.getElementById("a3-4").hidden = false;
+        
+        document.getElementById("a4-1").hidden = true;
+        document.getElementById("a4-2").hidden = true;
+        document.getElementById("a4-3").hidden = true;
+        document.getElementById("a4-4").hidden = true;
+        
+        document.getElementById("a5-1").hidden = true;
+        document.getElementById("a5-2").hidden = true;
+        document.getElementById("a5-3").hidden = true;
+        document.getElementById("a5-4").hidden = true;
     }
     if (id == 4) {
         document.getElementById("GainValue1").hidden = true;
@@ -290,6 +367,31 @@ function ShowSettings(id){
         document.getElementById("TowerSelect3").hidden = true;
         document.getElementById("TowerSelect4").hidden = false;
         document.getElementById("TowerSelect5").hidden = true;
+        
+        document.getElementById("a1-1").hidden = true;
+        document.getElementById("a1-2").hidden = true;
+        document.getElementById("a1-3").hidden = true;
+        document.getElementById("a1-4").hidden = true;
+        
+        document.getElementById("a2-1").hidden = true;
+        document.getElementById("a2-2").hidden = true;
+        document.getElementById("a2-3").hidden = true;
+        document.getElementById("a2-4").hidden = true;
+
+        document.getElementById("a3-1").hidden = true;
+        document.getElementById("a3-2").hidden = true;
+        document.getElementById("a3-3").hidden = true;
+        document.getElementById("a3-4").hidden = true;
+
+        document.getElementById("a4-1").hidden = false;
+        document.getElementById("a4-2").hidden = false;
+        document.getElementById("a4-3").hidden = false;
+        document.getElementById("a4-4").hidden = false;
+        
+        document.getElementById("a5-1").hidden = true;
+        document.getElementById("a5-2").hidden = true;
+        document.getElementById("a5-3").hidden = true;
+        document.getElementById("a5-4").hidden = true;
     }
     if (id == 5) {
         document.getElementById("GainValue1").hidden = true;
@@ -308,15 +410,40 @@ function ShowSettings(id){
         document.getElementById("TowerSelect3").hidden = true;
         document.getElementById("TowerSelect4").hidden = true;
         document.getElementById("TowerSelect5").hidden = false;
+
+        document.getElementById("a1-1").hidden = true;
+        document.getElementById("a1-2").hidden = true;
+        document.getElementById("a1-3").hidden = true;
+        document.getElementById("a1-4").hidden = true;
+        
+        document.getElementById("a2-1").hidden = true;
+        document.getElementById("a2-2").hidden = true;
+        document.getElementById("a2-3").hidden = true;
+        document.getElementById("a2-4").hidden = true;
+
+        document.getElementById("a3-1").hidden = true;
+        document.getElementById("a3-2").hidden = true;
+        document.getElementById("a3-3").hidden = true;
+        document.getElementById("a3-4").hidden = true;
+
+        document.getElementById("a4-1").hidden = true;
+        document.getElementById("a4-2").hidden = true;
+        document.getElementById("a4-3").hidden = true;
+        document.getElementById("a4-4").hidden = true;
+        
+        document.getElementById("a5-1").hidden = false;
+        document.getElementById("a5-2").hidden = false;
+        document.getElementById("a5-3").hidden = false;
+        document.getElementById("a5-4").hidden = false;
     }
-}
+};
 function store_checkbox_value(checkbox, id) {
     // Get the checkbox state
     const isChecked = checkbox.checked;
     
     // Store the checkbox state in local storage
     sessionStorage.setItem('powerButtonState'+id, isChecked);
-}
+};
 
 // Check if the button state is stored in local storage
 function page_load_checkbox(){
@@ -328,6 +455,173 @@ function page_load_checkbox(){
     // Set initial state based on local storage
 };
 
+
+function change_apower(id) {
+    $.ajax({
+            url: "/antenna_pow/" + id,
+            method: "POST",
+            dataType: "json",
+            success: function(data) {
+                // Handle success if needed
+            },
+            error: function(xhr, status, error) {
+                console.error("Error sending antenna power: " + error);
+            }
+    });
+};
+function page_load_apower(){
+    const aButtonState11 = sessionStorage.getItem('aButtonState11');
+    const aButtonState12 = sessionStorage.getItem('aButtonState12');
+    const aButtonState13 = sessionStorage.getItem('aButtonState13');
+    const aButtonState14 = sessionStorage.getItem('aButtonState14');
+    if(aButtonState11 == 'false'){
+        document.getElementById("onoff1-1").checked = false
+    }
+    else{
+        document.getElementById("onoff1-1").checked = true
+    }
+    if(aButtonState12 == "false"){
+        document.getElementById("onoff1-2").checked = false
+    }
+    else{
+        document.getElementById("onoff1-2").checked = true
+    }
+    if(aButtonState13 == "false"){
+        document.getElementById("onoff1-3").checked = false
+    }
+    else{
+        document.getElementById("onoff1-3").checked = true
+    }
+    if(aButtonState14 == "false"){
+        document.getElementById("onoff1-4").checked = false
+    }
+    else{
+        document.getElementById("onoff1-4").checked = true
+    }
+
+
+    const aButtonState21 = sessionStorage.getItem('aButtonState21');
+    const aButtonState22 = sessionStorage.getItem('aButtonState22');
+    const aButtonState23 = sessionStorage.getItem('aButtonState23');
+    const aButtonState24 = sessionStorage.getItem('aButtonState24');
+    if(aButtonState21 == 'false'){
+        document.getElementById("onoff2-1").checked = false
+    }
+    else{
+        document.getElementById("onoff2-1").checked = true
+    }
+    if(aButtonState22 == "false"){
+        document.getElementById("onoff2-2").checked = false
+    }
+    else{
+        document.getElementById("onoff2-2").checked = true
+    }
+    if(aButtonState23 == "false"){
+        document.getElementById("onoff2-3").checked = false
+    }
+    else{
+        document.getElementById("onoff2-3").checked = true
+    }
+    if(aButtonState24 == "false"){
+        document.getElementById("onoff2-4").checked = false
+    }
+    else{
+        document.getElementById("onoff2-4").checked = true
+    }
+
+    const aButtonState31 = sessionStorage.getItem('aButtonState31');
+    const aButtonState32 = sessionStorage.getItem('aButtonState32');
+    const aButtonState33 = sessionStorage.getItem('aButtonState33');
+    const aButtonState34 = sessionStorage.getItem('aButtonState34');
+    if(aButtonState31 == 'false'){
+        document.getElementById("onoff3-1").checked = false
+    }
+    else{
+        document.getElementById("onoff3-1").checked = true
+    }
+    if(aButtonState32 == "false"){
+        document.getElementById("onoff3-2").checked = false
+    }
+    else{
+        document.getElementById("onoff3-2").checked = true
+    }
+    if(aButtonState33 == "false"){
+        document.getElementById("onoff3-3").checked = false
+    }
+    else{
+        document.getElementById("onoff3-3").checked = true
+    }
+    if(aButtonState34 == "false"){
+        document.getElementById("onoff3-4").checked = false
+    }
+    else{
+        document.getElementById("onoff3-4").checked = true
+    }
+    const aButtonState41 = sessionStorage.getItem('aButtonState41');
+    const aButtonState42 = sessionStorage.getItem('aButtonState42');
+    const aButtonState43 = sessionStorage.getItem('aButtonState43');
+    const aButtonState44 = sessionStorage.getItem('aButtonState44');
+    if(aButtonState41 == 'false'){
+        document.getElementById("onoff4-1").checked = false
+    }
+    else{
+        document.getElementById("onoff4-1").checked = true
+    }
+    if(aButtonState42 == "false"){
+        document.getElementById("onoff4-2").checked = false
+    }
+    else{
+        document.getElementById("onoff4-2").checked = true
+    }
+    if(aButtonState43 == "false"){
+        document.getElementById("onoff4-3").checked = false
+    }
+    else{
+        document.getElementById("onoff4-3").checked = true
+    }
+    if(aButtonState44 == "false"){
+        document.getElementById("onoff4-4").checked = false
+    }
+    else{
+        document.getElementById("onoff4-4").checked = true
+    }
+    const aButtonState51 = sessionStorage.getItem('aButtonState51');
+    const aButtonState52 = sessionStorage.getItem('aButtonState52');
+    const aButtonState53 = sessionStorage.getItem('aButtonState53');
+    const aButtonState54 = sessionStorage.getItem('aButtonState54');
+    if(aButtonState51 == 'false'){
+        document.getElementById("onoff5-1").checked = false
+    }
+    else{
+        document.getElementById("onoff5-1").checked = true
+    }
+    if(aButtonState52 == "false"){
+        document.getElementById("onoff5-2").checked = false
+    }
+    else{
+        document.getElementById("onoff5-2").checked = true
+    }
+    if(aButtonState53 == "false"){
+        document.getElementById("onoff5-3").checked = false
+    }
+    else{
+        document.getElementById("onoff5-3").checked = true
+    }
+    if(aButtonState54 == "false"){
+        document.getElementById("onoff5-4").checked = false
+    }
+    else{
+        document.getElementById("onoff5-4").checked = true
+    }
+    // Set initial state based on local storage
+};
+function store_apower_value(checkbox, id) {
+    // Get the checkbox state
+    const isaChecked = checkbox.checked;
+
+    // Store the checkbox state in local storage
+    sessionStorage.setItem('aButtonState'+id, isaChecked);
+};
 
 function update_users() {
   $.ajax({
@@ -348,14 +642,13 @@ function update_users() {
       }
     
       });
-}
+};
 
 function re_update_users() {
   update_users();
   var number = (3 + Math.floor(Math.random() * 6))*1000;
   setInterval(update_users, number);
 };
-
 
 function update_status_color() {
   var status = $(".tablestatus1").text().trim();
@@ -398,7 +691,7 @@ function update_status_color() {
 function re_update_status_color(){
     update_status_color();
     setInterval(update_status_color, 5000);
-}
+};
 
 function change_power(switchId){
   
@@ -420,7 +713,7 @@ function change_power(switchId){
     }
   
   });
-}
+};
 
 function update_status() {
     $.ajax({
@@ -442,7 +735,7 @@ function update_status() {
         }
       
         });
-}
+};
 function re_update_status() {
     update_status();
     //setInterval(update_status, 2000);
@@ -499,9 +792,9 @@ var bounds = L.latLngBounds(southWest, northEast);
 
 var towerIcon = L.icon({
     iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/113141.png?raw=true', // URL to your tower icon image
-    iconSize: [30, 60], // Size of the icon
-    iconAnchor: [16, 32], // Point of the icon which will correspond to marker's location
-    popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
+    iconSize: [60, 120], // Size of the icon
+    iconAnchor: [32, 92], // Point of the icon which will correspond to marker's location
+    popupAnchor: [0, -64] // Point from which the popup should open relative to the iconAnchor
 });
 
 // Initialize the map centered at Karlshamn

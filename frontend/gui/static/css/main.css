@@ -10,14 +10,17 @@ box-shadow: 6px 12px 14px #282B30;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@300&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sulphur+Point&display=swap');
 body {
   margin: 0;
-  font-family: 'Roboto Mono', sans-serif;
+  font-family: 'Sulphur Point', sans-serif;
   font-weight: 300;
   background-color: #5F6368;
   height: 0px;
   width: 0px;
 }
+
 
 /*
 CONTROLLERS.HTML
@@ -153,9 +156,6 @@ CONTROLLERS.HTML
 
 /* layout/base.css */
 
-
-
-
 /* modules/anchor.css */
 
 a {
@@ -182,7 +182,6 @@ svg {
 :root {
   --navigation-background-color: #282B30;
   --navigation-border-radius: 0.25em;
-
   --navigation-anchor-padding: 1.5em;
 }
 
@@ -195,7 +194,6 @@ svg {
   background-color: var(--navigation-background-color);
   border-radius: var(--navigation-border-radius);
   box-shadow: 2px 4px 11px #121416;
-  
 }
 
 .navigation ul {
@@ -259,7 +257,6 @@ svg {
 }
 
 #TowerSelect1, #TowerSelect2, #TowerSelect3, #TowerSelect4, #TowerSelect5{
-
   margin: 0;
   margin-left: 12px;
   margin-right: 12px;
@@ -372,7 +369,212 @@ input[type='range']::-ms-thumb {
  input[type='range']:focus {
 	outline: none;
 }
- 
+
+/* -------------------------
+	On & Off button /*antenna power buttons
+--------------------------*/
+
+
+.controllers1content4 #Ant1{
+  position: absolute;
+  color: #ECECF9;
+  font-size: 20px;
+  width: fit-content;
+  text-align: center;
+  margin-top: 50;
+  left: 50%;
+  top: 9%;
+}
+.controllers1content4 #Ant2{
+  position: absolute;
+  color: #ECECF9;
+  font-size: 20px;
+  width: fit-content;
+  text-align: center;
+  left: 90%;
+  top: 9%;
+} 
+.controllers1content4 #Ant3{
+  position: absolute;
+  color: #ECECF9;
+  font-size: 20px;
+  width: fit-content;
+  text-align: center;
+  left: 50%;
+  top: 49%;
+}
+.controllers1content4 #Ant4{
+  position: absolute;
+  color: #ECECF9;
+  font-size: 20px;
+  width: fit-content;
+  text-align: center;
+  left: 90%;
+  top: 49%;
+} 
+/* Let's change the box-model */
+
+/* * {
+  box-sizing: border-box;
+  font-style: normal;
+} */
+
+/* Now, the wrapper */
+
+.wrapper1 {
+  width: 50px;
+  height: 50px;
+  margin: 70px;
+  position: absolute;
+}
+
+/* We hide the input and place it on top of everything else */
+.wrapper1 input {
+  display: block;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 100;
+}
+#a1-1,#a2-1,#a3-1,#a4-1,#a5-1{
+  left: 15%;
+  top: 10%
+} 
+#a1-2,#a2-2,#a3-2,#a4-2,#a5-2{
+  right: 15%;
+  top: 10%
+} 
+#a1-3,#a2-3,#a3-3,#a4-3,#a5-3{
+  left: 15%;
+  top: 50%
+}
+#a1-4,#a2-4,#a3-4,#a4-4,#a5-4{
+  right: 15%;
+  top: 50%
+} 
+
+
+
+/* Let's deal with the label now, which is our graphical element */
+
+.wrapper1 label {
+  display: block;
+  width: 50px;
+  height: 50px;
+  transition: all .1s ease-in-out;
+  border-radius: 50%;
+  position: relative;
+ /* background: linear-gradient(#f7f2f6, #b2ac9e);*/
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.13), 0 5px 8px rgb(0, 0, 0), 0 10px 10px 4px rgba(0, 0, 0, 0.49);
+  /* Now let's give it some font styles, for the incoming icon */
+  font-size: 23px;
+  line-height: 50px;
+  text-shadow: 0 0px 10px red;
+  text-align: center;
+  z-index: 1;
+  /* We will need this later */
+  font-family: FontAwesome;
+  content: "\f011";
+  color: red;
+}
+
+/* Now pseudo-elements, just to make the whole button nicer */
+
+.wrapper1 label:after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  bottom: -20px;
+  left: -20px;
+  z-index: -2;
+  border-radius: 20%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 10px rgb(0, 0, 0);
+}
+
+/* The second one */
+
+.wrapper1 label:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: inset 0 10px 10px rgba(0, 0, 0, 0.13);
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+  /* The blur filter is a little smooth trick. It makes those kind of shadows smoother. Looks great, doesn't it ? */
+}
+
+/* A last thing to make it looks even better */
+
+.wrapper1 .icon-off:after {
+    position: absolute;
+    border-radius: 50%;
+    left: 15%;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+    z-index: -1;
+    background: linear-gradient(#555, #1e1e1e);
+    box-shadow: 0 -2px 5px #222, 0 2px 5px #1e1e1e;
+    content: "\f011";
+}
+
+.lighta {
+  display: block;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: -7px;
+  right: -12px;
+  background: -webkit-radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  background: radial-gradient(center, ellipse cover, #ff7272 0%, #f80404 80%, #de3232 100%);
+  box-shadow: inset 0 1px 1px 0 #999, inset 0 -1px 1px 0 #999, 0 0 5px 1px #f00;
+  border-radius: 50%;
+  transition: all .1s ease-in-out;
+}
+
+.wrapper1 input:checked ~ label .icon-off:after {
+    position: absolute;
+    border-radius: 50%;
+    left: 15%;
+    top: 15%;
+    width: 70%;
+    height: 70%;
+    z-index: -1;
+    background: linear-gradient(#1e1e1e,#555);
+    box-shadow: 0 -2px 5px #222, 0 2px 5px #1e1e1e;
+    
+    content: "\f011";
+}
+
+.wrapper1 input:checked ~ label {
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.13), 0 5px 8px rgba(0, 0, 0, 0.35), 0 3px 10px 4px rgba(0, 0, 0, 0.2);
+  color: #00ff21;
+  text-shadow: 0 0 10px #00ff21;
+}
+
+#onoff1-1:checked + label .lighta,#onoff1-2:checked + label .lighta,#onoff1-3:checked + label .lighta ,#onoff1-4:checked + label .lighta,#onoff2-1:checked + label .lighta,#onoff2-2:checked + label .lighta 
+,#onoff2-3:checked + label .lighta,#onoff2-4:checked + label .lighta ,#onoff3-1:checked + label .lighta ,#onoff3-2:checked + label .lighta,#onoff3-3:checked + label .lighta,#onoff3-4:checked + label .lighta
+,#onoff4-1:checked + label .lighta,#onoff4-2:checked + label .lighta,#onoff4-3:checked + label .lighta,#onoff4-4:checked + label .lighta,#onoff5-1:checked + label .lighta,#onoff5-2:checked + label .lighta
+,#onoff5-3:checked + label .lighta,#onoff5-4:checked + label .lighta {
+  background: -webkit-radial-gradient(center, ellipse cover, #ccffce 0%, #91ff88 60%, #00ff15 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #fcc 0%, #f88 60%, #f00 100%);
+  background: radial-gradient(center, ellipse cover, #fcc 0%, #f88 60%, #f00 100%);
+  box-shadow: inset 0 1px 1px 0 #999, inset 0 -1px 1px 0 #999, 0 0 5px 1px #55ff6b;
+  transition: all .1s linear;
+}
+
+
+/* Done. Click on it to see the rendering. What do you think guys ? */
+
 /*
 INDEX.HTML
 */
@@ -645,7 +847,7 @@ p {
   margin-left: -8.5em;
   text-align: left;
   font-size: 12px;
-  font-family: monospace;
+
   white-space: normal;
   overflow: hidden;
   width: 700px;

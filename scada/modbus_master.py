@@ -38,6 +38,7 @@ def start_client():
 
         a = client.write_single_coil(POWER_ADDR_COIL, 1)
         slave_up_list.append(a)
+        f = client.write_multiple_coils(2, [1,1,1,1])
 
     current_time = datetime.datetime.now()
     time_string = current_time.strftime('%H:%M:%S')
@@ -78,6 +79,10 @@ def change_gain(bs_id, gain):
     Write to holding register the value of antenna gain
     """
     write_register(bs_id, gain, "GAIN")
+    return True
+
+def change_antenna_power(bs_id, antenna_id, status):
+    write_coil(bs_id, status, "ANTENNA", antenna_id+1)
     return True
 
 def read_register(bs_id, choice):

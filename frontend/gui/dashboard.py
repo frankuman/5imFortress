@@ -20,6 +20,7 @@ login_manager.init_app(app)
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
 bsusers = ["IGNORE", "0","0","0","0","0"]
+antenna_powers = [[1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1], [1,1,1,1]]
 
 lastbitrates = [[0, 0], [0, 250000], [0, 100000], [0, 100000], [0, 100000], [0, 100000]]
 
@@ -161,7 +162,31 @@ def power_off(bs_id):
     return jsonify(bsstatus1=statuses[1], bsstatus2=statuses[2], bsstatus3=statuses[3], bsstatus4=statuses[4], bsstatus5=statuses[5])
     #except:
         #return 'Error turning off power'
+@app.route("/antenna_pow/<int:antenna_id>", methods=['POST'])
+@login_required
+def antenna_power(antenna_id):
+    """
+    Turn off/on antenna power, update status in gui
+    """
+    antenna_id = str(antenna_id)
+    bs_id = int(antenna_id[0])
+    antenna_id = int(antenna_id[1])
+    if(antenna_powers[bs_id-1][antenna_id-1] == 1):
+        modbus_master.change_antenna_power(bs_id,antenna_id,0)
+        antenna_powers[bs_id-1][antenna_id-1] = 0
+        print("Turning bs_id",bs_id,"antenna_id",antenna_id,"off")
+    elif(antenna_powers[bs_id-1][antenna_id-1] == 0):
+        modbus_master.change_antenna_power(bs_id,antenna_id,1)
+        antenna_powers[bs_id-1][antenna_id-1] = 1
+        print("Turning bs_id",bs_id,"antenna_id",antenna_id,"on")
 
+
+ 
+
+    # #render_template('index.html',bspower=statuses, bsbitrate=bsbitrate)
+    return jsonify("Success")
+    #except:
+        #return 'Error turning off power'
 @app.route("/get_bitrate", methods=['GET'])
 @login_required
 def get_bitrate():

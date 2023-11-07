@@ -56,6 +56,7 @@ class user_equipment:
             self.bs_id = bs_id
             data_rate = util.find_bs_by_id(bs_id).request_connection(self.ue_id, self.requested_bitrate, available_bs)
             self.current_bs[bs_id] = data_rate
+            util.find_bs_by_id(bs_id).update_users(self.users)
 
         print("[CONNECTION_ESTABLISHED]: Users ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate))
         log = f"({time_string})-[CONNECTION_ESTABLISHED]: Users ID %s is now connected to base_station %s with a data rate of %s/%s Mbps" %(self.ue_id, bs_id, data_rate, self.requested_bitrate)
@@ -72,6 +73,8 @@ class user_equipment:
             log = f"({time_string})-[CONNECTION_TERMINATED]: Users ID %s is now disconnected from base_station %s" %(self.ue_id, bs_id)
             logger.log(bs_id,log)
             del self.current_bs[bs_id]
+            util.find_bs_by_id(bs_id).update_users(0)
+            self.bs_id = None
             return True
         return False
 
@@ -93,6 +96,7 @@ class user_equipment:
             
             data_rate = util.find_bs_by_id(self.bs_id).update_connection(self.ue_id, self.current_bs[self.bs_id], available_bs)
             self.current_bs[self.bs_id] = data_rate
+            util.find_bs_by_id(self.bs_id).update_users(self.users)
             return True
         else:
             #in this case no current base station is anymore visible
@@ -100,6 +104,7 @@ class user_equipment:
             log = f"({time_string})-[BASE_STATION_LOST]: Users ID %s has not found their base station during connection update" %(self.ue_id)
             logger.log(self.ue_id,log)
             self.disconnect_from_bs(self.bs_id)
+            self.bs_id = None
             return False
 
     def initial_timestep(self):
@@ -129,6 +134,8 @@ class user_equipment:
         elif self.users > self.original_users*1.2:
             self.users -= self.original_users*0.05
         self.users = int(self.users)
+        if self.bs_id is not None:
+            util.find_bs_by_id(self.bs_id).update_users(self.users)
         return True
 
     def get_users(self):

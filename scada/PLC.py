@@ -23,12 +23,15 @@ def plc_loop():
         sleep(0.5)
         coils = []
         gains = []
+        antenna_status = []
         for i in range(1,6):
             coil = slave.check_power(i)
             coils.append(coil[0])
             gain = slave.check_gain(i)
             gains.append(gain[0])
-        check_for_changes([1,2,3,4,5], coils, gains)
+            antenna = slave.check_antenna_power(i)
+            antenna_status.append(antenna)
+        check_for_changes([1,2,3,4,5], coils, gains, antenna_status)
 
         for bs_id in range(1, 6):
             sensors(bs_id)
@@ -101,7 +104,7 @@ def sensor_users(bs_id):
             slave_handler.plc_data_handler().write_i_regs(bs_id,user_addr + i, [0])
     return True
 
-def check_for_changes(bs_addr, coil_info, gain_info):
+def check_for_changes(bs_addr, coil_info, gain_info, antenna_info):
     """
     Compares status bits with memory to check for changes
     If there are changes, update memory and change BS status via "handler" file
@@ -109,6 +112,7 @@ def check_for_changes(bs_addr, coil_info, gain_info):
     addr_list = []
     bit_value_list = []
     gain_value_list = []
+    antenna_value_list = []
     with open("scada/plc_mem.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 
@@ -117,6 +121,7 @@ def check_for_changes(bs_addr, coil_info, gain_info):
             addr_list.append(output_coil.get("addr", None))
             bit_value_list.append(output_coil.get("bit_value", None))
             gain_value_list.append(output_coil.get("gain",None))
+            antenna_value_list.append(output_coil.get("antenna_pow",None))
 
     # Check if coil_addr and addr have the same bit values, then check if coil bit has changed
     for j in bs_addr:
@@ -130,6 +135,14 @@ def check_for_changes(bs_addr, coil_info, gain_info):
             print("Changing gain for", i, "to", gain_info[i])
             handler.change_gain(i+1, gain_info[i])
             json_data[i]["output_coil"][0]["gain"] = int(gain_info[i])
+
+        if bs_addr[i] == addr_list[i] and antenna_info[i] != antenna_value_list[i]:
+            for k in range(len(antenna_info[i])):
+                if antenna_info[i][k] != antenna_value_list[i][k]:
+                    print("BS ID:", j, "Antenna index:", k, "status:", antenna_info[i][k])
+                    handler.change_antenna_pow(j, k)
+                    json_data[i]["output_coil"][0]["antenna_pow"][k] = int(antenna_info[i][k])
+
 
     with open("scada/plc_mem.json", "w", encoding = "utf-8") as f:
         json.dump(json_data, f, indent = 4)
@@ -146,6 +159,10 @@ def reset_mem():
     for i in range(len(json_data)):
         #print(json_data[0].get('output_coil')[0])
         json_data[i]["output_coil"][0]["bit_value"] = int(True)
+        json_data[i]["output_coil"][0]["gain"] = int(0)
+        for k in range(4):
+            json_data[i]["output_coil"][0]["antenna_pow"][k] = int(1)
+
 
     with open("scada/plc_mem.json", "w", encoding = "utf-8") as f:
         json.dump(json_data, f, indent = 4)
