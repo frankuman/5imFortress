@@ -573,7 +573,17 @@ input[type='range']::-ms-thumb {
 }
 
 
-/* Done. Click on it to see the rendering. What do you think guys ? */
+
+
+#chart_container {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 200px;
+  height: 200px;
+}
+
+
+
 
 /*
 INDEX.HTML
@@ -634,6 +644,13 @@ INDEX.HTML
   text-align: left;
 }
 
+  
+.sidebar li:last-child {
+  position: absolute;
+  bottom: 0;
+  width: 200px;
+  
+}  
 
 .content {
   margin: 0 auto;
@@ -1114,6 +1131,7 @@ span {
   padding: 16px;
   opacity: 0.5;
   text-decoration: none;
+  font-size: 18px;
 }
 
 /* Active/current link */

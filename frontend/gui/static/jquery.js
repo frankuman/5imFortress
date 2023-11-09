@@ -1,5 +1,8 @@
 // "Controllers" Tower Functions
 // Changing, storing and updating information
+
+
+
 function updateBitrate() {
     $.ajax({
         url: "/get_bitrate",  // Update this URL with the endpoint of your Flask backend
@@ -152,16 +155,24 @@ function update_status_t() {
     update_status();
 }
 
-function update() {
+
+
+
+
+
+function update_all() {
     send_current_gain_t(function() {
         updateBitrate_t(function() {
             update_status_t();
+            
+            
+            
         });
     });
 }
 
 function re_update() {
-    setInterval(update, 1000);
+    setInterval(update_all, 1000);
 }
 
 function ChangeGain(id) {
@@ -859,4 +870,294 @@ function get_logs(){
 function re_get_log() {
     get_logs();
     setInterval(get_logs, 2000);
+};
+function formatTime(time) {
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    return `${minutes}:${seconds}`;
+}
+function get_bitrate_data(bs_id){
+    return new Promise(function(resolve, reject){ 
+        $.ajax({
+            url: "/get_bitrate_data/"+bs_id,  // Update this URL with the endpoint of your Flask backend
+            method: "GET",
+            dataType: "json",
+            success: function(rdata) {   
+                // Update the bitrate in the HTML element
+                console.log(rdata)
+                const labelstime = [];
+                const currentTime = new Date();
+
+                for (let i = 1; i <= 30; i++) {
+                    const time = new Date(currentTime.getTime() - i * 1000); // Subtract seconds
+                    labelstime.unshift(formatTime(time)); // Add to the beginning of the array
+                }
+                const data = {
+                    labels: labelstime,
+                    datasets: [
+                    {
+                        label: 'Dataset',
+                        data: rdata,
+                        fill: false,
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        stepped: true,
+                    }
+                    ]
+                };
+                resolve(data);
+                
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching bitrate: " + error);
+                reject(error);
+            }
+        
+        });
+    });
+}
+    
+function updategraph(chart){
+    
+    setInterval(function () {
+        get_bitrate_data(1)
+            .then(function (newData) {
+                chart.data.datasets[0].data = newData.datasets[0].data
+                chart.data.labels = newData.labels
+                chart.update();
+            })
+            .catch(function (error) {
+                console.error("Error updating graph: " + error);
+            });
+        get_bitrate_data(2)
+            .then(function (newData) {
+                chart.data.datasets[1].data = newData.datasets[0].data
+                chart.data.labels = newData.labels
+                chart.update();
+            })
+            .catch(function (error) {
+                console.error("Error updating graph: " + error);
+            });
+        get_bitrate_data(3)
+            .then(function (newData) {
+                chart.data.datasets[2].data = newData.datasets[0].data
+                chart.data.labels = newData.labels
+                chart.update();
+            })
+            .catch(function (error) {
+                console.error("Error updating graph: " + error);
+            });
+        get_bitrate_data(4)
+            .then(function (newData) {
+                chart.data.datasets[3].data = newData.datasets[0].data
+                chart.data.labels = newData.labels
+                chart.update();
+            })
+            .catch(function (error) {
+                console.error("Error updating graph: " + error);
+            });
+        get_bitrate_data(5)
+            .then(function (newData) {
+                chart.data.datasets[4].data = newData.datasets[0].data
+                chart.data.labels = newData.labels
+                chart.update();
+            })
+            .catch(function (error) {
+                console.error("Error updating graph: " + error);
+            });
+    }, 1000);
+}
+async function graph() {
+           
+    const labelsbig = [];
+    for (let i = 0; i <= 29; i++) {
+        labelsbig.push(`time-${i}`);
+    }
+    const data = { 
+        labels: labelsbig,
+        datasets: [
+        {
+            label: 'Karlskrona',
+            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            fill: false,
+            borderColor: [
+                'rgba(86, 88, 128,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            stepped: true,
+            tower: 1,
+        },
+        {
+                label: 'Karlshamn',
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                fill: false,
+                borderColor: [
+                    'rgba(86, 88, 128,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                stepped: true,
+                tower: 2,
+                hidden: true,
+        },
+        {
+            label: 'Ronneby',
+            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            fill: false,
+            borderColor: [
+                'rgba(86, 88, 128,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            stepped: true,
+            tower: 3,
+            hidden: true,
+        },
+        {
+            label: 'Sölvesborg',
+            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            fill: false,
+            borderColor: [
+                'rgba(86, 88, 128,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            stepped: true,
+            tower: 4,
+            hidden: true,
+        },
+        {
+            label: 'Olofström',
+            data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            fill: false,
+            borderColor: [
+                'rgba(86, 88, 128,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            stepped: true,
+            tower: 5,
+            hidden: true,
+
+        }
+        ]
+    };
+    
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          interaction: {
+            intersect: false,
+            axis: 'x'
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: (ctx) => 'Bitrate',
+            }
+          },
+        }
+      };
+
+      
+      const actions = [
+        {
+          name: 'Step: false (default)',
+          handler: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.stepped = false;
+            });
+            chart.update();
+          }
+        },
+        {
+          name: 'Step: true',
+          handler: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.stepped = true;
+            });
+            chart.update();
+          }
+        },
+        {
+          name: 'Step: before',
+          handler: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.stepped = 'before';
+            });
+            chart.update();
+          }
+        },
+        {
+          name: 'Step: after',
+          handler: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.stepped = 'after';
+            });
+            chart.update();
+          }
+        },
+        {
+          name: 'Step: middle',
+          handler: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.stepped = 'middle';
+            });
+            chart.update();
+          }
+        }
+      ];
+
+
+    const mychart = new Chart(
+      document.getElementById('acquisitions'),
+      {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          interaction: {
+            intersect: false,
+            axis: 'x'
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: (ctx) => 'Bitrate',
+            }
+          },
+          scales: {
+            y: {
+                suggestedMin: 0,     // Set the minimum value to 0
+                suggestedMax: 250000, // Set the maximum value to 250,000
+            }
+          }
+        },
+      }
+    );
+    updategraph(mychart);
 };

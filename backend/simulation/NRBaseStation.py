@@ -162,7 +162,6 @@ class NRBaseStation:
         return True
     
     def compute_bitrate(self):
-        self.update_users(self.connected_users)
         self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*self.connected_users
         self.allocated_bitrate = self.allocated_bitrate*(((101-self.antenna_gain)/100))
         self.allocated_bitrate = int(self.allocated_bitrate)

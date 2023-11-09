@@ -5,18 +5,19 @@ Gets information about backend via modbus client/master
 import datetime
 #import json
 from flask import Flask, render_template, request, jsonify, redirect
-from flask_login import LoginManager, login_required,login_user,utils
+from flask_login import LoginManager, login_required,login_user,utils,logout_user
 from frontend.datalogger import logger
 from scada import modbus_master
 from frontend.helpers.user_handler import User, db, LoginForm, generate_random_cookie
 import gui_main as gui_main
-
+import json
 app = Flask(__name__)
 gui_main.create_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+admin_cookie = generate_random_cookie()
 
 statuses = ["IGNORE","UP","UP","UP","UP","UP"]
 bsbitrate = ["IGNORE","0","0","0","0","0"]
@@ -39,7 +40,7 @@ def login():
     form = LoginForm()
     current_time = datetime.datetime.now()
     time_string = current_time.strftime('%H:%M:%S')
-    
+
     if form.validate_on_submit():
         user = User.query.get(form.username.data)
         print(user)
@@ -53,10 +54,10 @@ def login():
                 db.session.commit()
                 login_user(user, remember=True)
                 if user.accesslevel == "1":
-                    app.secret_key = generate_random_cookie() + "x1x0".encode(encoding='utf-8')
+                    app.secret_key = generate_random_cookie()[:12] + admin_cookie[12:]
                 else:
                     app.secret_key = generate_random_cookie() #generate new cookie after login
-                
+
                 return redirect("/dashboard")
         logger.log(0,f"({time_string})-[SERVER] User {user} tried to log in")
         message = "Invalid username or password"
@@ -113,7 +114,7 @@ def hmi_request():
                 # // Add encryption here?
                 user.authenticated = True
                 db.session.add(user)
-                app.secret_key = generate_random_cookie() + "x1x0".encode(encoding='utf-8')
+                app.secret_key = generate_random_cookie()[:12] + admin_cookie[12:]
                 db.session.commit()
                 login_user(user, remember=True)
                 return redirect('/hmi')
@@ -128,7 +129,7 @@ def hmi_request():
             return render_template('controllers.html',form=form, message=message)
 
 
-    if(app.secret_key[len(app.secret_key)-4:len(app.secret_key)] == "x1x0".encode(encoding='utf-8')):
+    if(app.secret_key[12:] == admin_cookie[12:]):
         return redirect('/hmi')
     else:
         login_manager.unauthorized()
@@ -138,13 +139,18 @@ def hmi_request():
 @app.route("/hmi", methods=['POST', 'GET'])
 @login_required
 def hmi():
-    if(app.secret_key[len(app.secret_key)-4:len(app.secret_key)] != "x1x0".encode(encoding='utf-8')):
-            return redirect('/controllers')
+    if(app.secret_key[12:] != admin_cookie[12:]):
+        return redirect('/controllers')
     if request.method == 'POST':
         return "5imSERVER ERROR"
     else:
         pass
     return render_template('hmi.html', bspower=statuses, bsbitrate=bsbitrate)
+@app.route("/logout", methods=['POST', 'GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 @app.route("/change_gain/<int:gain1>/<int:gain2>/<int:gain3>/<int:gain4>/<int:gain5>", methods=['POST', 'GET'])
@@ -265,7 +271,38 @@ def get_bitrate():
                 return jsonify(bitrate1=bsbitrate[1], bitrate2=bsbitrate[2], bitrate3=bsbitrate[3], bitrate4=bsbitrate[4], bitrate5=bsbitrate[5])
         else:
             bsbitrate[bs_id] = "0"
+    
+                
+
+    
     return jsonify(bitrate1=bsbitrate[1],bitrate2=bsbitrate[2],bitrate3=bsbitrate[3],bitrate4=bsbitrate[4],bitrate5=bsbitrate[5])
+
+
+
+@app.route("/get_bitrate_data/<int:bs_id>", methods=['GET'])
+@login_required
+def get_bitrate_data(bs_id):
+    bitrate_history = []
+    with open("frontend/gui/bitrate_data.json", "r", encoding = "utf-8") as f:
+        bitrate_data = json.load(f)
+        for item in bitrate_data:
+            for bs in item.get("bs", []):
+                bitrate_history.append(bs.get("bitrate_hist", None))
+    
+    
+    for index,bs in enumerate(bitrate_history):
+        for i in range(0, 29):
+            bs[i] = bs[i + 1]
+        bs[29] = int(bsbitrate[index+1].split('/')[0])
+        bitrate_history[index] = bs
+        bitrate_data[index]["bs"][0]["bitrate_hist"] = bs
+
+   
+    
+    with open("frontend/gui/bitrate_data.json", "w", encoding = "utf-8") as f:
+        json.dump(bitrate_data, f, indent = 4)
+    return jsonify(bitrate_history[bs_id-1])
+
 
 @app.route("/get_users", methods=['GET'])
 @login_required

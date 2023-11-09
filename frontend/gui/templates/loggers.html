@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+{% block scripts %}{% endblock %}
 <script src="jquery.js"></script>
 <script>
     // Make sure to call the function after the external script (jquery.js) is loaded
@@ -27,17 +28,13 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
-    <a href="/" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
+    <a href="/dashboard" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
     <ul>
         <li  class="menu"><a href="/dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li  class="menu "> <a  href="/controllers" class="menu"><i class="fa fa-fw fa-wrench"></i> Controllers</a></li>
         <li  class="menu active"> <a  href="/loggers"> <i class="fa fa-fw fa-file-text"></i> Logs</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-line-chart"></i> Analytics</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-user"></i> Customers</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-desktop"></i> Systems</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-magic"></i> Generate</a></li>
         <li>                <a href="/"> <i class="fa fa-fw fa-cogs"></i> Settings</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-plus"></i> Add Tower</a></li>
+        <li  class="menu "> <a href="/logout"> <i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
 </div>
 <div logger>

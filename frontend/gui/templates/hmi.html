@@ -3,6 +3,10 @@
 
 {% block head %}
 <script src="jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% block scripts %}{% endblock %}
+
 <script>
     // Make sure to call the function after the external script (jquery.js) is loaded
     $(document).ready(function() {
@@ -13,7 +17,9 @@
         page_load_apower();
         page_load_gainvalue();
         page_load_bitrate();
+        graph();
         ChangeGain();
+        
         
     });
     $(function () {
@@ -53,18 +59,14 @@
 <!-- The sidebar -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
-    <a href="/" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
+    <a href="/dashboard" class="img-link"><img src="https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/logowhite.png?raw=true" alt="Logo" class="img-sidebar"></a>
     <ul>
         <!-- <li></li> -->
         <li  class="menu "><a href="/dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li  class="menu active"> <a  href="/controllers" class="menu"><i class="fa fa-fw fa-wrench"></i> Controllers</a></li>
         <li  class="menu "> <a  href="/loggers"> <i class="fa fa-fw fa-file-text"></i> Logs</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-line-chart"></i> Analytics</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-user"></i> Customers</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-desktop"></i> Systems</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-magic"></i> Generate</a></li>
         <li>                <a href="/"> <i class="fa fa-fw fa-cogs"></i> Settings</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-plus"></i> Add Tower</a></li>
+        <li  class="menu "> <a href="/logout"> <i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
 </div>
 <body>
@@ -224,8 +226,8 @@
 
         <!-- Dynamic graphs -->
         <div class="controllers1content3">
-            <div id="y_axis"></div>
-            <div id="demo_chart"></div>
+            <div style="width: 700px; height: 390px;"><canvas id="acquisitions"></canvas></div>
+            </canvas>
         </div>
 
 
