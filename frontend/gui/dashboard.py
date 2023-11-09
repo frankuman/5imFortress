@@ -30,6 +30,20 @@ current_time = datetime.datetime.now()
 time_string = current_time.strftime('%H:%M:%S')
 logger.log(0,f"({time_string})-[SERVER] Starting up server on 127.0.0.1:5000")
 
+
+#reset json file to default
+with open("frontend/gui/bitrate_data.json", "r", encoding = "utf-8") as f:
+    json_data = json.load(f)
+
+#print(json_data)
+# Check if coil_addr and addr have the same bit values, then check if coil bit has changed
+for i in range(len(json_data)):
+    json_data[i]["bs"][0]["bitrate_hist"] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+with open("frontend/gui/bitrate_data.json", "w", encoding = "utf-8") as f:
+    json.dump(json_data, f, indent = 4)
+
+
 @app.route("/", methods=["POST", "GET"])
 def login():
     """
@@ -279,9 +293,9 @@ def get_bitrate():
 
 
 
-@app.route("/get_bitrate_data/<int:bs_id>", methods=['GET'])
+@app.route("/get_bitrate_data", methods=['GET'])
 @login_required
-def get_bitrate_data(bs_id):
+def get_bitrate_data():
     bitrate_history = []
     with open("frontend/gui/bitrate_data.json", "r", encoding = "utf-8") as f:
         bitrate_data = json.load(f)
@@ -289,7 +303,7 @@ def get_bitrate_data(bs_id):
             for bs in item.get("bs", []):
                 bitrate_history.append(bs.get("bitrate_hist", None))
     
-    
+   
     for index,bs in enumerate(bitrate_history):
         for i in range(0, 29):
             bs[i] = bs[i + 1]
@@ -301,7 +315,7 @@ def get_bitrate_data(bs_id):
     
     with open("frontend/gui/bitrate_data.json", "w", encoding = "utf-8") as f:
         json.dump(bitrate_data, f, indent = 4)
-    return jsonify(bitrate_history[bs_id-1])
+    return jsonify(bitrate_history)
 
 
 @app.route("/get_users", methods=['GET'])

@@ -876,10 +876,10 @@ function formatTime(time) {
     const seconds = time.getSeconds();
     return `${minutes}:${seconds}`;
 }
-function get_bitrate_data(bs_id){
+function get_bitrate_data(){
     return new Promise(function(resolve, reject){ 
         $.ajax({
-            url: "/get_bitrate_data/"+bs_id,  // Update this URL with the endpoint of your Flask backend
+            url: "/get_bitrate_data",  // Update this URL with the endpoint of your Flask backend
             method: "GET",
             dataType: "json",
             success: function(rdata) {   
@@ -894,22 +894,23 @@ function get_bitrate_data(bs_id){
                 }
                 const data = {
                     labels: labelstime,
-                    datasets: [
-                    {
-                        label: 'Dataset',
-                        data: rdata,
-                        fill: false,
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        stepped: true,
-                    }
-                    ]
+                    data: rdata
+                    // datasets: [
+                    // {
+                    //     label: 'Dataset',
+                    //     data: rdata,
+                    //     fill: false,
+                    //     borderColor: [
+                    //         'rgba(255, 99, 132, 1)',
+                    //         'rgba(54, 162, 235, 1)',
+                    //         'rgba(255, 206, 86, 1)',
+                    //         'rgba(75, 192, 192, 1)',
+                    //         'rgba(153, 102, 255, 1)',
+                    //         'rgba(255, 159, 64, 1)'
+                    //     ],
+                    //     stepped: true,
+                    // }
+                    // ]
                 };
                 resolve(data);
                 
@@ -926,45 +927,13 @@ function get_bitrate_data(bs_id){
 function updategraph(chart){
     
     setInterval(function () {
-        get_bitrate_data(1)
+        get_bitrate_data()
             .then(function (newData) {
-                chart.data.datasets[0].data = newData.datasets[0].data
-                chart.data.labels = newData.labels
-                chart.update();
-            })
-            .catch(function (error) {
-                console.error("Error updating graph: " + error);
-            });
-        get_bitrate_data(2)
-            .then(function (newData) {
-                chart.data.datasets[1].data = newData.datasets[0].data
-                chart.data.labels = newData.labels
-                chart.update();
-            })
-            .catch(function (error) {
-                console.error("Error updating graph: " + error);
-            });
-        get_bitrate_data(3)
-            .then(function (newData) {
-                chart.data.datasets[2].data = newData.datasets[0].data
-                chart.data.labels = newData.labels
-                chart.update();
-            })
-            .catch(function (error) {
-                console.error("Error updating graph: " + error);
-            });
-        get_bitrate_data(4)
-            .then(function (newData) {
-                chart.data.datasets[3].data = newData.datasets[0].data
-                chart.data.labels = newData.labels
-                chart.update();
-            })
-            .catch(function (error) {
-                console.error("Error updating graph: " + error);
-            });
-        get_bitrate_data(5)
-            .then(function (newData) {
-                chart.data.datasets[4].data = newData.datasets[0].data
+                chart.data.datasets[0].data = newData.data[0]
+                chart.data.datasets[1].data = newData.data[1]
+                chart.data.datasets[2].data = newData.data[2]
+                chart.data.datasets[3].data = newData.data[3]
+                chart.data.datasets[4].data = newData.data[4]
                 chart.data.labels = newData.labels
                 chart.update();
             })

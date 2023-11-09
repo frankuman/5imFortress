@@ -23,6 +23,7 @@ def create_app(app):
         create_users()
 
 def main():
+    
     from scada import modbus_master
     from frontend.gui import dashboard
     modbus_master.start_client()
