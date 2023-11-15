@@ -40,11 +40,11 @@ class server_manager:
             data_banks = [DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
                           DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
                           DataBank(coils_size=0x10000, coils_default_value = True)]
-            cls.servers = [ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_banks[0]),ModbusServer("127.0.0.2", 502, no_block = True, data_bank = data_banks[1]),
-                           ModbusServer("127.0.0.3", 502, no_block = True, data_bank = data_banks[2]),ModbusServer("127.0.0.4", 502, no_block = True, data_bank = data_banks[3]),
-                           ModbusServer("127.0.0.5", 502, no_block = True, data_bank = data_banks[4])]
+            cls.servers = [ModbusServer("192.168.0.200", 502, no_block = True, data_bank = data_banks[0]),ModbusServer("192.168.0.201", 502, no_block = True, data_bank = data_banks[1]),
+                           ModbusServer("192.168.0.202", 502, no_block = True, data_bank = data_banks[2]),ModbusServer("192.168.0.203", 502, no_block = True, data_bank = data_banks[3]),
+                           ModbusServer("192.168.0.204", 502, no_block = True, data_bank = data_banks[4])]
             print('Creating new instance')
-            
+
             # data_bank = DataBank(coils_size=0x10000, coils_default_value = True)
             # cls.srv = ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_bank)
         return cls._instance
