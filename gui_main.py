@@ -27,4 +27,4 @@ def main():
     from scada import modbus_master
     from frontend.gui import dashboard
     modbus_master.start_client()
-    dashboard.app.run(host="192.168.0.199")
+    dashboard.app.run()

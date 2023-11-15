@@ -16,11 +16,11 @@ BITRATE_TOTAL_ADDR_REG = 5
 USERS_ADDR_REG = 9
 GAIN_ADDR_REG = 11
 
-client1 = ModbusClient(host = "192.168.0.200", port = 502, auto_open = True, auto_close = True, timeout = 1)
-client2 = ModbusClient(host = "192.168.0.201", port = 502, auto_open = True, auto_close = True, timeout = 1)
-client3 = ModbusClient(host = "192.168.0.202", port = 502, auto_open = True, auto_close = True, timeout = 1)
-client4 = ModbusClient(host = "192.168.0.203", port = 502, auto_open = True, auto_close = True, timeout = 1)
-client5 = ModbusClient(host = "192.168.0.204", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client1 = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
+client2 = ModbusClient(host = "127.0.0.1", port = 503, auto_open = True, auto_close = True, timeout = 1)
+client3 = ModbusClient(host = "127.0.0.1", port = 504, auto_open = True, auto_close = True, timeout = 1)
+client4 = ModbusClient(host = "127.0.0.1", port = 505, auto_open = True, auto_close = True, timeout = 1)
+client5 = ModbusClient(host = "127.0.0.1", port = 506, auto_open = True, auto_close = True, timeout = 1)
 clients = [client1, client2, client3, client4, client5]
 
 
