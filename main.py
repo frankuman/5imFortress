@@ -5,12 +5,10 @@
 Starts backend, WNS and modbus server/slave
 """
 
-from backend.helpers import class_environment
-from scada import modbus_slave
-from scada import plc
-from multiprocessing import Process, Pool
+from BS.backend.helpers import class_environment
+from BS.backend.scada import modbus_slave
+from BS.backend.scada import plc
 import time
-import gui_main
 
 def setup_env(ue, bs):
     """
@@ -69,13 +67,13 @@ def main():
     """
     Setup backend, WNS environment and modbus server/slave
     """
+
     #Empty old logs
     for i in "12345":
-        filename = "frontend/datalogger/logs/bs_log_" + i + ".txt"
+        filename = "BS/backend/datalogger/logs/bs_log_" + i + ".txt"
         open(filename, "w", encoding = "utf-8").close()
-    filename = "frontend/datalogger/logs/system_log.txt"
+    filename = "BS/backend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
-
     ue = []
     bs = []
 
@@ -92,11 +90,4 @@ def main():
     modbus_slave.stop_server()
 
 if __name__ == "__main__":
-    p1 = Process(target=main)  # Pass a reference to the main function
-    p2 = Process(target=gui_main.main)  # Pass a reference to gui_main.main
-
-    p1.start()
-    p2.start()
-
-    p1.join()
-    p2.join()
+    main()
