@@ -93,11 +93,11 @@ Sprint 1:
 
 Sprint 2:
 
-🟡 F7: HMI (advanced)
+✅ F7: HMI (advanced)
 
-🟡 F8: Simulate 5G Base Station (advanced)
+✅ F8: Simulate 5G Base Station (advanced)
 
-❌ (Bonus): Login page for HMI
+✅ (Bonus): Login page for HMI
 
 Sprint 3:
 
