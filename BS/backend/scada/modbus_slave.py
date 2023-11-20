@@ -15,19 +15,20 @@ GAIN_ADDR_REG = 11
 #Initiate data_bank for server, with all coils as 1
 #to make sure all towers start with status UP
 print('Creating new instance')
-
-
 server_man = class_handler.server_manager().instance()
+
+
 
 def start_server():
     """"
     Start modbus server and loop for updating status coils
     """
     # try:
+    
     current_time = datetime.datetime.now()
 
     time_string = current_time.strftime('%H:%M:%S')
-    log = f"({time_string})-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502"
+    log = f"({time_string})-[MODBUS_SLAVE] Slave starting"
     logger.log(0,log)
     print(log)
     #log = "Starting slave..."

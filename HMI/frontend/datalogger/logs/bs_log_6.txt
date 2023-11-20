@@ -204,3 +204,225 @@
 
 (11:13:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
+(11:16:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:17)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:18)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:19)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:20)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:21)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:22)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:24)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:25)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:27)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:28)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:29)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:30)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:32)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:33)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:34)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:35)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:38)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:39)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:41)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:41)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:42)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:44)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:45)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:47)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:47)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:48)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:48)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:49)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:51)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:52)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:53)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:53)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:54)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:57)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:59)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:00)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:00)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:02)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:03)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:04)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:04)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:06)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:06)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:07)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:09)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:10)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:11)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:12)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:12)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:13)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:15)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:16)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:18)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:19)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:20)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:20)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:22)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:23)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:24)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:26)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:27)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:29)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:30)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:30)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:33)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:33)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:35)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:35)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:03)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:04)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:05)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:06)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:06)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:07)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:08)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:09)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:10)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:11)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:12)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:13)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:14)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:15)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:17)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:18)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:19)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:20)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:21)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:22)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:24)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:25)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:26)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:27)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:28)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:29)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:30)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:32)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+

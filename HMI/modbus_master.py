@@ -4,6 +4,7 @@ This file communicates with server/slave via modbustcp and dashboard
 """
 import datetime
 import logging
+import json
 from time import sleep
 from pyModbusTCP.client import ModbusClient
 from HMI.frontend.datalogger import logger
@@ -14,23 +15,30 @@ BITRATE_TOTAL_ADDR_REG = 5
 USERS_ADDR_REG = 9
 GAIN_ADDR_REG = 11
 
-# set host to IP of frontend/client interface
-client1 = ModbusClient(host = "127.0.0.1", port = 502, auto_open = True, auto_close = True, timeout = 1)
-client2 = ModbusClient(host = "127.0.0.1", port = 503, auto_open = True, auto_close = True, timeout = 1)
-client3 = ModbusClient(host = "127.0.0.1", port = 504, auto_open = True, auto_close = True, timeout = 1)
-client4 = ModbusClient(host = "127.0.0.1", port = 505, auto_open = True, auto_close = True, timeout = 1)
-client5 = ModbusClient(host = "127.0.0.1", port = 506, auto_open = True, auto_close = True, timeout = 1)
-clients = [client1, client2, client3, client4, client5]
+# set host to IP of BS/slaves/servers
 
+
+CLIENTS = []
 
 def start_client():
     """
     Setup for modbus client/master
     Start client/master and set up logging
     """
+
+    #Get IP addresses and ports of slaves from "config_HMI.json"
+    with open("HMI/config_HMI.json", "r", encoding = "utf-8") as f:
+        json_data = json.load(f)
+
+    CLIENTS.append(ModbusClient(host = json_data["HMI_CONNECT_TO_SLAVE"]["SLAVE1"], port = json_data["HMI_CONNECT_TO_SLAVE"]["PORT1"], auto_open = True, auto_close = True, timeout = 1))
+    CLIENTS.append(ModbusClient(host = json_data["HMI_CONNECT_TO_SLAVE"]["SLAVE2"], port = json_data["HMI_CONNECT_TO_SLAVE"]["PORT2"], auto_open = True, auto_close = True, timeout = 1))
+    CLIENTS.append(ModbusClient(host = json_data["HMI_CONNECT_TO_SLAVE"]["SLAVE3"], port = json_data["HMI_CONNECT_TO_SLAVE"]["PORT3"], auto_open = True, auto_close = True, timeout = 1))
+    CLIENTS.append(ModbusClient(host = json_data["HMI_CONNECT_TO_SLAVE"]["SLAVE4"], port = json_data["HMI_CONNECT_TO_SLAVE"]["PORT4"], auto_open = True, auto_close = True, timeout = 1))
+    CLIENTS.append(ModbusClient(host = json_data["HMI_CONNECT_TO_SLAVE"]["SLAVE5"], port = json_data["HMI_CONNECT_TO_SLAVE"]["PORT5"], auto_open = True, auto_close = True, timeout = 1))
     logging.basicConfig()
+
     slave_up_list = []
-    for i, client in enumerate(clients):
+    for i, client in enumerate(CLIENTS):
         state = client.open()
 
         print("CLIENT", i, ":", state)
@@ -97,7 +105,7 @@ def read_register(bs_id, choice):
     """
     #read bitrate registers
     
-    client = clients[bs_id - 1]
+    client = CLIENTS[bs_id - 1]
     if choice == "BITR":
         bitrate_list = []
         bitrate = client.read_input_registers(BITRATE_ACTIVE_ADDR_REG, 8)
@@ -119,7 +127,7 @@ def write_register(bs_id, data, choice):
     Write to holding register, address calculated with bs_idand choice.
     Data gets written to holding register.
     """
-    client = clients[bs_id - 1]
+    client = CLIENTS[bs_id - 1]
     if choice == "GAIN":
         client.write_single_register(GAIN_ADDR_REG, data)
         return True
@@ -130,7 +138,7 @@ def read_coil(bs_id):
     Reads coils
     """
 
-    client = clients[bs_id - 1]
+    client = CLIENTS[bs_id - 1]
     #read 5 bits contining statuses for bs's
     coil_bitrate = client.read_coils(0, 5)
     print("coil", coil_bitrate)
@@ -143,7 +151,7 @@ def write_coil(bs_id = None, value = None, data = None, addr = None):
 
     if data == "POW":
         addr = POWER_ADDR_COIL
-    client = clients[bs_id - 1]
+    client = CLIENTS[bs_id - 1]
 
     a = client.write_single_coil(addr, value)
     #print("[Debug] Wrote to coil", id, " and gave it value,", value)

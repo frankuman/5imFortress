@@ -9,6 +9,7 @@ from BS.backend.helpers import class_environment
 from BS.backend.scada import modbus_slave
 from BS.backend.scada import plc
 import time
+import socket
 
 def setup_env(ue, bs):
     """
@@ -74,9 +75,10 @@ def main():
         open(filename, "w", encoding = "utf-8").close()
     filename = "BS/backend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
+    
+
     ue = []
     bs = []
-
     setup_env(ue, bs)
 
     env_man = class_environment.environment_manager().instance()

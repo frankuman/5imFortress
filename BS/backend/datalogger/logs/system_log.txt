@@ -1,4 +1,4 @@
-(11:09:46)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
+(11:15:33)-[MODBUS_SLAVE] Slave starting on 127.0.0.1:502
 
-(11:09:46)-[MODBUS_SLAVE] Server is online
+(11:15:33)-[MODBUS_SLAVE] Server is online
 

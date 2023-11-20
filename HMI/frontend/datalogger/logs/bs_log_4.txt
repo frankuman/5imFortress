@@ -1,334 +1,500 @@
-(11:10:29)-[USERS] Users SUCCESSFULLY fetched data
+(11:16:11)-[USERS] Users SUCCESSFULLY fetched data
 
-(11:10:32)-[GAIN] Gain is set at value -> 0
+(11:16:15)-[GAIN] Gain is set at value -> 0
 
-(11:10:33)-[GAIN] Gain is set at value -> 0
+(11:16:16)-[GAIN] Gain is set at value -> 0
+
+(11:16:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:17)-[GAIN] Gain is set at value -> 0
+
+(11:16:17)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:18)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:18)-[GAIN] Gain is set at value -> 0
+
+(11:16:19)-[GAIN] Gain is set at value -> 0
+
+(11:16:19)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:20)-[GAIN] Gain is set at value -> 0
 
 ed data
 
-(11:10:34)-[GAIN] Gain is set at value -> 0
-
-(11:10:34)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:35)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:35)-[GAIN] Gain is set at value -> 0
-
-(11:10:36)-[GAIN] Gain is set at value -> 0
-
-(11:10:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:37)-[GAIN] Gain is set at value -> 0
-
-(11:10:37)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:38)-[GAIN] Gain is set at value -> 0
-
-(11:10:38)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:39)-[GAIN] Gain is set at value -> 0
-
-(11:10:39)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:40)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:40)-[GAIN] Gain is set at value -> 0
-
-(11:10:41)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:41)-[GAIN] Gain is set at value -> 0
-
-(11:10:42)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:43)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:43)-[GAIN] Gain is set at value -> 0
-
-(11:10:44)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:44)-[GAIN] Gain is set at value -> 0
-
-(11:10:45)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:45)-[GAIN] Gain is set at value -> 0
-
-(11:10:46)-[GAIN] Gain is set at value -> 0
-
-(11:10:46)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:47)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:47)-[GAIN] Gain is set at value -> 0
-
-(11:10:48)-[GAIN] Gain is set at value -> 0
-
-(11:10:48)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:49)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:49)-[GAIN] Gain is set at value -> 0
-
-(11:10:50)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:50)-[GAIN] Gain is set at value -> 0
-
-(11:10:51)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:51)-[GAIN] Gain is set at value -> 0
-
-(11:10:52)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:52)-[GAIN] Gain is set at value -> 0
-
-(11:10:53)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:53)-[GAIN] Gain is set at value -> 0
-
-(11:10:54)-[GAIN] Gain is set at value -> 0
-
-(11:10:54)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:55)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:55)-[GAIN] Gain is set at value -> 0
-
-(11:10:56)-[GAIN] Gain is set at value -> 0
-
-(11:10:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:10:58)-[GAIN] Gain is set at value -> 0
-
-(11:10:58)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:10:58)-[GAIN] Gain is set at value -> 0
-
-(11:10:59)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:00)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:00)-[GAIN] Gain is set at value -> 0
-
-(11:11:00)-[GAIN] Gain is set at value -> 0
-
-(11:11:01)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:02)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:02)-[GAIN] Gain is set at value -> 0
-
-(11:11:02)-[GAIN] Gain is set at value -> 0
-
-(11:11:03)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:03)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:03)-[GAIN] Gain is set at value -> 0
-
-(11:11:04)-[GAIN] Gain is set at value -> 0
-
-(11:11:05)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:05)-[GAIN] Gain is set at value -> 0
-
-(11:11:05)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:06)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:06)-[GAIN] Gain is set at value -> 0
-
-(11:11:07)-[GAIN] Gain is set at value -> 0
-
-(11:11:07)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:08)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:08)-[GAIN] Gain is set at value -> 0
-
-(11:11:09)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:09)-[GAIN] Gain is set at value -> 0
-
-(11:11:10)-[GAIN] Gain is set at value -> 0
-
-(11:11:10)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:11)-[GAIN] Gain is set at value -> 0
-
-(11:11:11)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:13)-[GAIN] Gain is set at value -> 0
-
-(11:11:13)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:14)-[GAIN] Gain is set at value -> 0
-
-(11:11:14)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:14)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:15)-[GAIN] Gain is set at value -> 0
+(11:16:21)-[GAIN] Gain is set at value -> 0
 
 ed data
 
-(11:11:16)-[BITRATE] Bitrate FAILED at fetching data
+(11:16:22)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:16)-[GAIN] Gain is set at value -> 0
+(11:16:22)-[GAIN] Gain is set at value -> 0
 
-(11:11:17)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:18)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:23)-[GAIN] Gain is set at value -> 0
 
-(11:11:18)-[GAIN] Gain is set at value -> 0
-
-(11:11:19)-[GAIN] Gain is set at value -> 0
-
-(11:11:19)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:20)-[GAIN] Gain is set at value -> 0
+(11:16:24)-[GAIN] Gain is set at value -> 0
 
 ed data
 
-(11:11:21)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:25)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:22)-[BITRATE] Bitrate FAILED at fetching data
+(11:16:25)-[GAIN] Gain is set at value -> 0
 
-(11:11:22)-[GAIN] Gain is set at value -> 0
+(11:16:26)-[GAIN] Gain is set at value -> 0
 
-(11:11:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:24)-[GAIN] Gain is set at value -> 0
+(11:16:27)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:24)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:27)-[GAIN] Gain is set at value -> 0
 
-(11:11:25)-[BITRATE] Bitrate FAILED at fetching data
+(11:16:28)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:25)-[GAIN] Gain is set at value -> 0
+(11:16:28)-[GAIN] Gain is set at value -> 0
 
-(11:11:26)-[GAIN] Gain is set at value -> 0
+(11:16:29)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:29)-[GAIN] Gain is set at value -> 0
 
-(11:11:27)-[GAIN] Gain is set at value -> 0
+(11:16:30)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:27)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:30)-[GAIN] Gain is set at value -> 0
 
-(11:11:28)-[GAIN] Gain is set at value -> 0
+(11:16:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:28)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:31)-[GAIN] Gain is set at value -> 0
 
-(11:11:29)-[GAIN] Gain is set at value -> 0
+(11:16:32)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:29)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:32)-[GAIN] Gain is set at value -> 0
 
-(11:11:30)-[GAIN] Gain is set at value -> 0
+(11:16:33)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:30)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:33)-[GAIN] Gain is set at value -> 0
 
-(11:11:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:34)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:31)-[GAIN] Gain is set at value -> 0
+(11:16:34)-[GAIN] Gain is set at value -> 0
 
-(11:11:32)-[GAIN] Gain is set at value -> 0
+(11:16:35)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:32)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:35)-[GAIN] Gain is set at value -> 0
 
-(11:11:33)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:33)-[GAIN] Gain is set at value -> 0
+(11:16:36)-[GAIN] Gain is set at value -> 0
 
-(11:11:34)-[GAIN] Gain is set at value -> 0
+(11:16:38)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:34)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:16:38)-[GAIN] Gain is set at value -> 0
 
-(11:11:35)-[GAIN] Gain is set at value -> 0
+(11:16:39)-[GAIN] Gain is set at value -> 0
+
+(11:16:39)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:40)-[GAIN] Gain is set at value -> 0
+
+(11:16:41)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:41)-[GAIN] Gain is set at value -> 0
+
+(11:16:41)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:42)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:42)-[GAIN] Gain is set at value -> 0
+
+(11:16:43)-[GAIN] Gain is set at value -> 0
+
+(11:16:44)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:45)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:45)-[GAIN] Gain is set at value -> 0
+
+(11:16:45)-[GAIN] Gain is set at value -> 0
+
+(11:16:47)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:47)-[GAIN] Gain is set at value -> 0
+
+(11:16:47)-[GAIN] Gain is set at value -> 0
+
+(11:16:47)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:48)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:48)-[GAIN] Gain is set at value -> 0
+
+(11:16:48)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:49)-[GAIN] Gain is set at value -> 0
+
+(11:16:49)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:50)-[GAIN] Gain is set at value -> 0
+
+(11:16:51)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:52)-[GAIN] Gain is set at value -> 0
+
+(11:16:52)-[GAIN] Gain is set at value -> 0
+
+(11:16:52)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:53)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:53)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:53)-[GAIN] Gain is set at value -> 0
+
+(11:16:54)-[GAIN] Gain is set at value -> 0
+
+(11:16:54)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:55)-[GAIN] Gain is set at value -> 0
+
+(11:16:56)-[GAIN] Gain is set at value -> 0
+
+(11:16:56)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:16:57)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:16:57)-[GAIN] Gain is set at value -> 0
+
+(11:16:59)-[GAIN] Gain is set at value -> 0
+
+(11:16:59)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:00)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:00)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:00)-[GAIN] Gain is set at value -> 0
+
+(11:17:01)-[GAIN] Gain is set at value -> 0
+
+(11:17:02)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:03)-[GAIN] Gain is set at value -> 0
+
+(11:17:03)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:03)-[GAIN] Gain is set at value -> 0
+
+(11:17:04)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:04)-[GAIN] Gain is set at value -> 0
+
+(11:17:04)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:05)-[GAIN] Gain is set at value -> 0
+
+(11:17:06)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:06)-[GAIN] Gain is set at value -> 0
+
+(11:17:06)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:07)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:07)-[GAIN] Gain is set at value -> 0
+
+(11:17:08)-[GAIN] Gain is set at value -> 0
+
+(11:17:09)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:09)-[GAIN] Gain is set at value -> 0
+
+(11:17:10)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:11)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:11)-[GAIN] Gain is set at value -> 0
+
+(11:17:11)-[GAIN] Gain is set at value -> 0
+
+(11:17:12)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:12)-[GAIN] Gain is set at value -> 0
+
+(11:17:12)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:13)-[GAIN] Gain is set at value -> 0
+
+(11:17:13)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:15)-[GAIN] Gain is set at value -> 0
+
+(11:17:15)-[GAIN] Gain is set at value -> 0
+
+(11:17:15)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:16)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:16)-[GAIN] Gain is set at value -> 0
+
+(11:17:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:18)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:18)-[GAIN] Gain is set at value -> 0
+
+(11:17:19)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:19)-[GAIN] Gain is set at value -> 0
+
+(11:17:20)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:20)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:20)-[GAIN] Gain is set at value -> 0
+
+(11:17:22)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:22)-[GAIN] Gain is set at value -> 0
+
+(11:17:22)-[GAIN] Gain is set at value -> 0
+
+(11:17:23)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:23)-[GAIN] Gain is set at value -> 0
+
+(11:17:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:24)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:24)-[GAIN] Gain is set at value -> 0
+
+(11:17:25)-[GAIN] Gain is set at value -> 0
+
+(11:17:26)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:26)-[GAIN] Gain is set at value -> 0
+
+(11:17:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:27)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:27)-[GAIN] Gain is set at value -> 0
+
+(11:17:29)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:29)-[GAIN] Gain is set at value -> 0
+
+(11:17:29)-[GAIN] Gain is set at value -> 0
+
+(11:17:30)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:30)-[GAIN] Gain is set at value -> 0
+
+(11:17:30)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:31)-[GAIN] Gain is set at value -> 0
+
+(11:17:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:32)-[GAIN] Gain is set at value -> 0
+
+(11:17:33)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:33)-[GAIN] Gain is set at value -> 0
+
+(11:17:33)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:34)-[GAIN] Gain is set at value -> 0
+
+(11:17:35)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:17:35)-[GAIN] Gain is set at value -> 0
+
+(11:17:35)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:17:36)-[GAIN] Gain is set at value -> 0
+
+(11:17:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:03)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:03)-[GAIN] Gain is set at value -> 0
+
+(11:18:04)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:05)-[GAIN] Gain is set at value -> 0
+
+(11:18:05)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:05)-[GAIN] Gain is set at value -> 0
+
+(11:18:06)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:06)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:06)-[GAIN] Gain is set at value -> 0
+
+(11:18:07)-[GAIN] Gain is set at value -> 0
+
+(11:18:07)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:08)-[BITRATE] Bitrate FAILED at fetching data
+
+(11:18:08)-[GAIN] Gain is set at value -> 0
+
+(11:18:09)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:09)-[GAIN] Gain is set at value -> 0
+
+(11:18:10)-[GAIN] Gain is set at value -> 0
 
 ed data
 
-(11:11:36)-[GAIN] Gain is set at value -> 0
+(11:18:11)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:36)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:12)-[GAIN] Gain is set at value -> 0
 
-(11:11:37)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:12)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:37)-[GAIN] Gain is set at value -> 0
+(11:18:13)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:38)-[GAIN] Gain is set at value -> 0
+(11:18:13)-[GAIN] Gain is set at value -> 0
 
-ed data
+(11:18:14)-[GAIN] Gain is set at value -> 0
 
-(11:11:39)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:14)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:39)-[GAIN] Gain is set at value -> 0
-
-(11:11:40)-[GAIN] Gain is set at value -> 0
-
-(11:11:40)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:41)-[GAIN] Gain is set at value -> 0
-
-(11:11:41)-[BITRATE] Bitrate FAILED at fetching data
-
-(11:11:42)-[BITRATE] Bitrate SUCCESSFULLY fetched data
-
-(11:11:42)-[GAIN] Gain is set at value -> 0
-
-(11:11:43)-[GAIN] Gain is set at value -> 0
+(11:18:15)-[GAIN] Gain is set at value -> 0
 
 ed data
 
-(11:11:44)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:16)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:44)-[GAIN] Gain is set at value -> 0
+(11:18:16)-[GAIN] Gain is set at value -> 0
 
-(11:11:45)-[GAIN] Gain is set at value -> 0
+(11:18:17)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:45)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:17)-[GAIN] Gain is set at value -> 0
 
-(11:11:46)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:18)-[GAIN] Gain is set at value -> 0
 
-(11:11:46)-[GAIN] Gain is set at value -> 0
+(11:18:18)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:47)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:19)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:47)-[GAIN] Gain is set at value -> 0
+(11:18:19)-[GAIN] Gain is set at value -> 0
 
-(11:11:48)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:20)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:48)-[GAIN] Gain is set at value -> 0
+(11:18:20)-[GAIN] Gain is set at value -> 0
 
-(11:11:49)-[GAIN] Gain is set at value -> 0
+(11:18:21)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:50)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:21)-[GAIN] Gain is set at value -> 0
 
-(11:11:50)-[GAIN] Gain is set at value -> 0
+(11:18:22)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:11:50)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:22)-[GAIN] Gain is set at value -> 0
 
-(11:11:51)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:23)-[GAIN] Gain is set at value -> 0
 
-(11:11:51)-[GAIN] Gain is set at value -> 0
+(11:18:23)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:52)-[GAIN] Gain is set at value -> 0
+(11:18:24)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:52)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:24)-[GAIN] Gain is set at value -> 0
 
-(11:11:53)-[GAIN] Gain is set at value -> 0
+(11:18:25)-[GAIN] Gain is set at value -> 0
 
-(11:11:53)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:25)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:54)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:26)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:11:54)-[GAIN] Gain is set at value -> 0
+(11:18:26)-[GAIN] Gain is set at value -> 0
 
-(11:11:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:27)-[GAIN] Gain is set at value -> 0
 
-(11:11:56)-[GAIN] Gain is set at value -> 0
+(11:18:27)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:12:56)-[BITRATE] Bitrate FAILED at fetching data
+(11:18:28)-[BITRATE] Bitrate SUCCESSFULLY fetched data
 
-(11:12:56)-[GAIN] Gain is set at value -> 0
+(11:18:28)-[GAIN] Gain is set at value -> 0
 
-(11:13:56)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+(11:18:29)-[BITRATE] Bitrate FAILED at fetching data
 
-(11:13:56)-[GAIN] Gain is set at value -> 0
+(11:18:29)-[GAIN] Gain is set at value -> 0
+
+(11:18:30)-[GAIN] Gain is set at value -> 0
+
+(11:18:30)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:31)-[GAIN] Gain is set at value -> 0
+
+(11:18:31)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:32)-[GAIN] Gain is set at value -> 0
+
+(11:18:32)-[BITRATE] Bitrate SUCCESSFULLY fetched data
+
+(11:18:33)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:34)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:36)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:36)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:38)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:40)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:43)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:46)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:50)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:52)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:56)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:18:59)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:02)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:05)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:08)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:11)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:14)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:17)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:20)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:23)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:26)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:29)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:32)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:35)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:38)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:41)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:44)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:47)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:19:50)-[USERS] Users SUCCESSFULLY fetched data
+
+(11:20:03)-[USERS] Users SUCCESSFULLY fetched data
 

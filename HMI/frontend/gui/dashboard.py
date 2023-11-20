@@ -5,11 +5,11 @@ Gets information about backend via modbus client/master
 import datetime
 #import json
 from flask import Flask, render_template, request, jsonify, redirect
-from flask_login import LoginManager, login_required,login_user,utils,logout_user
+from flask_login import LoginManager, login_required, login_user, logout_user
 from HMI.frontend.datalogger import logger
 from HMI import modbus_master
 from HMI.frontend.helpers.user_handler import User, db, LoginForm, generate_random_cookie
-import gui_main as gui_main
+import hmi as gui_main
 import json
 app = Flask(__name__)
 gui_main.create_app(app)
@@ -28,7 +28,7 @@ lastbitrates = [[0, 0], [0, 250000], [0, 100000], [0, 100000], [0, 100000], [0, 
 
 current_time = datetime.datetime.now()
 time_string = current_time.strftime('%H:%M:%S')
-logger.log(0,f"({time_string})-[SERVER] Starting up server on 127.0.0.1:5000")
+logger.log(0,f"({time_string})-[SERVER] Starting up server")
 
 
 #reset json file to default

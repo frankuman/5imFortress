@@ -2,7 +2,7 @@
 Classes to handle data stored with the modbustcp server/slave
 """
 from pyModbusTCP.server import DataHandler, ModbusServer, DataBank
-
+import json
 class slave_data_handler(DataHandler):
     """
     Custom data handler class
@@ -37,12 +37,19 @@ class server_manager:
     def instance(cls):
         if cls._instance is None:
             cls._instance = cls.__new__(cls)
+
+            #Get IP addresses and ports of slaves from "config_BS.json"
+            with open("BS/config_BS.json", "r", encoding = "utf-8") as f:
+                json_data = json.load(f)
+
             data_banks = [DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
                           DataBank(coils_size=0x10000, coils_default_value = True), DataBank(coils_size=0x10000, coils_default_value = True),
                           DataBank(coils_size=0x10000, coils_default_value = True)]
-            cls.servers = [ModbusServer("127.0.0.1", 502, no_block = True, data_bank = data_banks[0]),ModbusServer("127.0.0.1", 503, no_block = True, data_bank = data_banks[1]),
-                           ModbusServer("127.0.0.1", 504, no_block = True, data_bank = data_banks[2]),ModbusServer("127.0.0.1", 505, no_block = True, data_bank = data_banks[3]),
-                           ModbusServer("127.0.0.1", 506, no_block = True, data_bank = data_banks[4])]
+            cls.servers = [ModbusServer(json_data["BS"]["SLAVE1"], json_data["BS"]["PORT1"], no_block = True, data_bank = data_banks[0]),
+                           ModbusServer(json_data["BS"]["SLAVE2"], json_data["BS"]["PORT2"], no_block = True, data_bank = data_banks[1]),
+                           ModbusServer(json_data["BS"]["SLAVE3"], json_data["BS"]["PORT3"], no_block = True, data_bank = data_banks[2]),
+                           ModbusServer(json_data["BS"]["SLAVE4"], json_data["BS"]["PORT4"], no_block = True, data_bank = data_banks[3]),
+                           ModbusServer(json_data["BS"]["SLAVE5"], json_data["BS"]["PORT5"], no_block = True, data_bank = data_banks[4])]
             print('Creating new instance')
 
             # data_bank = DataBank(coils_size=0x10000, coils_default_value = True)

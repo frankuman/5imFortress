@@ -27,10 +27,14 @@ def main():
         open(filename, "w", encoding = "utf-8").close()
     filename = "HMI/frontend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
+    import json
+    with open("HMI/config_HMI.json", "r", encoding = "utf-8") as f:
+        json_data = json.load(f)
+
     from HMI import modbus_master
     from HMI.frontend.gui import dashboard
     modbus_master.start_client()
-    dashboard.app.run()
+    dashboard.app.run(host=json_data["HMI_WEBSERVICE"]["IP"], port=json_data["HMI_WEBSERVICE"]["PORT"])
 
 if __name__ == "__main__":
     main()

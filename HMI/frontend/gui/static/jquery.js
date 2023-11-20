@@ -802,7 +802,7 @@ var northEast = L.latLng(karlshamnCoordinates[0] + 0.1, karlshamnCoordinates[1] 
 var bounds = L.latLngBounds(southWest, northEast);
 
 var towerIcon = L.icon({
-    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/frontend/gui/templates/img/113141.png?raw=true', // URL to your tower icon image
+    iconUrl: 'https://github.com/frankuman/5imFortress/blob/main/HMI/frontend/gui/templates/img/113141.png?raw=true', // URL to your tower icon image
     iconSize: [60, 120], // Size of the icon
     iconAnchor: [32, 92], // Point of the icon which will correspond to marker's location
     popupAnchor: [0, -64] // Point from which the popup should open relative to the iconAnchor
