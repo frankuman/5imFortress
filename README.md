@@ -89,7 +89,7 @@ Sprint 1:
 
 ✅ (Bonus): Login page
 
-🟡 (Testing & Finetuning):
+🟡 (Testing & Finetuning)
 
 Sprint 2:
 
@@ -98,6 +98,8 @@ Sprint 2:
 ✅ F8: Simulate 5G Base Station (advanced)
 
 ✅ (Bonus): Login page for HMI
+
+🟡 (Testing & Finetuning)
 
 Sprint 3:
 
