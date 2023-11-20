@@ -103,7 +103,7 @@ def check_for_changes(bs_addr, coil_info, gain_info, antenna_info):
     bit_value_list = []
     gain_value_list = []
     antenna_value_list = []
-    with open("BS/backend/scada/plc_mem.json", "r", encoding = "utf-8") as f:
+    with open("BS/backend/scada/plc_mem.json", "r", encoding = "utf-8") as f: 
         json_data = json.load(f)
 
     for item in json_data:
