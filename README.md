@@ -249,3 +249,5 @@ Sprint 3:
 - You can contact the project team at [olbo20@student.bth.se](mailto:olbo20@student.bth.se).
 
 Thank you
+
+![acawide](https://github.com/frankuman/5imFortress/assets/57047010/1782e609-f09e-4c73-893a-8855a3c57111)
