@@ -73,7 +73,29 @@ Example configuration for the BS virtual machine:
 ```
 Adjust IP addresses and ports based on your network setup.
 
-For HMI, ensure the IP addresses are the same for the MASTER to connect to the SLAVES. Configure Flask to run on a specific IP and port for the HMI login page.
+For HMI, ensure the IP addresses are the same for the MASTER to connect to the SLAVES. Configure Flask to run on a specific IP and port for the HMI login page, whereas we tested with the HMI owns network interface card so it can be reachable accross the local internet.
+```json
+{
+    "HMI_CONNECT_TO_SLAVE":{ 
+        "SLAVE1":"192.168.0.100",
+        "SLAVE2":"192.168.0.100",
+        "SLAVE3":"192.168.0.100",
+        "SLAVE4":"192.168.0.100",
+        "SLAVE5":"192.168.0.100",
+        "PORT1":502,
+        "PORT2":503,
+        "PORT3":504,
+        "PORT4":505,
+        "PORT5":506
+    },
+    "HMI_WEBSERVICE":{
+        "IP":"192.168.0.50",
+        "PORT":5000
+    }
+}
+```
+
+Remember that these are modifyiable but have not been tested on public ip addresses.
 
 ## Usage
 1. Open a web browser and go to the login page (e.g., http://your_hmi_ip:your_hmi_port).
