@@ -3,7 +3,7 @@ WTForms==2.3.3
 werkzeug==2.3.0
 scipy==1.11.3
 pymodbusTCP==0.2.0 
-flask==3.0.0
+flask==2.3.1
 Flask-Login==0.6.2
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
