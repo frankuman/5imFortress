@@ -159,9 +159,7 @@ Adjust the gain slider to fine-tune the tower's gain, ranging from 0% to 100%. H
 <img src="https://github.com/frankuman/5imFortress/assets/57047010/5b379886-d139-4c55-ba95-d03edb399f33" width="100">
 
 ### Graph
-The graph provides a visual representation of
-
- the bitrate for each tower over the last 30 seconds, offering insights into performance trends.
+The graph provides a visual representation of the bitrate for each tower over the last 30 seconds, offering insights into performance trends.
  
 <img src="https://github.com/frankuman/5imFortress/assets/57047010/28c96570-b8ab-4816-87c7-6dd1e12dcb29" width="400">
 
