@@ -37,7 +37,7 @@
 - Python 3.7.0 or higher
 - Pip
 - Two virtual machines (1 for HMI, and 1 for BS - basestation)
-- Network connection is preferred but not needed for images and map.
+- Network connection is preferred for images and map but not needed.
 
 ## Installation
 1. Download the required files for each virtual machine either using git or manual download.
