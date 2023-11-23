@@ -95,7 +95,7 @@ For HMI, ensure the IP addresses are the same for the MASTER to connect to the S
 }
 ```
 
-Remember that these are modifyiable but have not been tested on public ip addresses.
+Remember that these are changeable but have not been tested on public ip addresses.
 
 ## Usage
 1. Open a web browser and go to the login page (e.g., http://your_hmi_ip:your_hmi_port).
