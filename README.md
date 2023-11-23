@@ -249,5 +249,5 @@ Sprint 3:
 - You can contact the project team at [olbo20@student.bth.se](mailto:olbo20@student.bth.se).
 
 Thank you
-Farhad does not meet the team standard (he is sent to gulag)
 ![image](https://github.com/frankuman/5imFortress/assets/57047010/e38ef278-6752-4180-b719-d2c6a14b61b0)
+(Farhad does not meet the team standard (he is sent to gulag))
