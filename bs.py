@@ -18,23 +18,23 @@ def setup_env():
     #Environment manager for singleton environment
     env_manager = class_environment.environment_manager.instance()
 
-    #Satellite, fills out bs list, otherwise IGNORE
+    #Satellite, fills out bs list, just IGNORE
     env_manager.env1.place_SAT_base_station(10000, (1000, 2000))
 
     #5G base stations
     #Karlskrona
-    env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 16, 3, 20, 250000, 4)
+    env_manager.env1.place_NR_base_station((1000, 1000, 40), 800, 1, 20, 0, 3, 20, 250000, 4)
     #Karlshamn
-    env_manager.env1.place_NR_base_station((4000, 4000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
+    env_manager.env1.place_NR_base_station((4000, 4000, 40), 800, 1, 20, 0, 3, 20, 100000, 4)
     #Ronneby
-    env_manager.env1.place_NR_base_station((7000, 7000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
+    env_manager.env1.place_NR_base_station((7000, 7000, 40), 800, 1, 20, 0, 3, 20, 100000, 4)
     #Soelvesborg
-    env_manager.env1.place_NR_base_station((10000, 10000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
+    env_manager.env1.place_NR_base_station((10000, 10000, 40), 800, 1, 20, 0, 3, 20, 100000, 4)
     #Olofstroem
-    env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 16, 3, 20, 100000, 4)
+    env_manager.env1.place_NR_base_station((13000, 13000, 40), 800, 1, 20, 0, 3, 20, 100000, 4)
 
     #5G user equipment, 1 per base station
-    #Sat ue, fills out ue list, otherwise IGNORE
+    #Sat ue, fills out ue list, just IGNORE
     env_manager.env1.insert_ue(1, (10000000, 10000000, 1), 10000) # connects to satellite
 
     #Normal user equipment, connecting to base stations

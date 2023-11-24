@@ -1,7 +1,5 @@
-// "Controllers" Tower Functions
-// Changing, storing and updating information
-
-
+// This is the jquery, we are not js programmers so
+// this code might not look good
 
 function updateBitrate() {
     $.ajax({
@@ -30,15 +28,16 @@ function updateBitrate() {
 }
 function re_updateBitrate() {
     updateBitrate();
-    setInterval(updateBitrate, 5000);
+    setInterval(updateBitrate, 5000);   //Refetch the bitrate every 5 sec
 };
 function page_load_bitrate(){
+    //get the stored bitrate from session storage
     const storedbitrate1 = sessionStorage.getItem('bitrate1');
     const storedbitrate2 = sessionStorage.getItem('bitrate2');
     const storedbitrate3 = sessionStorage.getItem('bitrate3');
     const storedbitrate4 = sessionStorage.getItem('bitrate4');
-    const storedbitrate5 = sessionStorage.getItem('bitrate5');
-        
+    const storedbitrate5 = sessionStorage.getItem('bitrate5');  
+    //If its null, print unknown
     bitratevalue1 = storedbitrate1
     if(bitratevalue1 == null){
         bitratevalue1 = "Unknown"
@@ -67,12 +66,13 @@ function page_load_bitrate(){
 };
 
 function send_current_gain() {
+    //Get the stored gain
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
     const storedGainValue2 = sessionStorage.getItem('GainValue2');
     const storedGainValue3 = sessionStorage.getItem('GainValue3');
     const storedGainValue4 = sessionStorage.getItem('GainValue4');
     const storedGainValue5 = sessionStorage.getItem('GainValue5');
-    
+    //Print 0 if unknown
     gainvalue1 = storedGainValue1
     if(gainvalue1 == null){
         gainvalue1 = 0
@@ -93,6 +93,7 @@ function send_current_gain() {
     if(gainvalue5 == null){
         gainvalue5 = 0
     }
+    //Do a post request to dashboard
     $.ajax({
             url: "/change_gain/" +  gainvalue1 + "/" + gainvalue2 + "/" + gainvalue3 + "/" + gainvalue4 + "/" + gainvalue5,
             method: "POST",
@@ -104,36 +105,12 @@ function send_current_gain() {
                 console.error("Error sending gain: " + error);
             }
     });
-    // for (let bs_id = 1; bs_id <= 5; bs_id++) {
-    //     const storedGainValue = sessionStorage.getItem('GainValue' + bs_id);
-    //     if (storedGainValue) {
-    //         $.ajax({
-    //             url: "/change_gain/" + bs_id + "/" + storedGainValue,
-    //             method: "POST",
-    //             dataType: "json",
-    //             success: function(data) {
-    //                 // Handle success if needed
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 console.error("Error sending gain: " + error);
-    //             }
-    //         });
-    //     }
-    // }
 }
 function re_send_current_gain() {
     send_current_gain();
-    setInterval(send_current_gain, 3000);
+    setInterval(send_current_gain, 3000); //Send gain every 3 sec so backend knows it
 };
 
-// function update(){
-//     send_current_gain();
-//     updateBitrate();
-//     update_status();
-// }
-// function re_update(){
-//     setInterval(update, 1000);
-// }
 function send_current_gain_t(callback) {
     // Simulated asynchronous operation
     setTimeout(function() {
@@ -155,12 +132,7 @@ function update_status_t() {
     update_status();
 }
 
-
-
-
-
-
-function update_all() {
+function update_all() { //Updates all functions
     send_current_gain_t(function() {
         updateBitrate_t(function() {
             update_status_t();
@@ -172,11 +144,12 @@ function update_all() {
 }
 
 function re_update() {
-    setInterval(update_all, 1000);
+    setInterval(update_all, 1000); //Calls updates all every sec
 }
 
-function ChangeGain(id) {
-    GainElement = "Gain"+id
+function ChangeGain(id) { 
+    //If gain is changed we need to display it
+    GainElement = "Gain"+id 
     RangeElement = "GainValue"+id
     var val = document.getElementById(GainElement).value //gets the oninput value
     document.getElementById(RangeElement).innerHTML = val+"% GAIN" //displays this value to the html page
@@ -186,6 +159,7 @@ function ChangeGain(id) {
     sessionStorage.setItem('GainValue'+id, val);
 }
 function page_load_gainvalue(){
+    //When the page loades, we need to load the gain and show it
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
     gainvalue1 = storedGainValue1
     if(gainvalue1 == null){
@@ -232,6 +206,7 @@ function page_load_gainvalue(){
 function ShowSettings(id){
     // show information and settings for the selected 'id' in bottom of controllers
     if (id == 1) {
+        //Unhides the element
         document.getElementById("GainValue1").hidden = false;
         document.getElementById("GainValue2").hidden = true;
         document.getElementById("GainValue3").hidden = true;
@@ -458,12 +433,12 @@ function store_checkbox_value(checkbox, id) {
 
 // Check if the button state is stored in local storage
 function page_load_checkbox(){
+    // Get the stored item
     const storedPowerButtonState1 = sessionStorage.getItem('powerButtonState1');
     const storedPowerButtonState2 = sessionStorage.getItem('powerButtonState2');
     const storedPowerButtonState3 = sessionStorage.getItem('powerButtonState3');
     const storedPowerButtonState4 = sessionStorage.getItem('powerButtonState4');
     const storedPowerButtonState5 = sessionStorage.getItem('powerButtonState5');
-    // Set initial state based on local storage
 };
 
 
@@ -481,10 +456,12 @@ function change_apower(id) {
     });
 };
 function page_load_apower(){
+    //get stored state of antennabutton
     const aButtonState11 = sessionStorage.getItem('aButtonState11');
     const aButtonState12 = sessionStorage.getItem('aButtonState12');
     const aButtonState13 = sessionStorage.getItem('aButtonState13');
     const aButtonState14 = sessionStorage.getItem('aButtonState14');
+    //Depending on state, and what is shown, display it
     if(aButtonState11 == 'false'){
         document.getElementById("onoff1-1").checked = false
     }
@@ -657,17 +634,18 @@ function update_users() {
 
 function re_update_users() {
   update_users();
-  var number = (3 + Math.floor(Math.random() * 6))*1000;
+  var number = (3 + Math.floor(Math.random() * 6))*1000; //Updates the users on a random interval
   setInterval(update_users, number);
 };
 
 function update_status_color() {
-  var status = $(".tablestatus1").text().trim();
-  if (status == "UP") {
-      $(".tablestatus1").css("color","#00D23B")
+//Changes status color depending on text
+  var status = $(".tablestatus1").text().trim(); 
+  if (status == "UP") { 
+      $(".tablestatus1").css("color","#00D23B") //green at up
   }
   if (status == "DOWN"){
-      $(".tablestatus1").css("color","#FF0000")
+      $(".tablestatus1").css("color","#FF0000") 
   }
   var status = $(".tablestatus2").text().trim();
   if (status == "UP") {
@@ -705,7 +683,7 @@ function re_update_status_color(){
 };
 
 function change_power(switchId){
-  
+    
   $.ajax({
     url: "/power/" + switchId,  // Update this URL with the endpoint of your Flask backend
     method: "GET",
@@ -722,7 +700,6 @@ function change_power(switchId){
     error: function(xhr, status, error) {
         console.error("Error fetching bitrate: " + error);
     }
-  
   });
 };
 
@@ -744,7 +721,6 @@ function update_status() {
         error: function(xhr, status, error) {
             console.error("Error fetching bitrate: " + error);
         }
-      
         });
 };
 function re_update_status() {
@@ -831,10 +807,6 @@ var cities = [
     { name: 'Sölvesborg', coordinates: [56.0500, 14.5750] }
 ];
 
-// cities.forEach(function(city) {
-//     L.marker(city.coordinates).addTo(map).bindPopup(city.name);
-// });
-
 cities.forEach(function(city) {
     L.marker(city.coordinates, { icon: towerIcon }).addTo(map).bindPopup(city.name);
 
@@ -852,14 +824,12 @@ function get_logs(){
         method: "GET",
         dataType: 'json',
         success: function(data) {
-            
-            $('#log1').text(data.bslog1); //
+            $('#log1').text(data.bslog1);
             $('#log2').text(data.bslog2);
             $('#log3').text(data.bslog3);
             $('#log4').text(data.bslog4);
             $('#log5').text(data.bslog5);
             $('#log6').text(data.systemlog);
-
         },
         error: function() {
             console.log('Error loading text file.');
@@ -895,37 +865,18 @@ function get_bitrate_data(){
                 const data = {
                     labels: labelstime,
                     data: rdata
-                    // datasets: [
-                    // {
-                    //     label: 'Dataset',
-                    //     data: rdata,
-                    //     fill: false,
-                    //     borderColor: [
-                    //         'rgba(255, 99, 132, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(255, 206, 86, 1)',
-                    //         'rgba(75, 192, 192, 1)',
-                    //         'rgba(153, 102, 255, 1)',
-                    //         'rgba(255, 159, 64, 1)'
-                    //     ],
-                    //     stepped: true,
-                    // }
-                    // ]
                 };
                 resolve(data);
-                
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching bitrate: " + error);
                 reject(error);
             }
-        
         });
     });
 }
     
-function updategraph(chart){
-    
+function updategraph(chart){ // update graph showing bitrate every second
     setInterval(function () {
         get_bitrate_data()
             .then(function (newData) {
@@ -942,15 +893,14 @@ function updategraph(chart){
             });
     }, 1000);
 }
-async function graph() {
-           
+async function graph() { // graph to display bitrates for each base station
     const labelsbig = [];
     for (let i = 0; i <= 29; i++) {
         labelsbig.push(`time-${i}`);
     }
     const data = { 
         labels: labelsbig,
-        datasets: [
+        datasets: [ // information and datapoints for each base station
         {
             label: 'Karlskrona',
             data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -1029,7 +979,6 @@ async function graph() {
             stepped: true,
             tower: 5,
             hidden: true,
-
         }
         ]
     };
@@ -1052,7 +1001,6 @@ async function graph() {
         }
       };
 
-      
       const actions = [
         {
           name: 'Step: false (default)',
@@ -1100,7 +1048,6 @@ async function graph() {
           }
         }
       ];
-
 
     const mychart = new Chart(
       document.getElementById('acquisitions'),

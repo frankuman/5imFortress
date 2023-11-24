@@ -15,26 +15,12 @@ class Satellite:
     -High Throughput Satellites - Delivering future capacity needs, ADL)
     """
     bs_type = "sat"
-    #bs_id= None
-    #position = None  # tuple, (x,y) in meters
-    #h = None  # height [m]
     carrier_bnd = 220  # carrier bandwidth [MHz]
     carrier_frequency = 28.4  # frequency [GHz]
     sat_eirp = 62 #45.1  # satellite effective isotropic radiated power [dBW]
     path_loss = 188.4  # path loss [dB]
     atm_loss = 0.1  # mean atmospheric loss [dB]
     ut_G_T = -9.7  # user terminal G/T [dB/K]
-    #boltzmann_const = 10*math.log10(constants.Boltzmann)  # Boltzmann Constant [dBW/K/Hz]
-    #dw_path_CN0 = 93.8  # Down-path C/N_0 (carrier power to noise power spectral density) [dBHz]
-    #adj_channel_int = 0.2  # adjacent channel interference [dB]
-    #env = None
-    #rsrp = subcarrier_pow + antenna_gain - path_loss - atm_loss - adj_channel_int  # Reference Signals Received Power (for LTE)
-    #rsrp = None
-    #rbur = None  # resource block utilization ration
-
-
-
-    # tb_length = tb_header + n * 64 [symbols]
 
     def __init__(self, bs_id, total_bitrate, position, env):
         self.status = "UP"
@@ -183,37 +169,6 @@ class Satellite:
             self.allocated_bitrate += self.ue_bitrate_allocation[ue_id]
 
         return (r*N_symb*64)/1000000 #in Mbps, not in bps
-
-        '''
-        if self.ue_allocation[ue_id] != 0:
-            diff = N_symb + self.tb_header - self.ue_allocation[ue_id] 
-        else:
-            diff = N_symb + self.tb_header + self.guard_space
-        
-        if self.total_symbols - self.frame_utilization >= diff:
-            #there is the place for more symbols allocation (or less if diff is negative)
-            self.frame_utilization += diff
-            if self.ue_allocation[ue_id] != 0:
-                self.ue_allocation[ue_id] += diff
-            else:
-                self.ue_allocation[ue_id] += diff - self.guard_space
-        else:
-            #there is no room for more symbols allocation
-            diff = self.total_symbols - self.frame_utilization
-            if self.ue_allocation[ue_id] == 0 and diff < self.guard_space + self.tb_header + 64:
-                diff = 0
-            elif self.ue_allocation[ue_id] == 0:
-                self.frame_utilization += diff
-                self.ue_allocation[ue_id] = diff - self.guard_space
-            else:
-                self.frame_utilization += diff
-                self.ue_allocation[ue_id] += diff
-        
-        if self.ue_allocation[ue_id] == 0:
-            return 0
-        N_symb = self.ue_allocation[ue_id] - self.tb_header
-        return N_symb*r/1000000 #remember that we want the result in Mbps 
-        '''
         
 
     def next_timestep(self):

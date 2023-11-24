@@ -4,8 +4,11 @@ from BS.backend.simulation import Satellite as SATbs
 from BS.backend.simulation import util
 
 class wireless_environment:
+    #List of all active BS in environment
     bs_list = []
+    #List of all BS active/inactive in environment
     all_bs_list = []
+    #List of all UE in environment
     ue_list = []
     x_limit = None
     y_limit = None
@@ -71,8 +74,8 @@ class wireless_environment:
         return new_bs.bs_id
 
     #this method shall be called by an UE
-    #that wants to have a measure of the RSRP
-    #associated to each BS
+    #that wants to have a measure of the RSRP associated to each BS
+    #And to search for active BS around UE
     def discover_bs(self, ue_id):
         rsrp = dict()
 

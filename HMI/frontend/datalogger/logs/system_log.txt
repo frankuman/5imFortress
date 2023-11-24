@@ -1,10 +1,10 @@
-(11:16:03)-[SERVER] Starting up server on 127.0.0.1:5000
+(11:35:57)-[SERVER] Starting up server
 
-(11:16:03)-[MODBUS_MASTER] Master starting
+(11:35:57)-[MODBUS_MASTER] Master starting
 
-(11:16:03)-[MODBUS_MASTER] Master is online...
+(11:35:57)-[MODBUS_MASTER] Master is online...
 
-(11:16:03)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
+(11:35:57)-[MODBUS_MASTER] Slave connection -  1:True, 2:True, 3:True, 4:True, 5:True
 
-(11:16:10)-[SERVER] User <User acawide> successfully logged in
+(11:36:16)-[SERVER] User <User acawide> successfully logged in
 

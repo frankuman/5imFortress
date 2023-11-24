@@ -5,13 +5,13 @@ def log(id,log):
         log (string):
         id (int):  
     """
-    log = log + "\n\n"
+    log = log + "\n\n" 
     if id != 0:
         log_name = "HMI/frontend/datalogger/logs/bs_log_"+str(id)+".txt"
     else:
         log_name = "HMI/frontend/datalogger/logs/system_log.txt"
     with open(log_name, "a", encoding = "utf-8") as file:
-        file.write(log)
+        file.write(log) #Prints the logs into the file
 
 
 def read_log(id):
@@ -26,7 +26,7 @@ def read_log(id):
         log_name = "HMI/frontend/datalogger/logs/system_log.txt"
     file = open(log_name, "r", encoding = "utf-8")
     log = file.read()
-    log = log.replace("INFO:werkzeug:127.0.0.1 - - ","")
+    log = log.replace("INFO:werkzeug:127.0.0.1 - - ","") #Remove some of the uninformal text
     log = log.replace("INFO:werkzeug:","")
     file.close()
     return log

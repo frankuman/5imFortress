@@ -13,10 +13,10 @@ def create_app(app):
     from HMI.frontend.helpers.user_handler import db
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_file_path}"
     from HMI.frontend.helpers.user_handler import generate_random_cookie
-    app.secret_key = generate_random_cookie() # should be randomized
+    app.secret_key = generate_random_cookie()
     db.init_app(app)
     from HMI.frontend.helpers.user_handler import create_users
-    with app.app_context():
+    with app.app_context(): # create user database
         db.create_all()
         create_users()
 
@@ -28,7 +28,7 @@ def main():
     filename = "HMI/frontend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
     import json
-    # Fetch configuration
+    # Fetch configuration from "config_HMI.json"
     with open("HMI/config_HMI.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 

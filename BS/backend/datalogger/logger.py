@@ -1,3 +1,4 @@
+#This file is currently unused
 def log(id,log):
     """Takes info, prints to correct document depending on ID
             log id 0 is ALWAYS serverlogs

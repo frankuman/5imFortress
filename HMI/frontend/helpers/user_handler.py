@@ -1,20 +1,18 @@
 """
 Classes and functions for managing users
 """
+import os
 import json
-
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
-import os
 
 db = SQLAlchemy()
 
 class User(db.Model):
     """
-    Users.
-
+    Users
     :param str user: username
     :param str password:  password for the user
     """
@@ -26,31 +24,39 @@ class User(db.Model):
     authenticated = db.Column(db.Boolean, default=False)
 
     def is_active(self):
-        """True, as all users are active."""
+        """
+        True, as all users are active
+        """
         return True
 
     def get_id(self):
-        """Return the user to satisfy Flask-Login's requirements."""
+        """
+        Return the user to satisfy Flask-Login's requirements
+        """
         return self.username
 
     def is_authenticated(self):
-        """Return True if the user is authenticated."""
+        """
+        Return True if the user is authenticated
+        """
         return self.authenticated
 
     def is_anonymous(self):
-        """False, as anonymous users aren't supported."""
+        """
+        False, as anonymous users aren't supported
+        """
         return False
 
 class LoginForm(FlaskForm):
-    """Form class for user login."""
+    """
+    Form class for user login
+    """
     username = StringField("username", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
 
-#from getpass import getpass
-
 def create_users():
     """
-    Create all users from credentials.json
+    Insert all users from "credentials.json" in database
     """
     user_list = []
     password_list = []
@@ -70,12 +76,16 @@ def create_users():
         password = password_list[user]
         accesslevel = auth_level[user]
 
-        user = User(username=str(username), password=str(password), accesslevel=str(accesslevel)) #bcrypt.generate_password_hash(password) ENCRYPT HERE
+        user = User(username=str(username), password=str(password), accesslevel=str(accesslevel))
+        #bcrypt.generate_password_hash(password) ENCRYPT HERE
 
         db.session.add(user)
         db.session.commit()
 
 def generate_random_cookie():
+    """
+    Generate a random cookie on login
+    """
     # Define the character set for the cookie
     cookie = os.urandom(24)
     return cookie

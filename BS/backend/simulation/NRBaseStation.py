@@ -82,10 +82,6 @@ class NRBaseStation:
         self.allocated_prb = 0
         self.allocated_bitrate = 0
         self.antenna_power = antenna_power
-        if antenna_gain == 0:
-            self.antenna_gain = 1
-        else:
-            self.antenna_gain = antenna_gain
         self.feeder_loss = feeder_loss
         self.bs_id = bs_id
         self.carrier_frequency = carrier_frequency
@@ -105,10 +101,17 @@ class NRBaseStation:
         #Tower status for ON/OFF
         self.status = bs_status[1]
 
-        #Tower antennas
+        #Tower antennas and gain
         self.nr_antennas = antenna_nr
         self.antennas = [bs_status[1]] * self.nr_antennas
+        if antenna_gain < 0:
+            self.antenna_gain = 0
+        elif antenna_gain > 100:
+            self.antenna_gain = 100
+        else:
+            self.antenna_gain = antenna_gain
 
+        #UE_ID for connected UE and connected users that ue represents
         self.ue_id = None
         self.connected_users = 0
 
@@ -122,54 +125,79 @@ class NRBaseStation:
     def bs_change_status(self):
         """
         Change status of base station, change between UP or DOWN.
-        If change from UP -> DOWN, then disconnect all ue connected to base station
-        and remove base station from bs_list in environment.
-        If change from DOWN -> UP, then add base station to bs_list again.
+        If change from UP -> DOWN, then disconnect connected UE
+        and remove BS from bs_list in environment.
+        If change from DOWN -> UP, then add BS to bs_list again.
         """
         current_time = datetime.datetime.now()
         time_string = current_time.strftime('%H:%M:%S')
 
-        if self.status == bs_status[1]: # status is UP
+        if self.status == bs_status[1]: #Status is UP
+            #Logs
             print("[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id))
             log = f"({time_string})-[BASE_STATION_SHUTDOWN]: BASE STATION ID %s IS NOW DOWN" %(self.bs_id)
-            logger.log(self.bs_id, log)
+            #logger.log(self.bs_id, log)
             print(log)
+            #Remove from env bs_list
             environment.wireless_environment.bs_list.remove(self)
-            self.status = bs_status[2] # change status to DOWN
+            #Change status to DOWN
+            self.status = bs_status[2]
+            #Set all antennas to DOWN
             self.antennas = [bs_status[2]] * self.nr_antennas
             self.reset()
-            
-        else: # status is DOWN
+
+        else: #Status is DOWN
+            #Logs
             print("[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id))
             log = f"({time_string})-[BASE_STATION_POWER_UP]: BASE STATION ID %s IS NOW UP" %(self.bs_id)
-            logger.log(self.bs_id, log)
+            #logger.log(self.bs_id, log)
             print(log)
+            #Add BS to env bs_list
             environment.wireless_environment.bs_list.insert(self.bs_id, environment.wireless_environment.all_bs_list[self.bs_id])
-            self.status = bs_status[1] # change status to UP
+            #Change status to UP
+            self.status = bs_status[1]
+            #Set all antennas to UP
             self.antennas = [bs_status[1]] * self.nr_antennas
         return self.status
 
     def change_antenna_status(self, index):
+        """
+        Change status from UP -> DOWN or DOWN -> UP for one antenna
+        """
+        #Check index
+        if index < 0 or index > self.nr_antennas-1:
+            print("False index in change_antenna_status")
+            return "False"
+
         status = self.antennas[index]
         if status == "UP":
             status = "DOWN"
             self.antennas[index] = status
-        else: #status is DOWN for this antenna
+        else:
             status = "UP"
             self.antennas[index] = status
         return status
 
     def change_gain(self, gain):
+        """
+        Change the antenna gain value
+        """
+        #Check gain
+        if gain < 0 or gain > 100:
+            print("False gain value in change_gain")
+            return False
         self.antenna_gain = gain
         return True
-    
+
     def compute_bitrate(self):
+        """
+        Calculate bitrate through connected users and antenna gain
+        """
         self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*self.connected_users
         self.allocated_bitrate = self.allocated_bitrate*(((101-self.antenna_gain)/100))
         self.allocated_bitrate = int(self.allocated_bitrate)
         return True
 
-    
     def compute_nprb_NR(self, data_rate, rsrp):
         #compute SINR
         interference = 0
@@ -180,21 +208,22 @@ class NRBaseStation:
                 interference = interference + (10 ** (rsrp[elem]/10))*(used/total)*(self.allocated_prb/self.total_prb)
 
         #thermal noise is computed as k_b*T*delta_f, where k_b is the Boltzmann's constant, T is the temperature in kelvin and delta_f is the bandwidth
-        #thermal_noise = constants.Boltzmann*293.15*list(NRbandwidth_prb_lookup[self.numerology][self.fr].keys())[list(NRbandwidth_prb_lookup[self.numerology][self.fr].values()).index(self.total_prb / (10 * 2**self.numerology))]*1000000*(self.compute_rbur()+0.001)
         thermal_noise = constants.Boltzmann*293.15*15*(2**self.numerology)*1000 # delta_F = 15*2^mu KHz each subcarrier since we are considering measurements at subcarrirer level (like RSRP)
         sinr = (10**(rsrp[self.bs_id]/10))/(thermal_noise + interference)
         
         r = self.prb_bandwidth_size*1000*math.log2(1+sinr) #bandwidth is in kHz
-        #based on the numerology choosen and considered the frame duration of 10ms, we transmit 1ms for mu = 0, 0.5ms for mu = 1, 0.25ms for mu = 2, 0.125ms for mu = 3 for each PRB each 10ms
-        #print(r)
+        #based on the numerology choosen and considered the frame duration of 10ms, 
+        #we transmit 1ms for mu = 0, 0.5ms for mu = 1, 0.25ms for mu = 2, 0.125ms for mu = 3 for each PRB each 10ms
         r = r / (10 * (2**self.numerology))
-        #print(r)
         N_prb = math.ceil(data_rate*1000000 / r) #data rate is in Mbps
         return N_prb, r
 
     #this method will be called by an UE that tries to connect to this BS.
     #the return value will be the actual bandwidth assigned to the user
     def request_connection(self, ue_id, data_rate, rsrp):
+        """
+        Request UE connection to BS
+        """
 
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
         self.ue_id = ue_id
@@ -208,45 +237,42 @@ class NRBaseStation:
         if self.total_prb - self.allocated_prb <= N_prb:
             N_prb = self.total_prb - self.allocated_prb
 
-        if ue_id not in self.ue_pb_allocation:
-            self.ue_pb_allocation[ue_id] = N_prb
-            self.allocated_prb += N_prb
-        else:
-            self.allocated_prb -= self.ue_pb_allocation[ue_id]
-            self.ue_pb_allocation[ue_id] = N_prb
-            self.allocated_prb += N_prb 
+        #Allocate physical resource block
+        self.ue_pb_allocation[ue_id] = N_prb
+        self.allocated_prb += N_prb
 
-        if ue_id not in self.ue_bitrate_allocation:
-            self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000  
-            self.allocated_bitrate += r * N_prb / 1000000
-        else:
-            # self.allocated_bitrate -= self.ue_bitrate_allocation[ue_id] #It shouldn't trigger this
-            self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000
-            self.allocated_bitrate += r * N_prb / 1000000
-            current_time = datetime.datetime.now()
+        #Allocate bitrate for one user
+        self.ue_bitrate_allocation[ue_id] = r * N_prb / 1000000
+        self.allocated_bitrate += r * N_prb / 1000000
 
-            time_string = current_time.strftime('%H:%M:%S')
-            print("NEW BITRATE [debug]",self.allocated_bitrate,r,N_prb)
-            log = str(f"({time_string})-[NEW_BITRATE(debugger)]"+self.allocated_bitrate+r+N_prb)
-            logger.log(ue_id,log)
-            print(log)
+        #Log
+        current_time = datetime.datetime.now()
+        time_string = current_time.strftime('%H:%M:%S')
+        print("NEW BITRATE [debug]",self.allocated_bitrate,r,N_prb)
+        log = str(f"({time_string})-[NEW_BITRATE(debugger)]"+str(self.allocated_bitrate+r+N_prb))
+        # logger.log(ue_id,log)
+        print(log)
 
+        #Get connected users
         self.connected_users = util.find_ue_by_id(self.ue_id).users
+        #Compute bitrate for all users
         self.compute_bitrate()
 
         return r*N_prb/1000000 #we want a data rate in Mbps, not in bps
 
     def request_disconnection(self, ue_id):
-        N_prb = self.ue_pb_allocation[ue_id]
-        self.allocated_prb -= N_prb
-        del self.ue_pb_allocation[ue_id]
-        del self.ue_bitrate_allocation[ue_id]
-        self.allocated_bitrate = 0
-        self.connected_users = 0
-        self.ue_id = None
-
+        """
+        Request UE disconnect from BS
+        """
+        if ue_id == self.ue_id:
+            self.reset()
+            return True
+        return False
 
     def update_connection(self, ue_id, data_rate, rsrp):
+        """
+        Update UE connection to BS
+        """
 
         N_prb, r = self.compute_nprb_NR(data_rate, rsrp)
         diff = N_prb - self.ue_pb_allocation[ue_id]
@@ -258,7 +284,6 @@ class NRBaseStation:
             dr = self.total_bitrate - self.allocated_bitrate
             N_prb, r = self.compute_nprb_NR(self.ue_bitrate_allocation[ue_id]+dr, rsrp)
             diff = N_prb - self.ue_pb_allocation[ue_id]
-
 
         if self.total_prb - self.allocated_prb >= diff:
             #there is the place for more PRB allocation (or less if diff is negative)
@@ -287,20 +312,22 @@ class NRBaseStation:
 
     def get_connected_ue(self):
         return self.ue_id
-    
+
     def update_users(self, users):
+        """
+        Called by UE to update BS connected users
+        """
         self.connected_users = users
         self.connected_users = self.connected_users*(1-0.25*self.antennas.count("DOWN"))
         return True
-    
+
     def get_connected_users(self):
         return self.connected_users
 
     def reset(self):
-        N_prb = self.ue_pb_allocation[self.ue_id]
-        self.allocated_prb -= N_prb
         del self.ue_pb_allocation[self.ue_id]
         del self.ue_bitrate_allocation[self.ue_id]
         self.allocated_bitrate = 0
         self.connected_users = 0
+        self.allocated_prb = 0
         self.ue_id = None
