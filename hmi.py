@@ -21,13 +21,14 @@ def create_app(app):
         create_users()
 
 def main():
-    #Empty old logs
+    # Empty old logs
     for i in "12345":
         filename = "HMI/frontend/datalogger/logs/bs_log_" + i + ".txt"
         open(filename, "w", encoding = "utf-8").close()
     filename = "HMI/frontend/datalogger/logs/system_log.txt"
     open(filename, "w", encoding = "utf-8").close()
     import json
+    # Fetch configuration
     with open("HMI/config_HMI.json", "r", encoding = "utf-8") as f:
         json_data = json.load(f)
 

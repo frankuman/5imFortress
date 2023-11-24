@@ -53,36 +53,34 @@ def start_client():
         slave_up_list.append(state)
         f = client.write_multiple_coils(2, [1,1,1,1])
 
-    current_time = datetime.datetime.now()
-    time_string = current_time.strftime('%H:%M:%S')
-    log = f"({time_string})-[MODBUS_MASTER] Master starting"
+    cur_time = datetime.datetime.now()
+    time_str = cur_time.strftime('%H:%M:%S')
+    log = f"({time_str})-[MODBUS_MASTER] Master starting"
     logger.log(0, log)
 
     print("Master is online...")
-    current_time = datetime.datetime.now()
+    cur_time = datetime.datetime.now()
 
-    time_string = current_time.strftime('%H:%M:%S')
-    log = f"({time_string})-[MODBUS_MASTER] Master is online..."
+    time_str = cur_time.strftime('%H:%M:%S')
+    log = f"({time_str})-[MODBUS_MASTER] Master is online..."
     logger.log(0, log)
 
-    current_time = datetime.datetime.now()
+    cur_time = datetime.datetime.now()
 
-    time_string = current_time.strftime('%H:%M:%S')
-    log = f"({time_string})-[MODBUS_MASTER] Slave connection -  1:{slave_up_list[0]}, 2:{slave_up_list[1]}, 3:{slave_up_list[2]}, 4:{slave_up_list[3]}, 5:{slave_up_list[4]}"
+    time_str = cur_time.strftime('%H:%M:%S')
+    log = f"({time_str})-[MODBUS_MASTER] Slave connection -  1:{slave_up_list[0]}, 2:{slave_up_list[1]}, 3:{slave_up_list[2]}, 4:{slave_up_list[3]}, 5:{slave_up_list[4]}"
     logger.log(0, log)
 
 def get_bitrate(bs_id):
     """
-    Calls the read_register to get the bitrate registers
+    Calls read_register to get the bitrate registers
     """
-    #Calculate address for bitrate register
     bitlist = read_register(bs_id = bs_id, choice = "BITR")
-    #convert to readable
     return bitlist
 
 def get_users(bs_id):
     """
-    Calls the read_register to get user registers
+    Calls read_register to get user registers
     """
     users = read_register(bs_id, "USR")
     return users
@@ -95,6 +93,9 @@ def change_gain(bs_id, gain):
     return True
 
 def change_antenna_power(bs_id, antenna_id, status):
+    """
+    Write to coil containing status of antenna
+    """
     write_coil(bs_id, status, "ANTENNA", antenna_id+1)
     return True
 
@@ -103,8 +104,7 @@ def read_register(bs_id, choice):
     Reads registers on address calculated by id and choice
     data is "function code" and determines address and length to read
     """
-    #read bitrate registers
-    
+    # read bitrate register
     client = CLIENTS[bs_id - 1]
     if choice == "BITR":
         bitrate_list = []
@@ -116,6 +116,7 @@ def read_register(bs_id, choice):
 
         return bitrate_list
 
+    # read user count register
     if choice == "USR":
         users = sum(client.read_input_registers(USERS_ADDR_REG, 2))
         return users
@@ -128,6 +129,7 @@ def write_register(bs_id, data, choice):
     Data gets written to holding register.
     """
     client = CLIENTS[bs_id - 1]
+    # write new value into gain register
     if choice == "GAIN":
         client.write_single_register(GAIN_ADDR_REG, data)
         return True
@@ -137,7 +139,6 @@ def read_coil(bs_id):
     """
     Reads coils
     """
-
     client = CLIENTS[bs_id - 1]
     #read 5 bits contining statuses for bs's
     coil_bitrate = client.read_coils(0, 5)
