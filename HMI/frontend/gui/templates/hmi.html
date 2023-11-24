@@ -222,12 +222,12 @@
         </div>
 
         
-        <div class="controllers1content2"></div>
+        
 
         <!-- Dynamic graphs -->
         <div class="controllers1content3">
-            <div style="width: 700px; height: 390px;"><canvas id="acquisitions"></canvas></div>
-            </canvas>
+            <div style="width: 780px; height: 390px; display: flex; justify-content: center; align-items: center;">
+                <canvas id="acquisitions"></canvas></div>
         </div>
 
 
@@ -419,6 +419,24 @@
             <input hidden id="Gain4" type='range' value='0' oninput="ChangeGain(4)"/>
             <input hidden id="Gain5" type='range' value='0' oninput="ChangeGain(5)"/>
             <input hidden id="Gain2" type='range' value='0' oninput="ChangeGain(2)"/>
+            <div id="container">
+                <div class="paper">
+                    <div class="tape"></div>
+                    <div class="red-line first"></div>
+                    <div class="red-line"></div>
+                    <ul id="lines">
+                        <li>Hi Intern, welcome to the job</li>
+                        <li>turn the tower off with the top left power buttons.</li>
+                        <li>The graph shows the current bitrate for each tower</li>
+                        <li>Antennas can be turned off with the green buttons</li>
+                        <li>Slider changes gain</li>
+                        <li>Don't touch anything!</li>
+                        <li>Good luck.</li>
+                    </ul>
+                    <div class="left-shadow"></div>
+                    <div class="right-shadow"></div>
+                </div><!--end paper-->
+            </div><!--end container-->
         </div>
     </div>
 

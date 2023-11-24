@@ -10,6 +10,7 @@
     $(document).ready(function() {
         re_update_status_color();
         re_update_users();
+        page_load_bitrate();
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -125,7 +126,24 @@
         </tr>
     </table>
 </div>
+<div class="indexcontent2">
+    <div class="box">
+        <div class="percent">
+        <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+        </svg>
+        <div class="num">
+            <h2 id="profitproc">50<span>%</span></h2>
+        </div>
 
+
+        </div>
+        <h2 class="text">Profit</h2>
+    </div>
+    <h2 id="cost">Estimated cost</h2><h2 id="costval">Unknown</h2>
+    <h2 id="profit">Estimated profit</h2><h2 id="profitval">Unknown</h2>
+</div>
 <div id="map"></div>
 
 {% endblock %}

@@ -65,6 +65,42 @@ function page_load_bitrate(){
     document.getElementById("bitrate5").innerHTML = bitratevalue5 //displays this value to the html page
 };
 
+//functions to get bitrates for dashboard
+function dashboard_page_load_bitrate(){
+    //get the stored bitrate from session storage
+    const storedbitrate1 = sessionStorage.getItem('bitrate1');
+    const storedbitrate2 = sessionStorage.getItem('bitrate2');
+    const storedbitrate3 = sessionStorage.getItem('bitrate3');
+    const storedbitrate4 = sessionStorage.getItem('bitrate4');
+    const storedbitrate5 = sessionStorage.getItem('bitrate5');  
+    //If its null, print unknown
+    bitratevalue1 = storedbitrate1
+    if(bitratevalue1 == null){
+        bitratevalue1 = "Unknown"
+    }
+    bitratevalue2 = storedbitrate2
+    if(bitratevalue2 == null){
+        bitratevalue2 = "Unknown"
+    }
+    bitratevalue3 = storedbitrate3
+    if(bitratevalue3 == null){
+        bitratevalue3 = "Unknown"
+    }
+    bitratevalue4 = storedbitrate4
+    if(bitratevalue4 == null){
+        bitratevalue4 = "Unknown"
+    }
+    bitratevalue5 = storedbitrate5
+    if(bitratevalue5 == null){
+        bitratevalue5 = "Unknown"
+    }
+};
+function dashboard_update_bitrate(){
+
+};
+function dashboard_reupdate_bitrate(){
+
+};
 function send_current_gain() {
     //Get the stored gain
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
@@ -440,7 +476,6 @@ function page_load_checkbox(){
     const storedPowerButtonState4 = sessionStorage.getItem('powerButtonState4');
     const storedPowerButtonState5 = sessionStorage.getItem('powerButtonState5');
 };
-
 
 function change_apower(id) {
     $.ajax({
