@@ -10,7 +10,6 @@
     $(document).ready(function() {
         re_update_status_color();
         re_update_users();
-        page_load_bitrate();
     });
     $(function () {
         $("li:not(.menu)").click(function (e) {
@@ -36,7 +35,6 @@
         <li  class="menu active"><a href="/dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a></li>
         <li  class="menu "> <a  href="/controllers" class="menu"><i class="fa fa-fw fa-wrench"></i> Controllers</a></li>
         <li  class="menu "> <a  href="/loggers"> <i class="fa fa-fw fa-file-text"></i> Logs</a></li>
-        <li>                <a href="/"> <i class="fa fa-fw fa-cogs"></i> Settings</a></li>
         <li  class="menu "> <a href="/logout"> <i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
 </div>
@@ -141,8 +139,8 @@
         </div>
         <h2 class="text">Profit</h2>
     </div>
-    <h2 id="cost">Estimated cost</h2><h2 id="costval">Unknown</h2>
-    <h2 id="profit">Estimated profit</h2><h2 id="profitval">Unknown</h2>
+    <h2 id="cost">Estimated Expense</h2><h2 id="costval">Unknown</h2>
+    <h2 id="profit">Estimated Income</h2><h2 id="profitval">Unknown</h2>
 </div>
 <div id="map"></div>
 

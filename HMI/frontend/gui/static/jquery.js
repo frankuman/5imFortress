@@ -26,6 +26,7 @@ function updateBitrate() {
       
         });
 }
+
 function re_updateBitrate() {
     updateBitrate();
     setInterval(updateBitrate, 5000);   //Refetch the bitrate every 5 sec
@@ -65,42 +66,60 @@ function page_load_bitrate(){
     document.getElementById("bitrate5").innerHTML = bitratevalue5 //displays this value to the html page
 };
 
-//functions to get bitrates for dashboard
-function dashboard_page_load_bitrate(){
-    //get the stored bitrate from session storage
-    const storedbitrate1 = sessionStorage.getItem('bitrate1');
-    const storedbitrate2 = sessionStorage.getItem('bitrate2');
-    const storedbitrate3 = sessionStorage.getItem('bitrate3');
-    const storedbitrate4 = sessionStorage.getItem('bitrate4');
-    const storedbitrate5 = sessionStorage.getItem('bitrate5');  
-    //If its null, print unknown
-    bitratevalue1 = storedbitrate1
-    if(bitratevalue1 == null){
-        bitratevalue1 = "Unknown"
-    }
-    bitratevalue2 = storedbitrate2
-    if(bitratevalue2 == null){
-        bitratevalue2 = "Unknown"
-    }
-    bitratevalue3 = storedbitrate3
-    if(bitratevalue3 == null){
-        bitratevalue3 = "Unknown"
-    }
-    bitratevalue4 = storedbitrate4
-    if(bitratevalue4 == null){
-        bitratevalue4 = "Unknown"
-    }
-    bitratevalue5 = storedbitrate5
-    if(bitratevalue5 == null){
-        bitratevalue5 = "Unknown"
-    }
-};
-function dashboard_update_bitrate(){
 
-};
-function dashboard_reupdate_bitrate(){
+function dashboard_update_bitrate(users){
+    $.ajax({
+        url: "/get_bitrate",  
+        method: "GET",
+        dataType: "json",
+        success: function(data) {   
 
+            totUsers = 0;
+            for (let i = 0; i < users.length; i++){
+                totUsers += users[i];
+            }
+            profit = totUsers * 0.3
+            cost = 0
+            totBitrate1 = parseInt(data.bitrate1.split('/')[0])
+            totBitrate2 = parseInt(data.bitrate2.split('/')[0])
+            totBitrate3 = parseInt(data.bitrate3.split('/')[0])
+            totBitrate4 = parseInt(data.bitrate4.split('/')[0])
+            totBitrate5 = parseInt(data.bitrate5.split('/')[0])
+            totBitrate = totBitrate1 + totBitrate2 + totBitrate3 + totBitrate4 + totBitrate5
+            cost = totBitrate * 0.05
+            cost = Math.round(cost)
+            profit = Math.round(profit)
+            $("#costval").html(cost + " SEK");
+            $("#profitval").html(profit + " SEK");
+            if(cost == 0 && profit == 0){
+                profitProcent = 0
+            }
+            else{
+                profitProcent = ((profit / cost)-1) * 100;
+            }
+            profitProcent = Math.round(profitProcent)
+            
+            $("#profitproc").html(profitProcent + "%");
+            var dashoffsetValue = 440 - (440 * profitProcent) / 100;
+            $(".box .percent svg circle:nth-child(2)").css("stroke-dashoffset", dashoffsetValue);
+
+
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching bitrate: " + error);
+            $("#profitproc").html("Unknown" + "%");
+            $("#costval").html("Unknown" + " SEK");
+            $("#profitval").html("Unknown" + " SEK");
+        }
+    });
 };
+// function dashboard_reupdate_bitrate(){
+//     dashboard_update_bitrate();
+//     var number = (3 + Math.floor(Math.random() * 6))*1000; //Updates the users on a random interval
+
+//     setInterval(dashboard_update_bitrate, number);   //Refetch the bitrate every 5 sec
+// };
+
 function send_current_gain() {
     //Get the stored gain
     const storedGainValue1 = sessionStorage.getItem('GainValue1');
@@ -659,6 +678,8 @@ function update_users() {
           $("#bsusers4").html(data.bsusers4);
           $("#bsusers5").html(data.bsusers5);
           console.log(bsusers1,bsusers2,bsusers3,bsusers4,bsusers5)
+          users = [parseInt(data.bsusers1),parseInt(data.bsusers2),parseInt(data.bsusers3),parseInt(data.bsusers4),parseInt(data.bsusers5)]
+          dashboard_update_bitrate(users)
       },
       error: function(xhr, status, error) {
           console.error("Error fetching users: " + error);

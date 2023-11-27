@@ -1,4 +1,4 @@
-(12:31:28)-[MODBUS_SLAVE] Slave starting
+(13:57:55)-[MODBUS_SLAVE] Slave starting
 
-(12:31:28)-[MODBUS_SLAVE] Server is online
+(13:57:55)-[MODBUS_SLAVE] Server is online
 
