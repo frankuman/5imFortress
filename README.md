@@ -174,7 +174,7 @@ To perform a Man-in-the-Middle (MiTM) attack with Ettercap, follow these steps:
 
 2. **Download Ettercap Filter**
 
-   Download the Ettercap filter named `bitrate_response.filter`. Move the filter to the Ettercap directory:
+   Download the Ettercap filter `bitrate_response.filter` from `/attack/`. Move the filter to the Ettercap directory:
 
    ```bash
    sudo mv bitrate_response.filter /usr/share/ettercap
