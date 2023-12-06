@@ -38,7 +38,7 @@
 ## Requirements
 - Python 3.7.0 or higher
 - Pip
-- Two virtual machines (1 for HMI, and 1 for BS - basestation)
+- Two or three virtual machines (1 for HMI, and 1 for BS - basestation), optionally 1 more machine for the attacker.
 - Network connection is preferred for images and map but not needed.
 
 ## Installation
@@ -138,32 +138,25 @@ Remember that these are changeable but have not been tested on public ip address
 ### Dashboard: Map and Status
 The dashboard provides an overview of the 5G towers' geographical positions and their current status. It displays the number of connected User Equipment (UE) and provides information on factors affecting connectivity, such as gain, bitrate, and other relevant metrics.
 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/83ffa5a7-ea6a-46c8-8ec1-8a68d69fb34a" width="400">
 
 ### HMI: Power Button and Bitrate
 In the HMI interface, you can monitor the overall power status of the Base Stations (BS) and their respective bitrates. The power button allows you to toggle the entire BS on or off, disconnecting all associated UEs.
 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/8082c966-3c76-436a-a433-c82f1901a729" width="400">
 
 ### Antenna Power Button
 This feature enables you to activate individual antennas, each affecting approximately 25% of the tower's output in their respective directions. The selector allows you to choose which tower to modify.
 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/4a26553d-e692-4348-b218-e43e071064f4" width="400">
-
 ### Selector
 The selector tool allows you to choose the specific tower you want to modify, providing a targeted approach to adjustments.
 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/5f550281-a1db-43b1-8f74-1ec287f9d216" width="400">
 
 ### Gain Slider
 Adjust the gain slider to fine-tune the tower's gain, ranging from 0% to 100%. Higher gain results in directional antennas, concentrating the coverage area into a smaller point. This allows for maximizing bitrate in a specific area, albeit limiting the number of users who can access it.
 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/5b379886-d139-4c55-ba95-d03edb399f33" width="100">
 
 ### Graph
 The graph provides a visual representation of the bitrate for each tower over the last 30 seconds, offering insights into performance trends.
- 
-<img src="https://github.com/frankuman/5imFortress/assets/57047010/28c96570-b8ab-4816-87c7-6dd1e12dcb29" width="400">
+
 
 Feel free to explore these features to optimize the performance and configuration of the 5G towers within the system.
 
@@ -268,46 +261,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
 OUT OF, OR IN CONNECTION WITH THE SOFTWARE, OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Roadmap (currently in sprint 3)
-Sprint 1:
-
-✅ F1: Simulate 5G Base Station (basic)
-
-✅ F2: SCADA HMI (basic)
-
-✅ F3: Simulate User Equipment (basic)
-
-✅ F4: Simulate Base Station SCADA
-
-✅ F5: Dashboard Map of Base Stations
-
-✅ F6: View All Base Stations’ Info
-
-✅ F9: Notifications (log)
-
-✅ F12: Simulation Dashboard (basic)
-
-✅ (Bonus): Login page
-
-🟡 (Testing & Finetuning)
-
-Sprint 2:
-
-✅ F7: HMI (advanced)
-
-✅ F8: Simulate 5G Base Station (advanced)
-
-✅ (Bonus): Login page for HMI
-
-🟡 (Testing & Finetuning)
-
-Sprint 3:
-
-✅ F10: Documentation
-
-✅ F11: Launch Attack on SCADA Server
-
-✅ F13: Simulation Dashboard (advanced)
 
 ## Contact
 - You can contact the project team at [olbo20@student.bth.se](mailto:olbo20@student.bth.se).
