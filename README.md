@@ -165,9 +165,15 @@ The graph provides a visual representation of the bitrate for each tower over th
 
 Feel free to explore these features to optimize the performance and configuration of the 5G towers within the system.
 
-### GigaAttacker
+### MiTM with Ettercap
 
-#### Attack commands coming soon!
+
+### GigaAttacker
+GigaAttacker.py is a simple script that sends modbus packets to change coils, it also has a loop function if multiple packets are to be sent.
+`python gigattacker.py -h` for help options
+Examples:
+`python gigaattacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -p 502` writes the coil on register 1 with value 0 for the ip 192.168.0.100 on port 502                                          
+`python gigaattacker -write-coil -addr 1 -val 0 -ip 192.168.0.100 -loop 1000 -t 0.5` does the same as above but 1000 times with a timeout of 0.5 seconds
 
 ## Known Issues
 Known issues will be presented here
