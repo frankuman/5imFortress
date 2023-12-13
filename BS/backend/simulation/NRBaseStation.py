@@ -193,9 +193,12 @@ class NRBaseStation:
         """
         Calculate bitrate through connected users and antenna gain
         """
-        self.allocated_bitrate = self.ue_bitrate_allocation[self.ue_id]*self.connected_users
-        self.allocated_bitrate = self.allocated_bitrate*(((101-self.antenna_gain)/100))
+        extra_bitrate = self.antenna_gain//15 #extra bitrate users have becuase gain is higher
+        self.allocated_bitrate = (self.ue_bitrate_allocation[self.ue_id]+extra_bitrate)*self.connected_users
+
         self.allocated_bitrate = int(self.allocated_bitrate)
+        if self.allocated_bitrate > 250000:
+            self.allocated_bitrate = 250000
         return True
 
     def compute_nprb_NR(self, data_rate, rsrp):
@@ -319,6 +322,7 @@ class NRBaseStation:
         """
         self.connected_users = users
         self.connected_users = self.connected_users*(1-0.25*self.antennas.count("DOWN"))
+        self.connected_users = self.connected_users*(((101-self.antenna_gain)/100))
         return True
 
     def get_connected_users(self):

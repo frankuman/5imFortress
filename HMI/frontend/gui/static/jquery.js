@@ -8,16 +8,16 @@ function updateBitrate() {
         dataType: "json",
         success: function(data) {   
             // Update the bitrate in the HTML element
-            $("#bitrate1").html(data.bitrate1 + " Mbps");
-            $("#bitrate2").html(data.bitrate2 + " Mbps");
-            $("#bitrate3").html(data.bitrate3 + " Mbps");
-            $("#bitrate4").html(data.bitrate4 + " Mbps");
-            $("#bitrate5").html(data.bitrate5 + " Mbps");
-            sessionStorage.setItem('bitrate1', data.bitrate1 + " Mbps" );
-            sessionStorage.setItem('bitrate2', data.bitrate2  + " Mbps");
-            sessionStorage.setItem('bitrate3', data.bitrate3 + " Mbps" );
-            sessionStorage.setItem('bitrate4', data.bitrate4 + " Mbps" );
-            sessionStorage.setItem('bitrate5', data.bitrate5 + " Mbps" );
+            $("#bitrate1").html(data.bitrate1 + " MB/s");
+            $("#bitrate2").html(data.bitrate2 + " MB/s");
+            $("#bitrate3").html(data.bitrate3 + " MB/s");
+            $("#bitrate4").html(data.bitrate4 + " MB/s");
+            $("#bitrate5").html(data.bitrate5 + " MB/s");
+            sessionStorage.setItem('bitrate1', data.bitrate1 + " MB/s" );
+            sessionStorage.setItem('bitrate2', data.bitrate2  + " MB/s");
+            sessionStorage.setItem('bitrate3', data.bitrate3 + " MB/s" );
+            sessionStorage.setItem('bitrate4', data.bitrate4 + " MB/s" );
+            sessionStorage.setItem('bitrate5', data.bitrate5 + " MB/s" );
             console.log(bitrate1,bitrate2,bitrate3,bitrate4,bitrate5)
         },
         error: function(xhr, status, error) {
