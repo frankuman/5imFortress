@@ -9,8 +9,9 @@
 - [Michael Törnvall](https://github.com/Mickelito)
 
 ## Project Overview
-5imFortress is an ongoing IT security project developed as part of a university course at Blekinge Tekniska Högskola (BTH). The project revolves around creating a realistic simulation for 5G towers in Blekinge Län, Sweden. These towers are controlled by an HMI ModBus Server, allowing modifications to the hardware of the 5G towers. Additionally, the project includes an example attack on the ModBus server, simulating a breach attempt to test the security of 5G tower systems.
+5imFortress is an  IT security project developed as part of a university course at Blekinge Tekniska Högskola (BTH). The project revolves around creating a realistic simulation for 5G towers in Blekinge Län, Sweden. These towers are controlled by an HMI ModBus Server, allowing modifications to the hardware of the 5G towers. Additionally, the project includes an example attack on the ModBus server, simulating a breach attempt to test the security of 5G tower systems.
 
+The project has 3 main directories, the HMI, the BS and the attack. The docs folder is for architecture and planning purposes. 
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Features](#features)
