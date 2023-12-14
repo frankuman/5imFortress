@@ -20,7 +20,7 @@ The project has 3 main directories, the HMI, the BS and the attack. The docs fol
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [HMI Usage Examples](#usage-examples)
+- [HMI Usage Examples](#HMI-usage-examples)
 - [Ettercap MiTM](#MiTM-with-Ettercap)
 - [GigaAttacker.py](#GigaAttacker)
 - [Demo Video](#Demo-Video)
