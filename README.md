@@ -182,10 +182,13 @@ To perform a Man-in-the-Middle (MiTM) attack with Ettercap, follow these steps:
    sudo mv bitrate_response.filter /usr/share/ettercap
    ```
 
-3. **Compile the Filter**
+3. **Edit & Compile the Filter**
 
    Open a terminal in the `/usr/share/ettercap` directory and run the following commands:
-
+   ```bash
+   sudo nano bitrate_response.ef
+   ```
+   Edit the filter to include the IP address for the HMI
    ```bash
    sudo etterfilter -o bitrate_response.ef bitrate_response.filter
    ```
