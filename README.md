@@ -244,7 +244,9 @@ Feel free to customize the script parameters based on your requirements.
 ## Known Issues
 Known issues will be presented here
 
-Issue 1: 
+Issue 1: Sometimes the plc_mem.json gets erased and emptied. Causing a JSON error in python.
+This might be because of closing a VM before exiting the software accordingly. If you stumble upon this issue please redownload or recopy the plc_mem.json from
+`BS/scada/plc_mem.json`
 
 ## Contributing
 Our project ends on 15 December 2023, and If you want to add more features for the future feel free to do so.
