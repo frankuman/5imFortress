@@ -55,6 +55,7 @@ HMI is connected to the python flask dashboard and a Modbus master. The Modbus m
 ## Installation
 1. Download the required files for each virtual machine either using git or manual download.
 2. Choose the virtual machine for simulating the HMI and the one for the BS, delete unnecessary folders accordingly.
+           - For the HMI, you only need hmi.py and the HMI dir, and for the basestations, you only need the bs.py and BS dir
 3. Run `pip install -r requirements.txt` on both virtual machines.
 
 ## Getting Started
