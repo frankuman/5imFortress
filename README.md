@@ -164,7 +164,14 @@ The graph provides a visual representation of the bitrate for each tower over th
 Feel free to explore these features to optimize the performance and configuration of the 5G towers within the system.
 
 ## MiTM with Ettercap
+In our simulation we assume an attacker already has network access, this for example could be through physical access, phishing, or supply chain attacks, allowing a backdoor to be installed.
+Modbus is an inherently unsecure protocol, lacking strong authentication mechanisms, allowing unauthorized access to devices and systems. This can lead to unauthorized control or manipulation of critical data.
+Modbus also lacks encryption, meaning that data transmitted over the network is vulnerable to eavesdropping.
+This is why we show how to do a MitM attack, using Ettercap ARP spoofing.
+We wrote our own filter to capture specific packets, inspect them, and modify or drop them entirely. With this attack, we can manipulate data, read sensitive data or DoS the entire HMI accordingly by changing the Ettercap Filter.
 
+
+### How to reproduce
 To perform a Man-in-the-Middle (MiTM) attack with Ettercap, follow these steps:
 
 1. **Download and Install Ettercap**
