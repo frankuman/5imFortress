@@ -20,7 +20,7 @@ The project has 3 main directories, the HMI, the BS and the attack. The docs fol
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Usage Examples](#usage-examples)
+- [HMI Usage Examples](#usage-examples)
 - [Ettercap MiTM](#MiTM-with-Ettercap)
 - [GigaAttacker.py](#GigaAttacker)
 - [Demo Video](#Demo-Video)
@@ -135,7 +135,7 @@ Remember that these are changeable but have not been tested on public ip address
 
    Access level 1 is needed to login to the HMI, whereas access level 0 is the standard user.
 
-## Usage Examples
+## HMI Usage Examples
 
 ### Dashboard: Map and Status
 The dashboard provides an overview of the 5G towers' geographical positions and their current status. It displays the number of connected User Equipment (UE) and provides information on factors affecting connectivity, such as gain, bitrate, and other relevant metrics.
