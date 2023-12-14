@@ -7,6 +7,7 @@
 - [Farhad Asadi](https://github.com/frhd143)
 - [Kim Budischewski](https://github.com/LostNeverKnown)
 - [Michael Törnvall](https://github.com/Mickelito)
+- Client [Alexander Adamov](https://github.com/AlexanderAda)
 
 ## Project Overview
 5imFortress is an  IT security project developed as part of a university course at Blekinge Tekniska Högskola (BTH). The project revolves around creating a realistic simulation for 5G towers in Blekinge Län, Sweden. These towers are controlled by an HMI ModBus Server, allowing modifications to the hardware of the 5G towers. Additionally, the project includes an example attack on the ModBus server, simulating a breach attempt to test the security of 5G tower systems.
