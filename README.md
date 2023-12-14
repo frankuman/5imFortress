@@ -13,6 +13,7 @@
 
 The project has 3 main directories, the HMI, the BS and the attack. The docs folder is for architecture and planning purposes.
 The architecture shows what communication protocols are used.
+
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Features](#features)
@@ -37,7 +38,14 @@ The architecture shows what communication protocols are used.
 - 5G Tower Simulation provided by [WNS](https://github.com/trunk96/wireless-network-simulator)
 - HMI ModBus Server Control provided by [pyModBusTCP](https://github.com/sourceperl/pyModbusTCP)
 - Security Breach Simulation with Gigaattacker.py
-  
+### Back-end
+The basestations uses 5 slaves for modbus communication, which are sending and receiving data from `BS\backend\scaca\plc.py`
+#### PLC
+The PLC checks with its sensor what the current power is supposed to be according to the HMI, by requesting to see the coils in each slave.
+The PLC also uses its sensor to check what the current bitrate and users is for each tower, it then takes those and writes those into the slaves registers.
+PLC has a small memory that it stores and compares data to. 
+#### HMI
+HMI is connected to the python flask dashboard and a Modbus master. The Modbus master requests to read and write to coils and register accordingly.
 ## Requirements
 - Python 3.7.0 or higher
 - Pip
@@ -246,7 +254,7 @@ Known issues will be presented here
 
 Issue 1: Sometimes the plc_mem.json gets erased and emptied. Causing a JSON error in python.
 This might be because of closing a VM before exiting the software accordingly. If you stumble upon this issue please redownload or recopy the plc_mem.json from
-`BS/scada/plc_mem.json`
+`BS\backend\scaca\plc_mem.json`
 
 ## Contributing
 Our project ends on 15 December 2023, and If you want to add more features for the future feel free to do so.
