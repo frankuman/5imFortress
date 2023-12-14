@@ -226,13 +226,13 @@ python GigaAttacker.py -h
 1. Write a coil on register 1 with value 0 for the IP 192.168.0.100 on port 502:
 
    ```bash
-   python GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -p 502
+   python3 GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -p 502
    ```
 
 2. Write a coil on register 1 with value 0 for the IP 192.168.0.100, repeating 1000 times with a timeout of 0.5 seconds:
 
    ```bash
-   python GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -loop 1000 -t 0.5
+   python3 GigaAttacker.py -write-coil -addr 1 -val 0 -ip 192.168.0.100 -loop 1000 -t 0.5
    ```
 
 Feel free to customize the script parameters based on your requirements.
