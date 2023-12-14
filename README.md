@@ -9,8 +9,10 @@
 - [Michael Törnvall](https://github.com/Mickelito)
 
 ## Project Overview
-5imFortress is an ongoing IT security project developed as part of a university course at Blekinge Tekniska Högskola (BTH). The project revolves around creating a realistic simulation for 5G towers in Blekinge Län, Sweden. These towers are controlled by an HMI ModBus Server, allowing modifications to the hardware of the 5G towers. Additionally, the project includes an example attack on the ModBus server, simulating a breach attempt to test the security of 5G tower systems.
+5imFortress is an  IT security project developed as part of a university course at Blekinge Tekniska Högskola (BTH). The project revolves around creating a realistic simulation for 5G towers in Blekinge Län, Sweden. These towers are controlled by an HMI ModBus Server, allowing modifications to the hardware of the 5G towers. Additionally, the project includes an example attack on the ModBus server, simulating a breach attempt to test the security of 5G tower systems.
 
+The project has 3 main directories, the HMI, the BS and the attack. The docs folder is for architecture and planning purposes.
+The architecture shows what communication protocols are used.
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Features](#features)
@@ -19,7 +21,7 @@
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Usage Examples](#usage-examples)
+- [HMI Usage Examples](#HMI-usage-examples)
 - [Ettercap MiTM](#MiTM-with-Ettercap)
 - [GigaAttacker.py](#GigaAttacker)
 - [Demo Video](#Demo-Video)
@@ -134,7 +136,7 @@ Remember that these are changeable but have not been tested on public ip address
 
    Access level 1 is needed to login to the HMI, whereas access level 0 is the standard user.
 
-## Usage Examples
+## HMI Usage Examples
 
 ### Dashboard: Map and Status
 The dashboard provides an overview of the 5G towers' geographical positions and their current status. It displays the number of connected User Equipment (UE) and provides information on factors affecting connectivity, such as gain, bitrate, and other relevant metrics.
@@ -181,10 +183,13 @@ To perform a Man-in-the-Middle (MiTM) attack with Ettercap, follow these steps:
    sudo mv bitrate_response.filter /usr/share/ettercap
    ```
 
-3. **Compile the Filter**
+3. **Edit & Compile the Filter**
 
    Open a terminal in the `/usr/share/ettercap` directory and run the following commands:
-
+   ```bash
+   sudo nano bitrate_response.ef
+   ```
+   Edit the filter to include the IP address for the HMI
    ```bash
    sudo etterfilter -o bitrate_response.ef bitrate_response.filter
    ```
